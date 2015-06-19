@@ -5,6 +5,7 @@ wantarray
 File::Slurp
 AnyEvent/Coro
 JSON::XS
+JSON.pm or JSON::Any
 threads
 List::MoreUtils
 $_ in while
@@ -12,3 +13,4 @@ assigning to $_
 using $a or $b outside a sort
 CGI.pm
 mod_perl
+Mouse or Any::Moose
