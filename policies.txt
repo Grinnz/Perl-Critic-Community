@@ -1,6 +1,6 @@
 strict/warnings
 bareword filehandles
-2-arg open
+(1- or) 2-arg open
 wantarray
 File::Slurp
 AnyEvent/Coro
