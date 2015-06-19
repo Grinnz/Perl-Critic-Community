@@ -10,3 +10,5 @@ List::MoreUtils
 $_ in while
 assigning to $_
 using $a or $b outside a sort
+CGI.pm
+mod_perl
