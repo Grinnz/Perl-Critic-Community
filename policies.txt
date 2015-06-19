@@ -1,0 +1,9 @@
+strict/warnings
+bareword filehandles
+2-arg open
+wantarray
+File::Slurp
+AnyEvent/Coro
+JSON::XS
+threads
+List::MoreUtils
