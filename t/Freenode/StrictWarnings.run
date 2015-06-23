@@ -22,3 +22,9 @@ use strict;
 ## cut
 
 1;
+
+## name Importer
+## failures 0
+## cut
+
+use Modern::Perl;

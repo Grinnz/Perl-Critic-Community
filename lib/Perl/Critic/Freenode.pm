@@ -12,6 +12,11 @@ our $VERSION = '0.001';
 Perl::Critic::Freenode - Perl::Critic policies inspired by #perl on
 freenode IRC
 
+=head1 DESCRIPTION
+
+A set of L<Perl::Critic> policies to enforce the practices generally considered
+acceptable by the denizens of #perl on L<Freenode IRC|https://freenode.net/>.
+
 =head1 AFFILIATION
 
 This module has no functionality, but instead contains documentation for this
@@ -19,12 +24,11 @@ distribution and acts as a means of pulling other modules into a bundle. All of
 the Policy modules contained herein will have an "AFFILIATION" section
 announcing their participation in this grouping.
 
-=head1 DESCRIPTION
-
-A set of L<Perl::Critic> policies to enforce the practices generally considered
-acceptable by the denizens of #perl on L<Freenode IRC|https://freenode.net/>.
-
 =head1 POLICIES
+
+=head2 Freenode::StrictWarnings
+
+All modules must use L<strict> and L<warnings>, or a module that imports these.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
