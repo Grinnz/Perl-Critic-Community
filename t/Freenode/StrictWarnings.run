@@ -1,0 +1,24 @@
+## name HasStrictWarnings
+## failures 0
+## cut
+
+use strict;
+use warnings;
+
+## name NoStrict
+## failures 1
+## cut
+
+use warnings;
+
+## name NoWarnings
+## failures 1
+## cut
+
+use strict;
+
+## name NoStrictWarnings
+## failures 1
+## cut
+
+1;
