@@ -21,7 +21,11 @@ announcing their participation in this grouping.
 
 =head2 Freenode::StrictWarnings
 
-All modules must use L<strict> and L<warnings>, or a module that imports these.
+All modules should use L<strict> and L<warnings>, or a module that imports these.
+
+=head2 Freenode::WarningsSwitch
+
+Scripts should not use the C<-w> switch on the shebang line.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
