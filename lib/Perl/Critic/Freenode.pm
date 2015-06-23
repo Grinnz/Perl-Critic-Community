@@ -1,4 +1,4 @@
-package Perl::Critic::Policy::Freenode;
+package Perl::Critic::Freenode;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ our $VERSION = '0.001';
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode - Perl::Critic policies inspired by #perl on
+Perl::Critic::Freenode - Perl::Critic policies inspired by #perl on
 freenode IRC
 
 =head1 AFFILIATION

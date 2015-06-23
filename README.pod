@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode - Perl::Critic policies inspired by #perl on
+Perl::Critic::Freenode - Perl::Critic policies inspired by #perl on
 freenode IRC
 
 =head1 AFFILIATION
