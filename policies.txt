@@ -14,3 +14,6 @@ using $a or $b outside a sort
 CGI.pm
 mod_perl
 Mouse or Any::Moose
+XML::Simple
+HTML::Template
+Net::IRC
