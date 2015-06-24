@@ -12,7 +12,7 @@ use constant DESC => 'Using bareword filehandles';
 use constant EXPL => 'Bareword filehandles are a legacy feature, creating the filehandles as package variables. Use lexical, scoped filehandles instead (open my $fh, ...).';
 
 sub supported_parameters { () }
-sub default_severity { $SEVERITY_LOW }
+sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Token::Word' }
 

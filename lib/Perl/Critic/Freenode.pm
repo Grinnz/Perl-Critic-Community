@@ -34,6 +34,14 @@ All modules should use L<strict> and L<warnings>, or a module that imports these
 
 Scripts should not use the C<-w> switch on the shebang line.
 
+=head2 Freenode::BarewordFilehandles
+
+Bareword filehandles other than built-ins should not be used.
+
+=head2 Freenode::OpenArgs
+
+Always use the three-argument form of C<open()>.
+
 =head1 CONFIGURATION AND ENVIRONMENT
 
 All policies included are in the "freenode" theme. See the L<Perl::Critic>
