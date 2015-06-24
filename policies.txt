@@ -15,3 +15,5 @@ CGI.pm
 mod_perl
 Mouse or Any::Moose
 XML::Simple
+HTML::Template
+Net::IRC
