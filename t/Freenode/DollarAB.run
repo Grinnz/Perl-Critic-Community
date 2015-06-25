@@ -1,0 +1,13 @@
+## name OutsideSort
+## failures 4
+## cut
+
+$a = 1;
+$b = 2;
+asdf { $a = 1; $b = 2; };
+
+## name InsideSort
+## failures 0
+## cut
+
+sort { $a = 1; $b = 2; } ();

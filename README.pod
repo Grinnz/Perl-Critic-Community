@@ -43,13 +43,17 @@ Don't write context-sensitive functions using C<wantarray()>.
 
 Don't use C<return()> with no arguments.
 
-=head2 WhileDiamondDefaultAssignment
+=head2 Freenode::WhileDiamondDefaultAssignment
 
 Don't use C<while (E<lt>E<gt>)> with implicit assignment to C<$_>.
 
-=head2 AssignToDollarUnderscore
+=head2 Freenode::AssignToDollarUnderscore
 
 Don't assign explicitly to C<$_>.
+
+=head2 Freenode::DollarAB
+
+Don't use C<$a> or C<$b> as variable names outside C<sort()>.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
