@@ -21,7 +21,7 @@ announcing their participation in this grouping.
 
 =head2 Freenode::StrictWarnings
 
-All modules should use L<strict> and L<warnings>, or a module that imports these.
+Always use L<strict> and L<warnings>, or a module that imports these.
 
 =head2 Freenode::WarningsSwitch
 
@@ -29,7 +29,7 @@ Scripts should not use the C<-w> switch on the shebang line.
 
 =head2 Freenode::BarewordFilehandles
 
-Bareword filehandles other than built-ins should not be used.
+Don't use bareword filehandles other than built-ins.
 
 =head2 Freenode::OpenArgs
 
