@@ -1,0 +1,31 @@
+## name DefaultAssignment
+## failures 2
+## cut
+
+while (<$fh>) {}
+while (<DATA>) {}
+
+## name DefaultAssignmentModifier
+## failures 2
+## cut
+
+1 while <$fh>;
+1 while <DATA>;
+
+## name DefaultAssignmentFor
+## failures 2
+## cut
+
+for (;<$fh>;) {}
+for (;<DATA>;) {}
+
+## name ExplicitAssignment
+## failures 0
+## cut
+
+while (my $line = <$fh>) {}
+for (;my $line = <$fh>;) {}
+1 while $line = <$fh>;
+while (my $line = <DATA>) {}
+for (;my $line = <DATA>;) {}
+1 while $line = <DATA>;

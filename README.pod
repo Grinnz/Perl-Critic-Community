@@ -43,6 +43,14 @@ Don't write context-sensitive functions using C<wantarray()>.
 
 Don't use C<return()> with no arguments.
 
+=head2 WhileDiamondDefaultAssignment
+
+Don't use C<while (E<lt>E<gt>)> with implicit assignment to C<$_>.
+
+=head2 AssignToDollarUnderscore
+
+Don't assign explicitly to C<$_>.
+
 =head1 CONFIGURATION AND ENVIRONMENT
 
 All policies included are in the "freenode" theme. See the L<Perl::Critic>
