@@ -67,4 +67,4 @@ the terms of the Artistic License version 2.0.
 
 =head1 SEE ALSO
 
-L<Perl::Critic>, L<bareword::filehandles>
+L<Perl::Critic>

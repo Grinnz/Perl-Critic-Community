@@ -42,6 +42,14 @@ Bareword filehandles other than built-ins should not be used.
 
 Always use the three-argument form of C<open()>.
 
+=head2 Freenode::Wantarray
+
+Don't write context-sensitive functions using C<wantarray()>.
+
+=head2 Freenode::EmptyReturn
+
+Don't use C<return()> with no arguments.
+
 =head1 CONFIGURATION AND ENVIRONMENT
 
 All policies included are in the "freenode" theme. See the L<Perl::Critic>
