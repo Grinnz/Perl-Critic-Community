@@ -26,45 +26,53 @@ announcing their participation in this grouping.
 
 =head1 POLICIES
 
-=head2 Freenode::StrictWarnings
+=over
+
+=item L<Perl::Critic::Policy::Freenode::StrictWarnings>
 
 Always use L<strict> and L<warnings>, or a module that imports these.
 
-=head2 Freenode::WarningsSwitch
+=item L<Perl::Critic::Policy::Freenode::WarningsSwitch>
 
 Scripts should not use the C<-w> switch on the shebang line.
 
-=head2 Freenode::BarewordFilehandles
+=item L<Perl::Critic::Policy::Freenode::BarewordFilehandles>
 
 Don't use bareword filehandles other than built-ins.
 
-=head2 Freenode::OpenArgs
+=item L<Perl::Critic::Policy::Freenode::OpenArgs>
 
 Always use the three-argument form of C<open()>.
 
-=head2 Freenode::Wantarray
+=item L<Perl::Critic::Policy::Freenode::Wantarray>
 
 Don't write context-sensitive functions using C<wantarray()>.
 
-=head2 Freenode::EmptyReturn
+=item L<Perl::Critic::Policy::Freenode::EmptyReturn>
 
 Don't use C<return()> with no arguments.
 
-=head2 Freenode::WhileDiamondDefaultAssignment
+=item L<Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment>
 
 Don't use C<while (E<lt>E<gt>)> with implicit assignment to C<$_>.
 
-=head2 Freenode::AssignToDollarUnderscore
+=item L<Perl::Critic::Policy::Freenode::AssignToDollarUnderscore>
 
 Don't assign explicitly to C<$_>.
 
-=head2 Freenode::DollarAB
+=item L<Perl::Critic::Policy::Freenode::DollarAB>
 
 Don't use C<$a> or C<$b> as variable names outside C<sort()>.
 
-=head2 Freenode::Prototypes
+=item L<Perl::Critic::Policy::Freenode::Prototypes>
 
 Don't use function prototypes.
+
+=item L<Perl::Critic::Policy::Freenode::DiscouragedModules>
+
+Various modules discouraged from use.
+
+=back
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
