@@ -47,12 +47,12 @@ my %modules = (
 		expl => 'List::MoreUtils is a far more complex distribution than it needs to be. See List::Util or List::UtilsBy for better options.',
 		severity => $SEVERITY_LOW,
 	},
-	'Net::IRC' => {
-		expl => 'Net::IRC is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are POE::Component::IRC (and Bot::BasicBot based on that), Net::Async::IRC, and Mojo::IRC.',
-	},
 	'Mouse' => {
 		expl => 'Mouse was created to be a faster version of Moose, a niche that has since been better filled by Moo. Use Moo instead.',
 		severity => $SEVERITY_LOW,
+	},
+	'Net::IRC' => {
+		expl => 'Net::IRC is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are POE::Component::IRC (and Bot::BasicBot based on that), Net::Async::IRC, and Mojo::IRC.',
 	},
 	'XML::Simple' => {
 		expl => 'XML::Simple tries to coerce complex XML documents into perl data structures. This leads to overcomplicated structures and unexpected behavior. Use a proper DOM parser instead like XML::LibXML, XML::TreeBuilder, XML::Twig, or Mojo::DOM.',
@@ -89,7 +89,9 @@ or simply better modern replacements.
 
 =head2 AnyEvent
 
-L<AnyEvent>'s author refuses to use public bugtracking and actively breaks interoperability. See L<POE>, L<IO::Async>, and L<Mojo::IOLoop> for sane and interoperable async event loops.
+L<AnyEvent>'s author refuses to use public bugtracking and actively breaks
+interoperability. See L<POE>, L<IO::Async>, and L<Mojo::IOLoop> for sane and
+interoperable async event loops.
 
 =head2 Any::Moose
 
@@ -97,23 +99,32 @@ L<Any::Moose> is deprecated. Use L<Moo> instead.
 
 =head2 CGI
 
-L<CGI>.pm is an ancient module for communicating via the CGI protocol, with tons of bad practices and cruft. Use a modern framework such as those based on L<Plack> (L<Web::Simple>, L<Dancer2>, L<Catalyst>) or L<Mojolicious>, they can still be served via CGI if you choose.
+L<CGI>.pm is an ancient module for communicating via the CGI protocol, with
+tons of bad practices and cruft. Use a modern framework such as those based on
+L<Plack> (L<Web::Simple>, L<Dancer2>, L<Catalyst>) or L<Mojolicious>, they can
+still be served via CGI if you choose.
 
 =head2 Coro
 
-L<Coro> no longer works on perl 5.22, you need to use the author's forked version of Perl. Avoid at all costs.
+L<Coro> no longer works on perl 5.22, you need to use the author's forked
+version of Perl. Avoid at all costs.
 
 =head2 File::Slurp
 
-L<File::Slurp> gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use L<File::Slurp::Tiny>, L<File::Slurper>, L<Path::Tiny/"slurp">, L<Data::Munge/"slurp">, or L<Mojo::Util/"slurp">.
+L<File::Slurp> gets file encodings all wrong, line endings on win32 are messed
+up, and it was written before layers were properly added. Use
+L<File::Slurp::Tiny>, L<File::Slurper>, L<Path::Tiny/"slurp">,
+L<Data::Munge/"slurp">, or L<Mojo::Util/"slurp">.
 
 =head2 HTML::Template
 
-L<HTML::Template> is an old and buggy module, try L<Template::Toolkit> or L<HTML::Zoom> instead.
+L<HTML::Template> is an old and buggy module, try L<Template::Toolkit> or
+L<HTML::Zoom> instead.
 
 =head2 JSON
 
-L<JSON>.pm is old and full of slow logic. Use L<JSON::MaybeXS> instead, it is a drop-in replacement in most cases.
+L<JSON>.pm is old and full of slow logic. Use L<JSON::MaybeXS> instead, it is a
+drop-in replacement in most cases.
 
 =head2 JSON::Any
 
@@ -121,23 +132,32 @@ L<JSON::Any> is deprecated. Use L<JSON::MaybeXS> instead.
 
 =head2 JSON::XS
 
-L<JSON::XS>'s author refuses to use public bugtracking and actively breaks interoperability. L<Cpanel::JSON::XS> is a fork with several bugfixes and a sane maintainer. See also L<JSON::MaybeXS>.
+L<JSON::XS>'s author refuses to use public bugtracking and actively breaks
+interoperability. L<Cpanel::JSON::XS> is a fork with several bugfixes and a
+sane maintainer. See also L<JSON::MaybeXS>.
 
 =head2 List::MoreUtils
 
-L<List::MoreUtils> is a far more complex distribution than it needs to be. See L<List::Util> or L<List::UtilsBy> for better options.
-
-=head2 Net::IRC
-
-L<Net::IRC> is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are L<POE::Component::IRC> (used for L<Bot::BasicBot>), L<Net::Async::IRC>, and L<Mojo::IRC>.
+L<List::MoreUtils> is a far more complex distribution than it needs to be. See
+L<List::Util> or L<List::UtilsBy> for better options.
 
 =head2 Mouse
 
-L<Mouse> was created to be a faster version of L<Moose>, a niche that has since been better filled by L<Moo>. Use L<Moo> instead.
+L<Mouse> was created to be a faster version of L<Moose>, a niche that has since
+been better filled by L<Moo>. Use L<Moo> instead.
+
+=head2 Net::IRC
+
+L<Net::IRC> is an ancient module implementing the IRC protocol. Use a modern
+event-loop-based module instead. Choices are L<POE::Component::IRC> (used for
+L<Bot::BasicBot>), L<Net::Async::IRC>, and L<Mojo::IRC>.
 
 =head2 XML::Simple
 
-L<XML::Simple> tries to coerce complex XML documents into perl data structures. This leads to overcomplicated structures and unexpected behavior. Use a proper DOM parser instead like L<XML::LibXML>, L<XML::TreeBuilder>, L<XML::Twig>, or L<Mojo::DOM>.
+L<XML::Simple> tries to coerce complex XML documents into perl data structures.
+This leads to overcomplicated structures and unexpected behavior. Use a proper
+DOM parser instead like L<XML::LibXML>, L<XML::TreeBuilder>, L<XML::Twig>, or
+L<Mojo::DOM>.
 
 =head1 AFFILIATION
 
