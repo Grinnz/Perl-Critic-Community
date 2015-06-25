@@ -62,6 +62,10 @@ Don't assign explicitly to C<$_>.
 
 Don't use C<$a> or C<$b> as variable names outside C<sort()>.
 
+=head2 Freenode::Prototypes
+
+Don't use function prototypes.
+
 =head1 CONFIGURATION AND ENVIRONMENT
 
 All policies included are in the "freenode" theme. See the L<Perl::Critic>
