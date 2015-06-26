@@ -28,49 +28,53 @@ announcing their participation in this grouping.
 
 =over
 
-=item L<Perl::Critic::Policy::Freenode::StrictWarnings>
+=item L<Perl::Critic::Policy::Freenode::AssignToDollarUnderscore>
 
-Always use L<strict> and L<warnings>, or a module that imports these.
-
-=item L<Perl::Critic::Policy::Freenode::WarningsSwitch>
-
-Scripts should not use the C<-w> switch on the shebang line.
+Don't assign explicitly to C<$_>.
 
 =item L<Perl::Critic::Policy::Freenode::BarewordFilehandles>
 
 Don't use bareword filehandles other than built-ins.
 
-=item L<Perl::Critic::Policy::Freenode::OpenArgs>
+=item L<Perl::Critic::Policy::Freenode::DiscouragedModules>
 
-Always use the three-argument form of C<open()>.
-
-=item L<Perl::Critic::Policy::Freenode::Wantarray>
-
-Don't write context-sensitive functions using C<wantarray()>.
-
-=item L<Perl::Critic::Policy::Freenode::EmptyReturn>
-
-Don't use C<return()> with no arguments.
-
-=item L<Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment>
-
-Don't use C<while (E<lt>E<gt>)> with implicit assignment to C<$_>.
-
-=item L<Perl::Critic::Policy::Freenode::AssignToDollarUnderscore>
-
-Don't assign explicitly to C<$_>.
+Various modules discouraged from use.
 
 =item L<Perl::Critic::Policy::Freenode::DollarAB>
 
 Don't use C<$a> or C<$b> as variable names outside C<sort()>.
 
+=item L<Perl::Critic::Policy::Freenode::EmptyReturn>
+
+Don't use C<return()> with no arguments.
+
+=item L<Perl::Critic::Policy::Freenode::OpenArgs>
+
+Always use the three-argument form of C<open()>.
+
 =item L<Perl::Critic::Policy::Freenode::Prototypes>
 
 Don't use function prototypes.
 
-=item L<Perl::Critic::Policy::Freenode::DiscouragedModules>
+=item L<Perl::Critic::Policy::Freenode::StrictWarnings>
 
-Various modules discouraged from use.
+Always use L<strict> and L<warnings>, or a module that imports these.
+
+=item L<Perl::Critic::Policy::Freenode::Threads>
+
+Interpreter-based threads are officially discouraged.
+
+=item L<Perl::Critic::Policy::Freenode::Wantarray>
+
+Don't write context-sensitive functions using C<wantarray()>.
+
+=item L<Perl::Critic::Policy::Freenode::WarningsSwitch>
+
+Scripts should not use the C<-w> switch on the shebang line.
+
+=item L<Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment>
+
+Don't use C<while (E<lt>E<gt>)> with implicit assignment to C<$_>.
 
 =back
 
