@@ -19,20 +19,21 @@ sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Document' }
 
 my %importers = (
-	'Any::Moose'      => 1,
-	'common::sense'   => 1,
-	'Modern::Perl'    => 1,
-	'Mojo::Base'      => 1,
-	'Moo'             => 1,
-	'Moo::Role'       => 1,
-	'Moose'           => 1,
-	'Moose::Exporter' => 1,
-	'Moose::Role'     => 1,
-	'Mouse'           => 1,
-	'Mouse::Exporter' => 1,
-	'Mouse::Role'     => 1,
-	'Mouse::Util'     => 1,
-	'strictures'      => 1,
+	'Any::Moose'        => 1,
+	'common::sense'     => 1,
+	'Modern::Perl'      => 1,
+	'Mojo::Base'        => 1,
+	'Mojolicious::Lite' => 1,
+	'Moo'               => 1,
+	'Moo::Role'         => 1,
+	'Moose'             => 1,
+	'Moose::Exporter'   => 1,
+	'Moose::Role'       => 1,
+	'Mouse'             => 1,
+	'Mouse::Exporter'   => 1,
+	'Mouse::Role'       => 1,
+	'Mouse::Util'       => 1,
+	'strictures'        => 1,
 );
 
 sub violates {
