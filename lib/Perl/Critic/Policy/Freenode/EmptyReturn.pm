@@ -6,6 +6,8 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
+use List::Util 'any';
+
 our $VERSION = '0.001';
 
 use constant DESC => 'return() called with no arguments';
@@ -14,14 +16,15 @@ use constant EXPL => 'return() with no arguments may return either undef or an e
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_LOWEST }
 sub default_themes { 'freenode' }
-sub applies_to { 'PPI::Token::Word' }
+sub applies_to { 'PPI::Statement::Break' }
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless $elem eq 'return' and is_function_call $elem;
+	my @children = $elem->schildren;
+	my $function = shift @children // return ();
+	return () unless $function eq 'return' and is_function_call $function;
 	
-	my @args = parse_arg_list $elem;
-	return $self->violation(DESC, EXPL, $elem) unless @args;
+	return $self->violation(DESC, EXPL, $elem) unless any { $_ ne ';' } @children;
 	
 	return ();
 }

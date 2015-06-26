@@ -4,6 +4,18 @@
 
 return;
 
+## name BareReturn
+## failures 1
+## cut
+
+sub foo { return }
+
+## name ReturnEmptyList
+## failures 0
+## cut
+
+return ();
+
 ## name ReturnScalar
 ## failures 0
 ## cut
