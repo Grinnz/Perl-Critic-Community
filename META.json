@@ -1,0 +1,103 @@
+{
+   "abstract" : "Perl::Critic policies inspired by #perl on freenode IRC",
+   "author" : [
+      "Dan Book <dbook@cpan.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 5.037, CPAN::Meta::Converter version 2.150001",
+   "license" : [
+      "artistic_2"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Perl-Critic-Freenode",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Dist::Zilla::PluginBundle::Author::DBOOK" : "0.003"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "List::Util" : "1.33",
+            "Perl::Critic" : "1.125",
+            "perl" : "5.010001"
+         }
+      }
+   },
+   "provides" : {
+      "Perl::Critic::Freenode" : {
+         "file" : "lib/Perl/Critic/Freenode.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::BarewordFilehandles" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/BarewordFilehandles.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::DiscouragedModules" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/DiscouragedModules.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::DollarAB" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/DollarAB.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::EmptyReturn" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/EmptyReturn.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::ModPerl" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/ModPerl.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::OpenArgs" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/OpenArgs.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::Prototypes" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/Prototypes.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::StrictWarnings" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/StrictWarnings.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::Threads" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/Threads.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::Wantarray" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/Wantarray.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::WarningsSwitch" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/WarningsSwitch.pm",
+         "version" : "0.001"
+      },
+      "Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/WhileDiamondDefaultAssignment.pm",
+         "version" : "0.001"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Grinnz/Perl-Critic-Freenode/issues"
+      },
+      "homepage" : "https://github.com/Grinnz/Perl-Critic-Freenode",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/Grinnz/Perl-Critic-Freenode.git",
+         "web" : "https://github.com/Grinnz/Perl-Critic-Freenode"
+      }
+   },
+   "version" : "0.001"
+}
+
