@@ -26,10 +26,6 @@ announcing their participation in this grouping.
 
 =over
 
-=item L<Perl::Critic::Policy::Freenode::AssignToDollarUnderscore>
-
-Don't assign explicitly to C<$_>.
-
 =item L<Perl::Critic::Policy::Freenode::BarewordFilehandles>
 
 Don't use bareword filehandles other than built-ins.
