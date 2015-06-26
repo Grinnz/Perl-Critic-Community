@@ -9,7 +9,7 @@ use parent 'Perl::Critic::Policy';
 our $VERSION = '0.001';
 
 use constant DESC => 'Using $a or $b outside sort()';
-use constant EXPL => '$a and $b are reserved variables for usage in sort() and similar functions. Using them in other contexts or "my $a" can lead to strange behavior. Use different variable names.';
+use constant EXPL => '$a and $b are special package variables for use in sort() and related functions. Declaring them as lexicals like "my $a" may break sort(). Use different variable names.';
 
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_HIGH }
@@ -55,9 +55,9 @@ Perl::Critic::Policy::Freenode::DollarAB
 
 The special variables C<$a> and C<$b> are reserved for C<sort()> and similar
 functions which assign to them to iterate over pairs of values. These are
-global variables, and using them outside this context, or especially declaring
-them as lexical variables with C<my>, can lead to breakage and strange
-behavior. Use different variable names.
+global variables, and declaring them as lexical variables with C<my> to use
+them outside this context can break usage of these functions. Use different
+names for your variables.
 
   my $a = 1;                  # not ok
   my $abc = 1;                # ok
