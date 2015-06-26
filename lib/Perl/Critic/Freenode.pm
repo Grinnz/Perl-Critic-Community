@@ -12,6 +12,11 @@ our $VERSION = '0.001';
 Perl::Critic::Freenode - Perl::Critic policies inspired by #perl on
 freenode IRC
 
+=head1 SYNOPSIS
+
+  $ perlcritic --theme freenode script.pl
+  $ perlcritic --theme freenode lib/
+
 =head1 DESCRIPTION
 
 A set of L<Perl::Critic> policies to enforce the practices generally considered
@@ -47,6 +52,10 @@ Don't use C<$a> or C<$b> as variable names outside C<sort()>.
 =item L<Perl::Critic::Policy::Freenode::EmptyReturn>
 
 Don't use C<return()> with no arguments.
+
+=item L<Perl::Critic::Policy::Freenode::ModPerl>
+
+Don't use C<mod_perl> to write web applications.
 
 =item L<Perl::Critic::Policy::Freenode::OpenArgs>
 
