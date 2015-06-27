@@ -46,8 +46,8 @@ Perl::Critic::Policy::Freenode::Prototypes - Don't use function prototypes
 Function prototypes are primarily a hint to the Perl parser for parsing the
 function's argument list. They are not a way to validate or count the arguments
 passed to the function, and will cause confusion if used this way. Often, the
-prototype can simply be left out, but see the C<signatures> L<feature> for a
-more modern method of declaring arguments.
+prototype can simply be left out, but see L<perlsub/"Signatures"> for a more
+modern method of declaring arguments.
 
   sub foo ($$) { ... } # not ok
   sub foo { ... }      # ok
