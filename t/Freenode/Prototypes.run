@@ -16,3 +16,15 @@ sub foo ($foo) { ... }
 ## cut
 
 sub foo { ... }
+
+## name EmptyPrototype
+## failures 0
+## cut
+
+sub foo () { ... }
+
+## name SubPrototype
+## failures 0
+## cut
+
+sub foo (&;@) { ... }

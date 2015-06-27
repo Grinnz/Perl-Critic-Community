@@ -28,7 +28,8 @@ sub violates {
 	my $prototypes = $elem->find('PPI::Token::Prototype') || [];
 	my @violations;
 	foreach my $prototype (@$prototypes) {
-		next if $prototype->prototype eq ''; # Leave empty prototypes alone
+		# Empty prototypes and prototypes containing & can be useful
+		next if $prototype->prototype eq '' or $prototype->prototype =~ /&/;
 		push @violations, $self->violation(DESC, EXPL, $prototype);
 	}
 	
@@ -52,6 +53,9 @@ modern method of declaring arguments.
   sub foo ($$) { ... } # not ok
   sub foo { ... }      # ok
   use feature 'signatures'; sub foo ($bar, $baz) { ... } # ok
+
+Note that this policy does not warn about empty prototypes or prototypes
+containing C<&>, as those are often useful for structural behavior.
 
 =head1 AFFILIATION
 
