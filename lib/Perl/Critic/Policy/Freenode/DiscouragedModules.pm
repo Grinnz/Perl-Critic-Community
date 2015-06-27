@@ -41,7 +41,7 @@ my %modules = (
 		expl => 'JSON::Any is deprecated. Use JSON::MaybeXS instead.',
 	},
 	'JSON::XS' => {
-		expl => 'JSON::XS\'s author refuses to use public bugtracking and actively breaks interoperability. Cpanel::JSON::XS is a fork with several bugfixes and a sane maintainer. See also JSON::MaybeXS.',
+		expl => 'JSON::XS\'s author refuses to use public bugtracking and actively breaks interoperability. Cpanel::JSON::XS is a fork with several bugfixes and a more collaborative maintainer. See also JSON::MaybeXS.',
 	},
 	'List::MoreUtils' => {
 		expl => 'List::MoreUtils is a far more complex distribution than it needs to be. See List::Util or List::UtilsBy for better options.',
@@ -136,7 +136,7 @@ L<JSON::Any> is deprecated. Use L<JSON::MaybeXS> instead.
 
 L<JSON::XS>'s author refuses to use public bugtracking and actively breaks
 interoperability. L<Cpanel::JSON::XS> is a fork with several bugfixes and a
-sane maintainer. See also L<JSON::MaybeXS>.
+more collaborative maintainer. See also L<JSON::MaybeXS>.
 
 =head2 List::MoreUtils
 
