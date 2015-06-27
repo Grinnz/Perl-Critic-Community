@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+0.003     2015-06-27 17:53:00 EDT
   - allow prototypes containing &
   - add Each polciy
   - make StrictWarnings policy configurable with extra importers
