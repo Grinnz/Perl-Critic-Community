@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 use constant DESC => 'Subroutine called with ampersand (&)';
 use constant EXPL => 'The ampersand is not required to call subroutines, and actually introduces extra functionality you may not expect. Call subroutines as barewords: foo() not &foo()';
