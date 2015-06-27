@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 use constant DESC => '<> operator result not explicitly assigned in while condition';
 use constant EXPL => 'When used alone in a while condition, the <> operator assigns its result to $_, but does not localize it. Assign the result to an explicit lexical variable instead (my $line = <...>)';

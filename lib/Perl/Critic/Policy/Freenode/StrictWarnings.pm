@@ -8,7 +8,7 @@ use parent 'Perl::Critic::Policy';
 
 use List::Util 'any';
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 use constant DESC => 'Missing strict or warnings';
 use constant EXPL => 'The strict and warnings pragmas are important to avoid common pitfalls and deprecated/experimental functionality. Make sure each script or module contains "use strict; use warnings;" or a module that does this for you.';
