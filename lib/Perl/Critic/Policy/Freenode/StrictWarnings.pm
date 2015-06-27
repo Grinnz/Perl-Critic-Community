@@ -59,7 +59,8 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::StrictWarnings
+Perl::Critic::Policy::Freenode::StrictWarnings - Always use strict and
+warnings, or a module that imports these.
 
 =head1 DESCRIPTION
 

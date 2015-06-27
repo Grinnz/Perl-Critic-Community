@@ -31,7 +31,8 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::AmpersandSubCalls
+Perl::Critic::Policy::Freenode::AmpersandSubCalls - Don't use & to call
+subroutines.
 
 =head1 DESCRIPTION
 

@@ -30,7 +30,8 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::WarningsSwitch
+Perl::Critic::Policy::Freenode::WarningsSwitch - Scripts should not use the -w
+switch on the shebang line.
 
 =head1 DESCRIPTION
 

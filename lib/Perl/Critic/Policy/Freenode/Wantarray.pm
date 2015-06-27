@@ -26,7 +26,8 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::Wantarray
+Perl::Critic::Policy::Freenode::Wantarray - Don't write context-sensitive
+functions using wantarray.
 
 =head1 DESCRIPTION
 

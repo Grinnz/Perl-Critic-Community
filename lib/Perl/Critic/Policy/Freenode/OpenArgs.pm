@@ -30,7 +30,8 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::OpenArgs
+Perl::Critic::Policy::Freenode::OpenArgs - Always use the three-argument form
+of open.
 
 =head1 DESCRIPTION
 

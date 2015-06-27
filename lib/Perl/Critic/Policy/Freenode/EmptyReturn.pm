@@ -33,7 +33,8 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::EmptyReturn
+Perl::Critic::Policy::Freenode::EmptyReturn - Don't use return with no
+arguments.
 
 =head1 DESCRIPTION
 
