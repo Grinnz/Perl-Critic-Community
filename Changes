@@ -1,4 +1,6 @@
 {{$NEXT}}
+  - allow prototypes containing &
+  - add Each polciy
 
 0.002     2015-06-27 00:07:19 EDT
   - add AmpersandSubCalls policy
