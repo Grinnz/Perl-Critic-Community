@@ -16,7 +16,7 @@ sub applies_to { 'PPI::Statement::Include' }
 
 my %modules = (
 	'AnyEvent' => {
-		expl => 'AnyEvent\'s author refuses to use public bugtracking and actively breaks interoperability. See POE, IO::Async, and Mojolicious for sane and interoperable async event loops.',
+		expl => 'AnyEvent\'s author refuses to use public bugtracking and actively breaks interoperability. POE, IO::Async, and Mojo::IOLoop are widely used and interoperable async event loops.',
 	},
 	'Any::Moose' => {
 		expl => 'Any::Moose is deprecated. Use Moo instead.',
@@ -91,7 +91,7 @@ or simply better modern replacements.
 =head2 AnyEvent
 
 L<AnyEvent>'s author refuses to use public bugtracking and actively breaks
-interoperability. See L<POE>, L<IO::Async>, and L<Mojo::IOLoop> for sane and
+interoperability. L<POE>, L<IO::Async>, and L<Mojo::IOLoop> are widely used and
 interoperable async event loops.
 
 =head2 Any::Moose
