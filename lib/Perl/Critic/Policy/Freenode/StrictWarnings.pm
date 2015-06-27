@@ -11,16 +11,24 @@ use List::Util 'any';
 our $VERSION = '0.003';
 
 use constant DESC => 'Missing strict or warnings';
-use constant EXPL => 'The strict and warnings pragmas are important to avoid common pitfalls and deprecated/experimental functionality.';
+use constant EXPL => 'The strict and warnings pragmas are important to avoid common pitfalls and deprecated/experimental functionality. Make sure each script or module contains "use strict; use warnings;" or a module that does this for you.';
 
-sub supported_parameters { () }
+sub supported_parameters {
+	(
+		{
+			name        => 'extra_importers',
+			description => 'Non-standard modules to recognize as importing strict and warnings',
+			behavior    => 'string list',
+		},
+	)
+}
+
 sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Document' }
 
-my %importers = (
+my %default_importers = (
 	'Any::Moose'        => 1,
-	'common::sense'     => 1,
 	'Modern::Perl'      => 1,
 	'Mojo::Base'        => 1,
 	'Mojolicious::Lite' => 1,
@@ -39,6 +47,8 @@ my %importers = (
 sub violates {
 	my ($self, $elem) = @_;
 	my $includes = $elem->find('PPI::Statement::Include') || [];
+	
+	my %importers = (%default_importers, %{$self->{_extra_importers}});
 	
 	# Any of these modules will import strict and warnings to the caller
 	return () if any { $_->type//'' eq 'use' and defined $_->module
@@ -84,7 +94,12 @@ This policy is part of L<Perl::Critic::Freenode>.
 
 =head1 CONFIGURATION
 
-This policy is not configurable except for the standard options.
+This policy can be configured to recognize additional modules as importers of
+C<strict> and C<warnings>, by putting an entry in a C<.perlcriticrc> file like
+this:
+
+  [Freenode::StrictWarnings]
+  extra_importers = MyApp::Class MyApp::Role
 
 =head1 AUTHOR
 
