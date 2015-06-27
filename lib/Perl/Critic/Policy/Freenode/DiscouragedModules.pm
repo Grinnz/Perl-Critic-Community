@@ -78,7 +78,7 @@ sub violates {
 =head1 NAME
 
 Perl::Critic::Policy::Freenode::DiscouragedModules - Various modules
-discouraged from use.
+discouraged from use
 
 =head1 DESCRIPTION
 

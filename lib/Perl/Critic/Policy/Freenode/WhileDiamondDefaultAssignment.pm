@@ -55,7 +55,7 @@ sub violates {
 =head1 NAME
 
 Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment - Don't use while
-with implicit assignment to $_.
+with implicit assignment to $_
 
 =head1 DESCRIPTION
 

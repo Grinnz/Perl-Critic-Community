@@ -27,7 +27,7 @@ sub violates {
 =head1 NAME
 
 Perl::Critic::Policy::Freenode::Threads - Interpreter-based threads are
-officially discouraged.
+officially discouraged
 
 =head1 DESCRIPTION
 

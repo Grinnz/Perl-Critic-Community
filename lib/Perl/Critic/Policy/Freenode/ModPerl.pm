@@ -38,7 +38,7 @@ sub violates {
 =head1 NAME
 
 Perl::Critic::Policy::Freenode::ModPerl - Don't use mod_perl to write web
-applications.
+applications
 
 =head1 DESCRIPTION
 

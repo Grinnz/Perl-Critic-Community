@@ -58,7 +58,7 @@ sub _find_sorter {
 =head1 NAME
 
 Perl::Critic::Policy::Freenode::DollarAB - Don't use $a or $b as variable names
-outside sort.
+outside sort
 
 =head1 DESCRIPTION
 

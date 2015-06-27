@@ -39,7 +39,7 @@ sub violates {
 
 =head1 NAME
 
-Perl::Critic::Policy::Freenode::Prototypes - Don't use function prototypes.
+Perl::Critic::Policy::Freenode::Prototypes - Don't use function prototypes
 
 =head1 DESCRIPTION
 

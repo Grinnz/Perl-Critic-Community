@@ -57,7 +57,7 @@ sub violates {
 =head1 NAME
 
 Perl::Critic::Policy::Freenode::BarewordFilehandles - Don't use bareword
-filehandles other than built-ins.
+filehandles other than built-ins
 
 =head1 DESCRIPTION
 
