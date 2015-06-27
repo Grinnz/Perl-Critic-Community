@@ -28,21 +28,29 @@ sub violates {
 	my ($self, $elem) = @_;
 	return () unless $elem eq '$a' or $elem eq '$b';
 	
-	my $outer = $elem->parent;
-	while ($outer and !$outer->isa('PPI::Structure::Block')) {
-		$outer = $outer->parent;
-	}
+	my $name = $self->_find_sorter($elem);
+	return $self->violation(DESC, EXPL, $elem) unless exists $sorters{$name};
+	return ();
+}
+
+sub _find_sorter {
+	my ($self, $elem) = @_;
 	
-	if ($outer and $outer->isa('PPI::Structure::Block')) {
-		my $function = $outer->sprevious_sibling;
-		if ($function and $function->isa('PPI::Token::Word') and is_function_call $function) {
-			my $name = $function;
-			$name =~ s/.+:://;
-			return () if exists $sorters{$name};
-		}
-	}
+	my $outer = $elem;
+	$outer = $outer->parent until !$outer or $outer->isa('PPI::Structure::Block');
+	return '' unless $outer and $outer->isa('PPI::Structure::Block');
 	
-	return $self->violation(DESC, EXPL, $elem);
+	# Find function or method call (assumes block/sub is first argument)
+	my $function = $outer->previous_token;
+	$function = $function->previous_token until !$function
+		or ($function->isa('PPI::Token::Word')
+			and (is_method_call $function or is_function_call $function));
+	return '' unless $function and $function->isa('PPI::Token::Word')
+		and (is_method_call $function or is_function_call $function);
+	
+	my $name = $function;
+	$name =~ s/.+:://;
+	return $name;
 }
 
 1;

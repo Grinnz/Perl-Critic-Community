@@ -11,3 +11,9 @@ asdf { $a = 1; $b = 2; };
 ## cut
 
 sort { $a = 1; $b = 2; } ();
+
+## name MethodSort
+## failures 0
+## cut
+
+$collection->sort(sub { $a = 1; $b = 2 });
