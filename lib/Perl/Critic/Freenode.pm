@@ -33,6 +33,10 @@ announcing their participation in this grouping.
 
 =over
 
+=item L<Perl::Critic::Policy::Freenode::AmpersandSubCalls>
+
+Don't use C<&> to call subroutines.
+
 =item L<Perl::Critic::Policy::Freenode::BarewordFilehandles>
 
 Don't use bareword filehandles other than built-ins.
