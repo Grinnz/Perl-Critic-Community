@@ -28,6 +28,7 @@
          "requires" : {
             "List::Util" : "1.33",
             "Perl::Critic" : "1.125",
+            "parent" : "0",
             "perl" : "5.010001"
          }
       }

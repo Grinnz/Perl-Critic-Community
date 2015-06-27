@@ -19,7 +19,8 @@ my %WriteMakefileArgs = (
   "NAME" => "Perl::Critic::Freenode",
   "PREREQ_PM" => {
     "List::Util" => "1.33",
-    "Perl::Critic" => "1.125"
+    "Perl::Critic" => "1.125",
+    "parent" => 0
   },
   "VERSION" => "0.001",
   "test" => {
@@ -31,7 +32,8 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "List::Util" => "1.33",
-  "Perl::Critic" => "1.125"
+  "Perl::Critic" => "1.125",
+  "parent" => 0
 );
 
 
