@@ -1,5 +1,6 @@
 {{$NEXT}}
   - add AmpersandSubCalls policy
+  - add policy abstracts
 
 0.001     2015-06-26 21:01:32 EDT
   - First release
