@@ -19,8 +19,8 @@ freenode IRC
 
 =head1 DESCRIPTION
 
-A set of L<Perl::Critic> policies to enforce the practices generally considered
-acceptable by the denizens of #perl on L<Freenode IRC|https://freenode.net/>.
+A set of L<Perl::Critic> policies to enforce the practices generally
+recommended by the denizens of #perl on L<Freenode IRC|https://freenode.net/>.
 
 =head1 AFFILIATION
 
