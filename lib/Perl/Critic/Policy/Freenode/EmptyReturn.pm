@@ -43,7 +43,7 @@ What I Mean), tend to instead lead to unexpected behavior when the function is
 accidentally used in a different context, especially if the function's behavior
 changes significantly based on context. This also can lead to vulnerabilities
 when a function is intended to be used as a scalar, but is used in a list, such
-as a hash constructor or function parameter list. C<return()> with no arguments
+as a hash constructor or function parameter list. C<return> with no arguments
 will return either C<undef> or an empty list depending on context. Instead,
 return the appropriate value explicitly.
 
