@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - use default strict/warnings importers from Perl::Critic::Utils::Constants
 
 0.003     2015-06-27 17:53:00 EDT
   - allow prototypes containing &

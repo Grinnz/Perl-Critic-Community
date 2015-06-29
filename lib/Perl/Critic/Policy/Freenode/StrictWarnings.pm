@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Perl::Critic::Utils qw(:severities :classification :ppi);
+use Perl::Critic::Utils::Constants qw(@STRICT_EQUIVALENT_MODULES @WARNINGS_EQUIVALENT_MODULES);
 use parent 'Perl::Critic::Policy';
 
 use List::Util 'any';
@@ -27,42 +28,38 @@ sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Document' }
 
-my %default_importers = (
-	'Any::Moose'        => 1,
-	'Modern::Perl'      => 1,
-	'Mojo::Base'        => 1,
-	'Mojolicious::Lite' => 1,
-	'Moo'               => 1,
-	'Moo::Role'         => 1,
-	'Moose'             => 1,
-	'Moose::Exporter'   => 1,
-	'Moose::Role'       => 1,
-	'Mouse'             => 1,
-	'Mouse::Exporter'   => 1,
-	'Mouse::Role'       => 1,
-	'Mouse::Util'       => 1,
-	'strictures'        => 1,
-);
+my @incomplete_importers = qw(common::sense sanity);
 
 sub violates {
 	my ($self, $elem) = @_;
 	my $includes = $elem->find('PPI::Statement::Include') || [];
 	
-	my %importers = (%default_importers, %{$self->{_extra_importers}});
+	# Add importers from Perl::Critic core
+	my %strict_importers = map { ($_ => 1) } @STRICT_EQUIVALENT_MODULES;
+	my %warnings_importers = map { ($_ => 1) } @WARNINGS_EQUIVALENT_MODULES;
 	
-	# Any of these modules will import strict and warnings to the caller
-	return () if any { $_->type//'' eq 'use' and defined $_->module
-	                   and exists $importers{$_->module} } @$includes;
+	# Remove incomplete importers if added
+	delete $strict_importers{$_} for @incomplete_importers;
+	delete $warnings_importers{$_} for @incomplete_importers;
 	
-	my $has_strict = any { $_->pragma eq 'strict'
-	                       or ($_->type//'' eq 'use' and $_->version
-	                           and $_->version_literal > 5.012) } @$includes;
-	return $self->violation(DESC, EXPL, $elem) unless $has_strict;
+	# Add extra importers
+	$strict_importers{$_} = $warnings_importers{$_} = 1 foreach keys %{$self->{_extra_importers}};
 	
-	my $has_warnings = any { $_->pragma eq 'warnings' } @$includes;
-	return $self->violation(DESC, EXPL, $elem) unless $has_warnings;
+	my ($has_strict, $has_warnings);
+	foreach my $include (@$includes) {
+		if ($include->pragma) {
+			$has_strict = 1 if $include->pragma eq 'strict';
+			$has_warnings = 1 if $include->pragma eq 'warnings';
+		}
+		if ($include->type//'' eq 'use') {
+			$has_strict = 1 if $include->version and $include->version_literal > 5.012;
+			$has_strict = 1 if defined $include->module and exists $strict_importers{$include->module};
+			$has_warnings = 1 if defined $include->module and exists $warnings_importers{$include->module};
+		}
+		return () if $has_strict and $has_warnings;
+	}
 	
-	return ();
+	return $self->violation(DESC, EXPL, $elem);
 }
 
 1;
@@ -87,6 +84,11 @@ enabled automatically with a C<use> declaration of perl version 5.12 or higher.
   use Moose;
 
   use 5.012;
+  use warnings;
+
+Note: The default modules recognized as importing L<strict> and L<warnings> are
+defined in L<Perl::Critic::Utils::Constants/"@STRICT_EQUIVALENT_MODULES">. To
+define addition modules, see L</"CONFIGURATION">.
 
 =head1 AFFILIATION
 
@@ -95,7 +97,7 @@ This policy is part of L<Perl::Critic::Freenode>.
 =head1 CONFIGURATION
 
 This policy can be configured to recognize additional modules as importers of
-C<strict> and C<warnings>, by putting an entry in a C<.perlcriticrc> file like
+L<strict> and L<warnings>, by putting an entry in a C<.perlcriticrc> file like
 this:
 
   [Freenode::StrictWarnings]

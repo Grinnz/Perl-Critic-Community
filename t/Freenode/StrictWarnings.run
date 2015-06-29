@@ -27,4 +27,10 @@ use strict;
 ## failures 0
 ## cut
 
-use Modern::Perl;
+use Moose;
+
+## name IncompleteImporter
+## failures 1
+## cut
+
+use common::sense;
