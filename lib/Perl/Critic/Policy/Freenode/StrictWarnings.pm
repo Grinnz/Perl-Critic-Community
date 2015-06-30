@@ -7,8 +7,6 @@ use Perl::Critic::Utils qw(:severities :classification :ppi);
 use Perl::Critic::Utils::Constants qw(@STRICT_EQUIVALENT_MODULES @WARNINGS_EQUIVALENT_MODULES);
 use parent 'Perl::Critic::Policy';
 
-use List::Util 'any';
-
 our $VERSION = '0.004';
 
 use constant DESC => 'Missing strict or warnings';
