@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - fix false positives in DollarAB policy
 
 0.004     2015-07-01 17:21:16 EDT
   - use default strict/warnings importers from Perl::Critic::Utils::Constants

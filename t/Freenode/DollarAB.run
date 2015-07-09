@@ -23,3 +23,9 @@ $collection->sort(sub { $a = 1; $b = 2 });
 ## cut
 
 push @c, [ @row{sort { $a <=> $b } keys %row } ];
+
+## name ApparentSigil
+## failures 0
+## cut
+
+my $x = $b[1]||" ";

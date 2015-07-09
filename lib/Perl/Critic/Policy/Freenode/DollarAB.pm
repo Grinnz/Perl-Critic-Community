@@ -26,7 +26,7 @@ my %sorters = (
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless $elem eq '$a' or $elem eq '$b';
+	return () unless $elem->symbol eq '$a' or $elem->symbol eq '$b';
 	
 	my $name = $self->_find_sorter($elem);
 	return $self->violation(DESC, EXPL, $elem) unless exists $sorters{$name};
