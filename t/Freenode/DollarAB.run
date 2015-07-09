@@ -17,3 +17,9 @@ sort { $a = 1; $b = 2; } ();
 ## cut
 
 $collection->sort(sub { $a = 1; $b = 2 });
+
+## name HashKey
+## failures 0
+## cut
+
+push @c, [ @row{sort { $a <=> $b } keys %row } ];

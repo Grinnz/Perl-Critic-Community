@@ -44,9 +44,9 @@ sub _find_sorter {
 	my $function = $outer->previous_token;
 	$function = $function->previous_token until !$function
 		or ($function->isa('PPI::Token::Word')
-			and (is_method_call $function or is_function_call $function));
+			and (is_method_call $function or is_function_call $function or is_hash_key $function));
 	return '' unless $function and $function->isa('PPI::Token::Word')
-		and (is_method_call $function or is_function_call $function);
+		and (is_method_call $function or is_function_call $function or is_hash_key $function);
 	
 	my $name = $function;
 	$name =~ s/.+:://;
