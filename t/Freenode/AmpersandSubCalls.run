@@ -18,8 +18,10 @@
 
 my $ref = \&foo;
 
-## name Goto
+## name AmpersandExemptions
 ## failures 0
 ## cut
 
 goto &foo;
+defined &foo;
+exists &foo;

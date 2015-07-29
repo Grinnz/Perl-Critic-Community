@@ -70,6 +70,11 @@ C<DATA> are ok.
   open FH, '<', $filename;     # not ok
   open my $fh, '<', $filename; # ok
 
+This policy is similar to the core policy
+L<Perl::Critic::Policy::InputOutput::ProhibitBarewordFileHandles>, but allows
+more combinations of built-in bareword handles and filehandle-opening functions
+such as C<pipe> and C<socketpair>.
+
 =head1 AFFILIATION
 
 This policy is part of L<Perl::Critic::Freenode>.

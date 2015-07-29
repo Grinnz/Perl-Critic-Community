@@ -4,28 +4,12 @@ use strict;
 use warnings;
 
 use Perl::Critic::Utils qw(:severities :classification :ppi);
-use parent 'Perl::Critic::Policy';
+use parent 'Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils';
 
 our $VERSION = '0.006';
 
-use constant DESC => 'Subroutine called with ampersand (&)';
-use constant EXPL => 'The ampersand is not required to call subroutines, and actually introduces extra functionality you may not expect. Call subroutines as barewords: foo() not &foo()';
-
-sub supported_parameters { () }
 sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
-sub applies_to { 'PPI::Token::Symbol' }
-
-sub violates {
-	my ($self, $elem) = @_;
-	return () unless $elem->raw_type eq '&';
-	
-	my $prev = $elem->sprevious_sibling;
-	return () if $prev and $prev->isa('PPI::Token::Cast') and $prev eq '\\';
-	return () if $prev and $prev->isa('PPI::Token::Word') and $prev eq 'goto';
-	
-	return $self->violation(DESC, EXPL, $elem);
-}
 
 1;
 
@@ -49,6 +33,10 @@ simply be omitted.
   my $sum = &foo(1,2); # not ok
   my $value = foo();   # ok
   my $sum = foo 1,2;   # ok
+
+This policy is a subclass of the core policy
+L<Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils>, and performs the
+same function but in the C<freenode> theme.
 
 =head1 AFFILIATION
 

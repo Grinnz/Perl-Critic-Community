@@ -21,6 +21,9 @@ freenode IRC
 
 A set of L<Perl::Critic> policies to enforce the practices generally
 recommended by the denizens of #perl on L<Freenode IRC|https://freenode.net/>.
+Because this policy "theme" is designed to be used with zero configuration on
+the command line, some duplication will occur if it is used in combination with
+core L<Perl::Critic> policies.
 
 =head1 AFFILIATION
 

@@ -88,9 +88,13 @@ enabled automatically with a C<use> declaration of perl version 5.12 or higher.
   use 5.012;
   use warnings;
 
-Note: The default modules recognized as importing L<strict> and L<warnings> are
-defined in L<Perl::Critic::Utils::Constants/"@STRICT_EQUIVALENT_MODULES">. To
-define addition modules, see L</"CONFIGURATION">.
+This policy is similar to the core policies
+L<Perl::Critic::Policy::TestingAndDebugging::RequireUseStrict> and
+L<Perl::Critic::Policy::TestingAndDebugging::RequireUseWarnings>, but combines
+them into one policy in the C<freenode> theme. The default modules recognized
+as importing L<strict> and L<warnings> are defined by the same constants as the
+core policies, L<Perl::Critic::Utils::Constants/"@STRICT_EQUIVALENT_MODULES">.
+To define additional modules, see L</"CONFIGURATION">.
 
 =head1 AFFILIATION
 

@@ -24,3 +24,11 @@ open my $fh, '<', $filename;
 ## cut
 
 open my $fh, '-|', 'ls', '-al';
+
+## name OpenFork
+## failures 0
+## cut
+
+open my $child, '-|';
+open my $child, '|-';
+

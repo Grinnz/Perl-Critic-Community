@@ -54,8 +54,11 @@ modern method of declaring arguments.
   sub foo { ... }      # ok
   use feature 'signatures'; sub foo ($bar, $baz) { ... } # ok
 
-Note that this policy does not warn about empty prototypes or prototypes
-containing C<&>, as those are often useful for structural behavior.
+This policy is similar to the core policy
+L<Perl::Critic::Policy::Subroutines::ProhibitSubroutinePrototypes>, but
+additionally ignores files using the C<signatures> feature, and allows empty
+prototypes and prototypes containing C<&>, as these are often useful for
+structural behavior.
 
 =head1 AFFILIATION
 

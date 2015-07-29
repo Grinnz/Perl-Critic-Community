@@ -59,6 +59,11 @@ This policy is part of L<Perl::Critic::Freenode>.
 
 This policy is not configurable except for the standard options.
 
+=head1 CAVEATS
+
+This policy currently does not detect an empty return which has a conditional
+modifier, such as C<return if $foo;>.
+
 =head1 AUTHOR
 
 Dan Book, C<dbook@cpan.org>
