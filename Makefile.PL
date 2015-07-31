@@ -20,9 +20,10 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "List::Util" => "1.33",
     "Perl::Critic" => "1.125",
+    "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.125",
     "parent" => 0
   },
-  "VERSION" => "0.005",
+  "VERSION" => "0.006",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -33,6 +34,7 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "List::Util" => "1.33",
   "Perl::Critic" => "1.125",
+  "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.125",
   "parent" => 0
 );
 

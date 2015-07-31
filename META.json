@@ -13,6 +13,16 @@
       "version" : 2
    },
    "name" : "Perl-Critic-Freenode",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "inc",
+         "share",
+         "eg",
+         "examples"
+      ]
+   },
    "prereqs" : {
       "configure" : {
          "requires" : {
@@ -21,13 +31,14 @@
       },
       "develop" : {
          "requires" : {
-            "Dist::Zilla::PluginBundle::Author::DBOOK" : "0.005"
+            "Dist::Zilla::PluginBundle::Author::DBOOK" : "0.007"
          }
       },
       "runtime" : {
          "requires" : {
             "List::Util" : "1.33",
             "Perl::Critic" : "1.125",
+            "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" : "1.125",
             "parent" : "0",
             "perl" : "5.010001"
          }
@@ -36,63 +47,63 @@
    "provides" : {
       "Perl::Critic::Freenode" : {
          "file" : "lib/Perl/Critic/Freenode.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::AmpersandSubCalls" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/AmpersandSubCalls.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::BarewordFilehandles" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/BarewordFilehandles.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::DiscouragedModules" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/DiscouragedModules.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::DollarAB" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/DollarAB.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::Each" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Each.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::EmptyReturn" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/EmptyReturn.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::ModPerl" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/ModPerl.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::OpenArgs" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/OpenArgs.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::Prototypes" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Prototypes.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::StrictWarnings" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/StrictWarnings.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::Threads" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Threads.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::Wantarray" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Wantarray.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::WarningsSwitch" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/WarningsSwitch.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       },
       "Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/WhileDiamondDefaultAssignment.pm",
-         "version" : "0.005"
+         "version" : "0.006"
       }
    },
    "release_status" : "stable",
@@ -107,6 +118,10 @@
          "web" : "https://github.com/Grinnz/Perl-Critic-Freenode"
       }
    },
-   "version" : "0.005"
+   "version" : "0.006",
+   "x_contributors" : [
+      "Dan Book <grinnz@gmail.com>",
+      "Dan Book <grinnz@grinnz.com>"
+   ]
 }
 
