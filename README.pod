@@ -96,6 +96,18 @@ documentation for how to make use of this.
 
 Dan Book, C<dbook@cpan.org>
 
+=head1 CONTRIBUTORS
+
+=over
+
+=item John SJ Anderson (genehack)
+
+=item Matt S Trout (mst)
+
+=item H.Merijn Brand (Tux)
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2015, Dan Book.
