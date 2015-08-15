@@ -107,11 +107,11 @@ Dan Book, C<dbook@cpan.org>
 
 =over
 
+=item H.Merijn Brand (Tux)
+
 =item John SJ Anderson (genehack)
 
 =item Matt S Trout (mst)
-
-=item H.Merijn Brand (Tux)
 
 =back
 
