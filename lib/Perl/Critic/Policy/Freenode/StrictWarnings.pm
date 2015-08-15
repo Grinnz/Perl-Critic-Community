@@ -6,6 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use Perl::Critic::Utils::Constants qw(@STRICT_EQUIVALENT_MODULES @WARNINGS_EQUIVALENT_MODULES);
 use parent 'Perl::Critic::Policy';
+use version;
 
 our $VERSION = '0.007';
 
@@ -54,7 +55,7 @@ sub violates {
 			$has_warnings = 1 if $include->pragma eq 'warnings';
 		}
 		if ($include->type//'' eq 'use') {
-			$has_strict = 1 if $include->version and $include->version_literal > 5.012;
+			$has_strict = 1 if $include->version and version->parse($include->version) >= version->parse('v5.12');
 			$has_strict = 1 if defined $include->module and exists $strict_importers{$include->module};
 			$has_warnings = 1 if defined $include->module and exists $warnings_importers{$include->module};
 		}

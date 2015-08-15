@@ -34,3 +34,24 @@ use Moose;
 ## cut
 
 use common::sense;
+
+## name VersionStrict1
+## failures 0
+## cut
+
+use 5.012;
+use warnings;
+
+## name VersionStrict2
+## failures 0
+## cut
+
+use v5.12.0;
+use warnings;
+
+## name VersionStrict3
+## failures 0
+## cut
+
+use 5.12.0;
+use warnings;
