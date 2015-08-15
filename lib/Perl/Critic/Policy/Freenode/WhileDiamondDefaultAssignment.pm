@@ -8,13 +8,19 @@ use parent 'Perl::Critic::Policy';
 
 our $VERSION = '0.007';
 
-use constant DESC => '<> operator result not explicitly assigned in while condition';
-use constant EXPL => 'When used alone in a while condition, the <> operator assigns its result to $_, but does not localize it. Assign the result to an explicit lexical variable instead (my $line = <...>)';
+use constant DESC => '<>/readline/readdir/each result not explicitly assigned in while condition';
+use constant EXPL => 'When used alone in a while condition, the <> operator, readline, readdir, and each functions assign their result to $_, but do not localize it. Assign the result to an explicit lexical variable instead (my $line = <...>, my $dir = readdir ...)';
 
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Token::Word' }
+
+my %bad_functions = (
+	each		=> 1,
+	readdir		=> 1,
+	readline	=> 1,
+);
 
 sub violates {
 	my ($self, $elem) = @_;
@@ -39,11 +45,12 @@ sub violates {
 			$next = $next->schild(0);
 			return () unless defined $next and $next->isa('PPI::Statement');
 			$next = $next->schild(0);
-			return $self->violation(DESC, EXPL, $elem)
-				if defined $next and $next->isa('PPI::Token::QuoteLike::Readline');
-		} else {
-			return $self->violation(DESC, EXPL, $elem)
-				if $next->isa('PPI::Token::QuoteLike::Readline');
+			return () unless defined $next;
+		}
+		
+		return $self->violation(DESC, EXPL, $elem) if $next->isa('PPI::Token::QuoteLike::Readline');
+		if ($next->isa('PPI::Token::Word') and is_function_call $next) {
+			return $self->violation(DESC, EXPL, $elem) if exists $bad_functions{$next};
 		}
 	}
 	
@@ -59,19 +66,25 @@ with implicit assignment to $_
 
 =head1 DESCRIPTION
 
-The diamond operator C<E<lt>E<gt>> is extra magical in a while condition: if it
-is the only thing in the condition, it will assign its result to C<$_>, but it
-does not localize C<$_> to the while loop. (Note, this also applies to a
-C<for (;E<lt>E<gt>;)> construct.) This can unintentionally confuse outer loops
-that are already using C<$_> to iterate. To avoid this possibility, assign the
-result of the diamond operator to an explicit lexical variable.
+The diamond operator C<E<lt>E<gt>>, and functions C<readline()>, C<readdir()>,
+and C<each()> are extra magical in a while condition: if it is the only thing
+in the condition, it will assign its result to C<$_>, but it does not localize
+C<$_> to the while loop. (Note, this also applies to a C<for (;E<lt>E<gt>;)>
+construct.) This can unintentionally confuse outer loops that are already using
+C<$_> to iterate. To avoid this possibility, assign the result of the diamond
+operator or these functions to an explicit lexical variable.
 
-  while (<$fh>) { ... }            # not ok
-  ... while <STDIN>;               # not ok
-  for (;<>;) { ... }               # not ok
-  while (my $line = <$fh>) { ... } # ok
-  ... while $line = <STDIN>;       # ok
-  for (;my $line = <>;) { ... }    # ok
+  while (<$fh>) { ... }                   # not ok
+  ... while <STDIN>;                      # not ok
+  for (;<>;) { ... }                      # not ok
+  while (readline $fh) { ... }            # not ok
+  while (readdir $dh) { ... }             # not ok
+
+  while (my $line = <$fh>) { ... }        # ok
+  ... while $line = <STDIN>;              # ok
+  for (;my $line = <>;) { ... }           # ok
+  while (my $line = readline $fh) { ... } # ok
+  while (my $dir = readdir $dh) { ... }   # ok
 
 =head1 AFFILIATION
 

@@ -1,5 +1,6 @@
 {{$NEXT}}
   - fix StrictWarnings parsing of "use VERSION" (Tux)
+  - handle readline/readdir/each in WhileDiamondDefaultAssignment
 
 0.006     2015-07-30 22:34:15 EDT
   - just use core policy for AmpersandSubCalls
