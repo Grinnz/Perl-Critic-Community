@@ -55,3 +55,25 @@ use warnings;
 
 use 5.12.0;
 use warnings;
+
+## name VersionStrict4
+## failures 1
+## cut
+
+use 5.010001;
+use warnings;
+
+## name VersionStrict5
+## failures 1
+## cut
+
+use v5.10.1;
+use warnings;
+
+## name VersionStrict6
+## failures 1
+## cut
+
+use 5.10.1;
+use warnings;
+
