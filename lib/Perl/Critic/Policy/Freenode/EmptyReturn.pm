@@ -10,8 +10,8 @@ use List::Util 'any';
 
 our $VERSION = '0.008';
 
-use constant DESC => 'return() called with no arguments';
-use constant EXPL => 'return() with no arguments may return either undef or an empty list depending on context. This can be surprising for the same reason as other context-sensitive returns. Return undef or the empty list explicitly.';
+use constant DESC => 'return called with no arguments';
+use constant EXPL => 'return with no arguments may return either undef or an empty list depending on context. This can be surprising for the same reason as other context-sensitive returns. Return undef or the empty list explicitly.';
 
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_LOWEST }
