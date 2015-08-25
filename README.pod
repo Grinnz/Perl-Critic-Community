@@ -83,7 +83,7 @@ Scripts should not use the C<-w> switch on the shebang line
 
 =item L<Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment>
 
-Don't use C<while (E<lt>E<gt>)> with implicit assignment to C<$_>
+Don't use C<while> with implicit assignment to C<$_>
 
 =back
 
