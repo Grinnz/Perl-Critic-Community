@@ -51,6 +51,16 @@ return the appropriate value explicitly.
   return ();    # ok
   return undef; # ok
 
+  sub get_stuff {
+    return unless @things;
+    return join(' ', @things);
+  }
+  my %stuff = (
+    one => 1,
+    two => 2,
+    three => get_stuff(), # oops! function returns empty list if @things is empty
+  );
+
 =head1 AFFILIATION
 
 This policy is part of L<Perl::Critic::Freenode>.

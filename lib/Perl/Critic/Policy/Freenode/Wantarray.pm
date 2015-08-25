@@ -44,6 +44,11 @@ potential for confusion or vulnerability.
   return ('a','b','c');                 # ok
   return 3;                             # ok
 
+  sub get_stuff {
+    return wantarray ? @things : \@things;
+  }
+  my $stuff = Stuff->new(stuff => get_stuff()); # oops! function will return a list!
+
 =head1 AFFILIATION
 
 This policy is part of L<Perl::Critic::Freenode>.
