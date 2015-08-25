@@ -28,7 +28,6 @@ sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Document' }
 
 my @incomplete_importers = qw(common::sense sanity);
-my @add_importers = qw(Mouse::Util Any::Moose strictures);
 
 sub violates {
 	my ($self, $elem) = @_;
@@ -41,9 +40,6 @@ sub violates {
 	# Remove incomplete importers if added
 	delete $strict_importers{$_} for @incomplete_importers;
 	delete $warnings_importers{$_} for @incomplete_importers;
-	
-	# Add additional importers
-	$strict_importers{$_} = $warnings_importers{$_} = 1 for @add_importers;
 	
 	# Add extra importers
 	$strict_importers{$_} = $warnings_importers{$_} = 1 foreach keys %{$self->{_extra_importers}};
