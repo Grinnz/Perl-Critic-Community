@@ -31,7 +31,7 @@ my %modules = (
 		expl => 'File::Slurp gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use File::Slurp::Tiny, File::Slurper, Path::Tiny, Data::Munge, or Mojo::Util.',
 	},
 	'HTML::Template' => {
-		expl => 'HTML::Template is an old and buggy module, try Template Toolkit or HTML::Zoom instead, or HTML::Template::Pro if you must use the same syntax.',
+		expl => 'HTML::Template is an old and buggy module, try Template Toolkit, HTML::Zoom, or Text::Template instead, or HTML::Template::Pro if you must use the same syntax.',
 	},
 	'JSON' => {
 		expl => 'JSON.pm is old and full of slow logic. Use JSON::MaybeXS instead, it is a drop-in replacement in most cases.',
@@ -119,9 +119,9 @@ L<Data::Munge/"slurp">, or L<Mojo::Util/"slurp">.
 
 =head2 HTML::Template
 
-L<HTML::Template> is an old and buggy module, try L<Template::Toolkit> or
-L<HTML::Zoom> instead, or L<HTML::Template::Pro> if you must use the same
-syntax.
+L<HTML::Template> is an old and buggy module, try L<Template::Toolkit>,
+L<HTML::Zoom>, or L<Text::Template> instead, or L<HTML::Template::Pro> if you
+must use the same syntax.
 
 =head2 JSON
 
