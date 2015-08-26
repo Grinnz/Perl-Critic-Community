@@ -18,12 +18,12 @@ my %WriteMakefileArgs = (
   "NAME" => "Perl::Critic::Freenode",
   "PREREQ_PM" => {
     "List::Util" => "1.33",
-    "Perl::Critic" => "1.125",
+    "Perl::Critic" => "1.126",
     "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.125",
     "parent" => 0,
     "version" => 0
   },
-  "VERSION" => "0.007",
+  "VERSION" => "0.008",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "List::Util" => "1.33",
-  "Perl::Critic" => "1.125",
+  "Perl::Critic" => "1.126",
   "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.125",
   "parent" => 0,
   "version" => 0
