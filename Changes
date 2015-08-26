@@ -1,5 +1,6 @@
 {{$NEXT}}
   - Various documentation updates
+  - Add Switch.pm to discouraged modules
 
 0.007     2015-08-15 17:18:23 EDT
   - fix StrictWarnings parsing of "use VERSION" (Tux)

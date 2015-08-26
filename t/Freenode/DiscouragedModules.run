@@ -83,3 +83,9 @@ use HTML::Template;
 ## cut
 
 use Net::IRC;
+
+## name Switch
+## failures 1
+## cut
+
+use Switch;
