@@ -55,7 +55,7 @@ my %modules = (
 		expl => 'Net::IRC is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are POE::Component::IRC (and Bot::BasicBot based on that), Net::Async::IRC, and Mojo::IRC.',
 	},
 	'Switch' => {
-		expl => 'Switch.pm is a buggy and outdated source filter which can cause any number of strange errors, in addition to the problems with smart-matching shared by its replacement, the given/when feature. Try Switch::Plain instead.',
+		expl => 'Switch.pm is a buggy and outdated source filter which can cause any number of strange errors, in addition to the problems with smart-matching shared by its replacement, the switch feature (given/when). Try Switch::Plain instead.',
 	},
 	'XML::Simple' => {
 		expl => 'XML::Simple tries to coerce complex XML documents into perl data structures. This leads to overcomplicated structures and unexpected behavior. Use a proper DOM parser instead like XML::LibXML, XML::TreeBuilder, XML::Twig, or Mojo::DOM.',
@@ -161,7 +161,8 @@ L<Bot::BasicBot>), L<Net::Async::IRC>, and L<Mojo::IRC>.
 
 L<Switch>.pm is a buggy and outdated source filter which can cause any number
 of strange errors, in addition to the problems with smart-matching shared by
-its replacement, the C<given>/C<when> feature. Try L<Switch::Plain> instead.
+its replacement, the L<feature/"The 'switch' feature"> (C<given>/C<when>). Try
+L<Switch::Plain> instead.
 
 =head2 XML::Simple
 
