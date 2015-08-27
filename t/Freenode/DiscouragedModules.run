@@ -2,90 +2,53 @@
 ## failures 0
 ## cut
 
-use File::Slurp::Tiny;
-use Path::Tiny;
-use Mojo::Util;
-use List::Util;
-use List::UtilsBy;
-use POE;
-use IO::Async::Loop;
-use Mojo::IOLoop;
-use Mojolicious;
-use Dancer2;
-use Web::Simple;
-use Plack;
-use Moo;
-use Moose;
 use Cpanel::JSON::XS;
+use Const::Fast;
+use Dancer2;
+use DBIx::Class;
+use Exception::Class;
+use File::Slurp::Tiny;
+use IO::Async::Loop;
 use JSON::MaybeXS;
 use JSON::PP;
+use List::Util;
+use List::UtilsBy;
+use Mojo::DOM;
+use Mojo::IOLoop;
 use Mojo::JSON;
+use Mojo::Util;
+use Mojolicious;
+use Moo;
+use Moose;
+use Path::Tiny;
+use Plack;
+use POE;
+use Switch::Plain;
+use Template;
+with 'Throwable';
+use Web::Simple;
 use XML::LibXML;
 use XML::TreeBuilder;
 use XML::Twig;
-use Mojo::DOM;
-use Template;
 
-## name FileSlurp
-## failures 1
+## name BadModules
+## failures 17
 ## cut
 
-use File::Slurp;
-
-## name MLEHMANN
-## failures 3
-## cut
-
+use Any::Moose;
 use AnyEvent;
+use Class::DBI;
+use CGI;
 use Coro;
-use JSON::XS;
-
-## name JSON
-## failures 2
-## cut
-
+use Error;
+use File::Slurp;
+use HTML::Template;
 use JSON;
 use JSON::Any;
-
-## name ListMoreUtils
-## failures 1
-## cut
-
+use JSON::XS;
 use List::MoreUtils;
-
-## name CGI
-## failures 1
-## cut
-
-use CGI;
-
-## name AnyMooseMouse
-## failures 2
-## cut
-
 use Mouse;
-use Any::Moose;
-
-## name XMLSimple
-## failures 1
-## cut
-
-use XML::Simple;
-
-## name HTMLTemplate
-## failures 1
-## cut
-
-use HTML::Template;
-
-## name NetIRC
-## failures 1
-## cut
-
 use Net::IRC;
-
-## name Switch
-## failures 1
-## cut
-
+use Readonly;
 use Switch;
+use XML::Simple;

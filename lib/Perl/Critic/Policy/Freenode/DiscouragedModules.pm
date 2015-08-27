@@ -21,11 +21,17 @@ my %modules = (
 	'Any::Moose' => {
 		expl => 'Any::Moose is deprecated. Use Moo instead.',
 	},
+	'Class::DBI' => {
+		expl => 'Class::DBI is an ancient database ORM abstraction layer which is buggy and abandoned. See DBIx::Class for a more modern DBI-based ORM, or Mad::Mapper for a Mojolicious-style ORM.',
+	},
 	'CGI' => {
 		expl => 'CGI.pm is an ancient module for communicating via the CGI protocol, with tons of bad practices and cruft. Use a modern framework such as those based on Plack (Web::Simple, Dancer2, Catalyst) or Mojolicious, they can still be served via CGI if you choose.',
 	},
 	'Coro' => {
 		expl => 'Coro no longer works on perl 5.22, you need to use the author\'s forked version of Perl. Avoid at all costs.',
+	},
+	'Error' => {
+		expl => 'Error.pm is overly magical and discouraged by its maintainers. Try Throwable for exception classes in Moo/Moose, or Exception::Class otherwise. Try::Tiny or Try are recommended for the try/catch syntax.',
 	},
 	'File::Slurp' => {
 		expl => 'File::Slurp gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use File::Slurp::Tiny, File::Slurper, Path::Tiny, Data::Munge, or Mojo::Util.',
@@ -53,6 +59,10 @@ my %modules = (
 	},
 	'Net::IRC' => {
 		expl => 'Net::IRC is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are POE::Component::IRC (and Bot::BasicBot based on that), Net::Async::IRC, and Mojo::IRC.',
+	},
+	'Readonly' => {
+		expl => 'Readonly.pm is buggy and slow. Use Const::Fast instead, or the core pragma constant.',
+		severity => $SEVERITY_MEDIUM,
 	},
 	'Switch' => {
 		expl => 'Switch.pm is a buggy and outdated source filter which can cause any number of strange errors, in addition to the problems with smart-matching shared by its replacement, the \'switch\' feature (given/when). Try Switch::Plain instead.',
@@ -101,6 +111,12 @@ interoperable async event loops.
 
 L<Any::Moose> is deprecated. Use L<Moo> instead.
 
+=head2 Class::DBI
+
+L<Class::DBI> is an ancient database L<ORM|https://en.wikipedia.org/wiki/Object-relational_mapping>
+abstraction layer which is buggy and abandoned. See L<DBIx::Class> for a more
+modern L<DBI>-based ORM, or L<Mad::Mapper> for a L<Mojolicious>-style ORM.
+
 =head2 CGI
 
 L<CGI>.pm is an ancient module for communicating via the CGI protocol, with
@@ -112,6 +128,13 @@ still be served via CGI if you choose.
 
 L<Coro> no longer works on perl 5.22, you need to use the author's forked
 version of Perl. Avoid at all costs.
+
+=head2 Error
+
+L<Error>.pm is overly magical and discouraged by its maintainers. Try
+L<Throwable> for exception classes in L<Moo>/L<Moose>, or L<Exception::Class>
+otherwise. L<Try::Tiny> or L<Try> are recommended for the C<try>/C<catch>
+syntax.
 
 =head2 File::Slurp
 
@@ -156,6 +179,11 @@ been better filled by L<Moo>. Use L<Moo> instead.
 L<Net::IRC> is an ancient module implementing the IRC protocol. Use a modern
 event-loop-based module instead. Choices are L<POE::Component::IRC> (used for
 L<Bot::BasicBot>), L<Net::Async::IRC>, and L<Mojo::IRC>.
+
+=head2 Readonly
+
+L<Readonly>.pm is buggy and slow. Use L<Const::Fast> instead, or the core
+pragma L<constant>.
 
 =head2 Switch
 
