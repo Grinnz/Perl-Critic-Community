@@ -1,5 +1,6 @@
 {{$NEXT}}
   - Fix Changes
+  - Change installer to Module::Build::Tiny
 
 0.009     2015-08-27 15:09:22 EDT
   - Add Class::DBI, Error.pm, and Readonly.pm to discouraged modules
