@@ -8,6 +8,8 @@ use Dancer2;
 use DBIx::Class;
 use Exception::Class;
 use File::Slurp::Tiny;
+use Getopt::Long;
+use Getopt::Long::Descriptive;
 use IO::Async::Loop;
 use JSON::MaybeXS;
 use JSON::PP;
@@ -35,7 +37,7 @@ use XML::TreeBuilder;
 use XML::Twig;
 
 ## name BadModules
-## failures 17
+## failures 18
 ## cut
 
 use Any::Moose;
@@ -45,6 +47,7 @@ use CGI;
 use Coro;
 use Error;
 use File::Slurp;
+use Getopt::Std;
 use HTML::Template;
 use JSON;
 use JSON::Any;
