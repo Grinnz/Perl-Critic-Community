@@ -24,7 +24,7 @@ my %bad_functions = (
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless ($elem eq 'while' or $elem eq 'for') and is_perl_bareword $elem;
+	return () unless $elem eq 'while' or $elem eq 'for';
 	
 	my $next = $elem->snext_sibling || return ();
 	
@@ -49,8 +49,8 @@ sub violates {
 		}
 		
 		return $self->violation(DESC, EXPL, $elem) if $next->isa('PPI::Token::QuoteLike::Readline');
-		if ($next->isa('PPI::Token::Word') and is_function_call $next) {
-			return $self->violation(DESC, EXPL, $elem) if exists $bad_functions{$next};
+		if ($next->isa('PPI::Token::Word') and exists $bad_functions{$next} and is_function_call $next) {
+			return $self->violation(DESC, EXPL, $elem);
 		}
 	}
 	
