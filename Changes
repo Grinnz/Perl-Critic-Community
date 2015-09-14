@@ -1,5 +1,7 @@
 {{$NEXT}}
   - add Getopt::Std to discouraged modules
+  - Fix EmptyReturn to catch more cases
+  - Add DeprecatedFeatures policy
 
 0.010     2015-08-28 17:11:40 EDT
   - Fix Changes

@@ -1,0 +1,5 @@
+## name BadFeatures
+## failures 1
+## cut
+
+$[ = 1;

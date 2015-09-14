@@ -44,6 +44,10 @@ Don't use C<&> to call subroutines
 
 Don't use bareword filehandles other than built-ins
 
+=item L<Perl::Critic::Policy::Freenode::DeprecatedFeatures>
+
+Avoid features that have been deprecated or removed from Perl
+
 =item L<Perl::Critic::Policy::Freenode::DiscouragedModules>
 
 Various modules discouraged from use
