@@ -37,7 +37,7 @@ my %modules = (
 		expl => 'File::Slurp gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use File::Slurp::Tiny, File::Slurper, Path::Tiny, Data::Munge, or Mojo::Util.',
 	},
 	'Getopt::Std' => {
-		expl => 'Getopt::Std was the original very simplistic command-line option processing module. It is now obsoleted by the much more complete solution Getopt::Long, which also supports short options. See also Getopt::Long::Descriptive.',
+		expl => 'Getopt::Std was the original very simplistic command-line option processing module. It is now obsoleted by the much more complete solution Getopt::Long, which also supports short options, and is wrapped by module such as Getopt::Long::Descriptive and Getopt::Long::Modern for simpler usage.',
 		severity => $SEVERITY_MEDIUM,
 	},
 	'HTML::Template' => {
@@ -151,7 +151,8 @@ L<Data::Munge/"slurp">, or L<Mojo::Util/"slurp">.
 
 L<Getopt::Std> was the original very simplistic command-line option processing
 module. It is now obsoleted by the much more complete solution L<Getopt::Long>,
-which also supports short options. See also L<Getopt::Long::Descriptive>.
+which also supports short options, and is wrapped by modules such as
+L<Getopt::Long::Descriptive> and L<Getopt::Long::Modern> for simpler usage.
 
 =head2 HTML::Template
 
