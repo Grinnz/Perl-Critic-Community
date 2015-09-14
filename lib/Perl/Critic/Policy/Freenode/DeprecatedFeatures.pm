@@ -3,6 +3,7 @@ package Perl::Critic::Policy::Freenode::DeprecatedFeatures;
 use strict;
 use warnings;
 
+use List::Util 'any';
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use Perl::Critic::Violation;
 use parent 'Perl::Critic::Policy';
@@ -15,16 +16,31 @@ sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Element' }
 
 my %features = (
+	':=' => {
+		expl => 'Use of := as an empty attribute list is deprecated in perl v5.12.0, use = alone.',
+	},
 	'$[' => {
 		expl => 'Use of $[ is deprecated in perl v5.12.0. See Array::Base and String::Base.',
 	},
-	':=' => {
-		expl => 'Use of := as an empty attribute list is deprecated in perl v5.12.0, use = alone.',
+	'defined on array/hash' => {
+		expl => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
+	},
+	'do SUBROUTINE(LIST)' => {
+		expl => 'Use of do to call a subroutine is deprecated in perl 5.',
+	},
+	'POSIX character functions' => {
+		expl => 'Several character matching functions in POSIX.pm are deprecated in perl v5.20.0: isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, and isxdigit. Regular expressions are a more portable and correct way to test character strings.',
+	},
+	'qw(...) as parentheses' => {
+		expl => 'Use of qw(...) as parentheses is deprecated in perl v5.14.0. Wrap the list in literal parentheses when required, such as in a foreach loop.',
 	},
 	'UNIVERSAL->import()' => {
 		expl => 'The method UNIVERSAL->import() (or passing import arguments to "use UNIVERSAL") is deprecated in perl v5.12.0.',
 	},
 );
+
+my %posix_deprecated = map { ($_ => 1) }
+	qw(isalnum isalpha iscntrl isdigit isgraph islower isprint ispunct isspace isupper isxdigit);
 
 sub _violation {
 	my ($self, $feature, $elem) = @_;
@@ -58,6 +74,33 @@ sub violates {
 		        and $next = $elem->snext_sibling and $next->isa('PPI::Token::Operator') and $next eq '->'
 		        and $next = $next->snext_sibling and $next->isa('PPI::Token::Word') and $next eq 'import') {
 				return $self->_violation('UNIVERSAL->import()', $next);
+			} elsif (($elem eq 'for' or $elem eq 'foreach') and !$elem->sprevious_sibling) {
+				$next = $elem->snext_sibling;
+				until (!$next or $next->isa('PPI::Structure::List')
+				       or $next->isa('PPI::Token::QuoteLike::Words')) {
+					$next = $next->snext_sibling;
+				}
+				if ($next and $next->isa('PPI::Token::QuoteLike::Words')) {
+					return $self->_violation('qw(...) as parentheses', $next);
+				}
+			} elsif ($elem eq 'do' and $next = $elem->snext_sibling) {
+				if ((($next->isa('PPI::Token::Word') and is_function_call $next)
+				    or ($next->isa('PPI::Token::Symbol') and ($next->raw_type eq '&' or $next->raw_type eq '$')))
+				    and ($next = $next->snext_sibling and $next->isa('PPI::Structure::List'))) {
+					return $self->_violation('do SUBROUTINE(LIST)', $elem);
+				}
+			} elsif (exists $posix_deprecated{$elem}) {
+				my $includes = $elem->document->find('PPI::Statement::Include') || [];
+				if (any { ($_->module // '') eq 'POSIX' } @$includes) {
+					return $self->_violation('POSIX character functions', $elem);
+				}
+			} elsif ($elem eq 'defined' and $next = $elem->snext_sibling) {
+				$next = $next->schild(0) if $next->isa('PPI::Structure::List');
+				if ($next and $next->isa('PPI::Token::Symbol')
+				    and ($next->raw_type eq '@' or $next->raw_type eq '%')
+				    and $next->raw_type eq $next->symbol_type) {
+					return $self->_violation('defined on array/hash', $elem);
+				}
 			}
 		}
 	}
@@ -80,6 +123,15 @@ usually deprecated for a good reason.
 
 =head1 FEATURES
 
+=head2 :=
+
+Because the whitespace between an attribute list and assignment operator is not
+significant, it was possible to specify assignment to a variable with an empty
+attribute list with a construction like C<my $foo := 'bar'>. This is deprecated
+in perl v5.12.0 to allow the possibility of a future C<:=> operator. Avoid the
+issue by either putting whitespace between the C<:> and C<=> characters or
+simply omitting the empty attribute list.
+
 =head2 $[
 
 The magic L<perlvar/"$["> variable was used in very old perls to determine the
@@ -91,19 +143,46 @@ C<use v5.16> or C<no feature "array_base">. While it is probably a bad idea in
 general, the modules L<Array::Base> and L<String::Base> can now be used to
 replace this functionality.
 
-=head2 :=
+=head2 defined on array/hash
 
-Because the whitespace between an attribute list and assignment operator is not
-significant, it was possible to specify assignment to a variable with an empty
-attribute list with a construction like C<my $foo := 'bar'>. This was
-deprecated in perl v5.12.0 to allow the possibility of a future C<:=> operator.
-Avoid the issue by either putting whitespace between the C<:> and C<=>
-characters or simply omitting the empty attribute list.
+Using the function C<defined()> on an array or hash probably does not do what
+you expected, and is deprecated in perl v5.6.2 and throws a fatal error in perl
+v5.22.0. To check if an array or hash is non-empty, test the variable directly.
+
+ if (@foo) { ... }
+ if (%bar) { ... }
+
+=head2 do SUBROUTINE(LIST)
+
+This form of C<do> to call a subroutine has been deprecated since perl 5, and
+is removed in perl v5.20.0.
+
+=head2 POSIX character functions
+
+Several character matching functions in L<POSIX>.pm are deprecated in perl
+v5.20.0. See the L<POSIX> documentation for more details. Most uses of these
+functions can be replaced with appropriate regex matches.
+
+ isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, issuper, isxdigit
+
+=head2 qw(...) as parentheses
+
+Literal parentheses are required for certain statements such as a
+C<for my $foo (...) { ... }> construct. Using a C<qw(...)> list literal without
+surrounding parentheses in this syntax is deprecated in perl v5.14.0. Wrap the
+literal in parentheses: C<for my $foo (qw(...)) { ... }>.
 
 =head2 UNIVERSAL->import()
 
 The method C<UNIVERSAL->import()> and similarly passing import arguments to
-C<use UNIVERSAL> was deprecated in perl v5.12.0.
+C<use UNIVERSAL> is deprecated in perl v5.12.0 and throws a fatal error in perl
+v5.22.0.
+
+=head1 CAVEATS
+
+This policy is incomplete, as many deprecations are difficult to test for
+statically. It is recommended to use L<perlbrew> or L<perl-build> to test your
+code under newer versions of Perl, with C<warnings> enabled.
 
 =head1 AFFILIATION
 
