@@ -27,3 +27,15 @@ return undef;
 ## cut
 
 return 1, 2, 3;
+
+## name ReturnModified
+## failures 1
+## cut
+
+return if foo();
+
+## name ReturnMidStatement
+## failures 1
+## cut
+
+foo() or return;

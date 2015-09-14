@@ -16,15 +16,19 @@ use constant EXPL => 'return with no arguments may return either undef or an emp
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_LOWEST }
 sub default_themes { 'freenode' }
-sub applies_to { 'PPI::Statement::Break' }
+sub applies_to { 'PPI::Token::Word' }
+
+my %modifiers = map { ($_ => 1) } qw(if unless while until for foreach when);
 
 sub violates {
 	my ($self, $elem) = @_;
-	my @children = $elem->schildren;
-	my $function = shift @children // return ();
-	return () unless $function eq 'return' and is_function_call $function;
+	return () unless $elem eq 'return';
 	
-	return $self->violation(DESC, EXPL, $elem) unless any { $_ ne ';' } @children;
+	my $next = $elem->snext_sibling;
+	if (!$next or ($next->isa('PPI::Token::Structure') and $next eq ';')
+	           or ($next->isa('PPI::Token::Word') and exists $modifiers{$next})) {
+		return $self->violation(DESC, EXPL, $elem);
+	}
 	
 	return ();
 }
@@ -68,11 +72,6 @@ This policy is part of L<Perl::Critic::Freenode>.
 =head1 CONFIGURATION
 
 This policy is not configurable except for the standard options.
-
-=head1 CAVEATS
-
-This policy currently does not detect an empty return which has a conditional
-modifier, such as C<return if $foo;>.
 
 =head1 AUTHOR
 
