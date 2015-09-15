@@ -111,6 +111,8 @@ Dan Book, C<dbook@cpan.org>
 
 =over
 
+=item Graham Knop (haarg)
+
 =item H.Merijn Brand (Tux)
 
 =item John SJ Anderson (genehack)
