@@ -208,7 +208,7 @@ literal in parentheses: C<for my $foo (qw(...)) { ... }>.
 
 =head2 UNIVERSAL->import()
 
-The method C<UNIVERSAL->import()> and similarly passing import arguments to
+The method C<< UNIVERSAL->import() >> and similarly passing import arguments to
 C<use UNIVERSAL> is deprecated in perl v5.12.0 and throws a fatal error in perl
 v5.22.0.
 
