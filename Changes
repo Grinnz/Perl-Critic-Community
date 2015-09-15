@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+0.011     2015-09-15 13:32:44 EDT
   - add Getopt::Std to discouraged modules
   - Fix EmptyReturn to catch more cases
   - Add DeprecatedFeatures policy
