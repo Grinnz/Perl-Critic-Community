@@ -59,33 +59,42 @@ sub violates {
 	my $parent;
 	my @args;
 	if ($elem->isa('PPI::Statement')) {
-		if ($elem->isa('PPI::Statement::Include') and $elem->type eq 'use'
-		         and $elem->module eq 'UNIVERSAL' and @args = $elem->arguments
-		         and (!$args[0]->isa('PPI::Structure::List') or $args[0]->schildren)) {
-			return $self->_violation('UNIVERSAL->import()', $elem);
+		# use UNIVERSAL ...;
+		if ($elem->isa('PPI::Statement::Include')) {
+			if ($elem->type eq 'use' and $elem->module eq 'UNIVERSAL' and @args = $elem->arguments
+		        and (!$args[0]->isa('PPI::Structure::List') or $args[0]->schildren)) {
+				return $self->_violation('UNIVERSAL->import()', $elem);
+			}
 		}
 	} elsif ($elem->isa('PPI::Token')) {
 		if ($elem->isa('PPI::Token::Symbol')) {
+			# $[
 			if ($elem eq '$[') {
 				return $self->_violation('$[', $elem);
 			}
 		} elsif ($elem->isa('PPI::Token::Operator')) {
+			# :=
 			if ($elem eq ':' and $next = $elem->next_sibling and $next->isa('PPI::Token::Operator') and $next eq '=') {
 				return $self->_violation(':=', $elem);
+			# ?PATTERN?
 			} elsif ($elem eq '?' and $parent = $elem->parent and $parent->isa('PPI::Statement')) {
 				$next = $elem->snext_sibling;
 				until (!$next or ($next->isa('PPI::Token::Operator') and $next eq '?')) {
 					$next = $next->snext_sibling;
 				}
-				if ($next and none { $_->isa('PPI::Token::Operator') and $_ eq ':' } $parent->schildren) {
+				# If the statement has a : operator, this is probably a ternary operator.
+				# PPI also tends to detect the : as a loop label.
+				if ($next and none { ($_->isa('PPI::Token::Operator') and $_ eq ':') or $_->isa('PPI::Token::Label') } $parent->schildren) {
 					return $self->_violation('?PATTERN?', $elem);
 				}
 			}
 		} elsif ($elem->isa('PPI::Token::Word')) {
+			# UNIVERSAL->import()
 			if ($elem eq 'UNIVERSAL'
 		        and $next = $elem->snext_sibling and $next->isa('PPI::Token::Operator') and $next eq '->'
 		        and $next = $next->snext_sibling and $next->isa('PPI::Token::Word') and $next eq 'import') {
 				return $self->_violation('UNIVERSAL->import()', $next);
+			# for $x qw(...)
 			} elsif (($elem eq 'for' or $elem eq 'foreach') and !$elem->sprevious_sibling) {
 				$next = $elem->snext_sibling;
 				until (!$next or $next->isa('PPI::Structure::List')
@@ -95,17 +104,20 @@ sub violates {
 				if ($next and $next->isa('PPI::Token::QuoteLike::Words')) {
 					return $self->_violation('qw(...) as parentheses', $next);
 				}
+			# do SUBROUTINE(LIST)
 			} elsif ($elem eq 'do' and $next = $elem->snext_sibling) {
 				if ((($next->isa('PPI::Token::Word') and is_function_call $next)
 				    or ($next->isa('PPI::Token::Symbol') and ($next->raw_type eq '&' or $next->raw_type eq '$')))
 				    and ($next = $next->snext_sibling and $next->isa('PPI::Structure::List'))) {
 					return $self->_violation('do SUBROUTINE(LIST)', $elem);
 				}
+			# POSIX character function
 			} elsif (exists $posix_deprecated{$elem}) {
 				my $includes = $elem->document->find('PPI::Statement::Include') || [];
 				if (any { ($_->module // '') eq 'POSIX' } @$includes) {
 					return $self->_violation('POSIX character function', $elem);
 				}
+			# defined array/hash
 			} elsif ($elem eq 'defined' and $next = $elem->snext_sibling) {
 				$next = $next->schild(0) if $next->isa('PPI::Structure::List');
 				if ($next and $next->isa('PPI::Token::Symbol')
@@ -115,6 +127,7 @@ sub violates {
 				}
 			}
 		} elsif ($elem->isa('PPI::Token::Regexp')) {
+			# ?PATTERN?
 			if ($elem->isa('PPI::Token::Regexp::Match') and ($elem->get_delimiters)[0] eq '?' and $elem !~ m/^m/) {
 				return $self->_violation('?PATTERN?', $elem);
 			}

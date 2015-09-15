@@ -26,7 +26,8 @@ defined $foo;
 defined $foo[0];
 defined $foo{bar};
 defined &foo;
-my $foo = foo() ? bar() ? 'foo' : 'bar' : 'baz';
+foo ? bar ? 'foo' : 'bar' : 'baz';
+foo ? bar ? foo : bar : baz;
 $foo =~ m?foo?;
 
 ## name BadFeatures
