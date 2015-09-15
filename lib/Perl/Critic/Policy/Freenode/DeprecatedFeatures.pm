@@ -3,7 +3,7 @@ package Perl::Critic::Policy::Freenode::DeprecatedFeatures;
 use strict;
 use warnings;
 
-use List::Util 'any';
+use List::Util 'any', 'none';
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use Perl::Critic::Violation;
 use parent 'Perl::Critic::Policy';
@@ -21,6 +21,9 @@ my %features = (
 	},
 	'$[' => {
 		expl => 'Use of $[ is deprecated in perl v5.12.0. See Array::Base and String::Base.',
+	},
+	'?PATTERN?' => {
+		expl => 'Use of ? as a match regex delimiter without an initial m is deprecated in perl v5.14.0. Use m?PATTERN? instead.',
 	},
 	'defined on array/hash' => {
 		expl => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
@@ -45,7 +48,7 @@ my %posix_deprecated = map { ($_ => 1) }
 sub _violation {
 	my ($self, $feature, $elem) = @_;
 	my $desc = "$feature is deprecated";
-	my $expl = $features{$feature}{expl} // "Feature $feature is deprecated.";
+	my $expl = $features{$feature}{expl} // "$feature is deprecated or removed from recent versions of Perl.";
 	my $severity = $features{$feature}{severity} // $self->default_severity;
 	return Perl::Critic::Violation->new($desc, $expl, $elem, $severity);
 }
@@ -53,6 +56,7 @@ sub _violation {
 sub violates {
 	my ($self, $elem) = @_;
 	my $next;
+	my $parent;
 	my @args;
 	if ($elem->isa('PPI::Statement')) {
 		if ($elem->isa('PPI::Statement::Include') and $elem->type eq 'use'
@@ -68,6 +72,14 @@ sub violates {
 		} elsif ($elem->isa('PPI::Token::Operator')) {
 			if ($elem eq ':' and $next = $elem->next_sibling and $next->isa('PPI::Token::Operator') and $next eq '=') {
 				return $self->_violation(':=', $elem);
+			} elsif ($elem eq '?' and $parent = $elem->parent and $parent->isa('PPI::Statement')) {
+				$next = $elem->snext_sibling;
+				until (!$next or ($next->isa('PPI::Token::Operator') and $next eq '?')) {
+					$next = $next->snext_sibling;
+				}
+				if ($next and none { $_->isa('PPI::Token::Operator') and $_ eq ':' } $parent->schildren) {
+					return $self->_violation('?PATTERN?', $elem);
+				}
 			}
 		} elsif ($elem->isa('PPI::Token::Word')) {
 			if ($elem eq 'UNIVERSAL'
@@ -101,6 +113,10 @@ sub violates {
 				    and $next->raw_type eq $next->symbol_type) {
 					return $self->_violation('defined on array/hash', $elem);
 				}
+			}
+		} elsif ($elem->isa('PPI::Token::Regexp')) {
+			if ($elem->isa('PPI::Token::Regexp::Match') and ($elem->get_delimiters)[0] eq '?' and $elem !~ m/^m/) {
+				return $self->_violation('?PATTERN?', $elem);
 			}
 		}
 	}
@@ -142,6 +158,11 @@ L<arybase>.pm in v5.16.0, and it is essentially a synonym for C<0> under
 C<use v5.16> or C<no feature "array_base">. While it is probably a bad idea in
 general, the modules L<Array::Base> and L<String::Base> can now be used to
 replace this functionality.
+
+=head2 ?PATTERN?
+
+The C<?PATTERN?> regex match syntax is deprecated in perl v5.14.0 and removed
+in perl v5.22.0. Use C<m?PATTERN?> instead.
 
 =head2 defined on array/hash
 

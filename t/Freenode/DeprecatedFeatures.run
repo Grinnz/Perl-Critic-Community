@@ -26,9 +26,11 @@ defined $foo;
 defined $foo[0];
 defined $foo{bar};
 defined &foo;
+my $foo = foo() ? bar() ? 'foo' : 'bar' : 'baz';
+$foo =~ m?foo?;
 
 ## name BadFeatures
-## failures 10
+## failures 11
 ## cut
 
 $[ = 1;
@@ -43,6 +45,7 @@ defined @foo;
 defined %foo;
 defined(@foo);
 defined(%foo);
+$foo =~ ?foo?;
 
 ## name POSIXDeprecations
 ## failures 11
