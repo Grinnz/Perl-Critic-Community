@@ -28,7 +28,7 @@ my %features = (
 	'do SUBROUTINE(LIST)' => {
 		expl => 'Use of do to call a subroutine is deprecated in perl 5.',
 	},
-	'POSIX character functions' => {
+	'POSIX character function' => {
 		expl => 'Several character matching functions in POSIX.pm are deprecated in perl v5.20.0: isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, and isxdigit. Regular expressions are a more portable and correct way to test character strings.',
 	},
 	'qw(...) as parentheses' => {
@@ -44,7 +44,7 @@ my %posix_deprecated = map { ($_ => 1) }
 
 sub _violation {
 	my ($self, $feature, $elem) = @_;
-	my $desc = "Used deprecated feature $feature";
+	my $desc = "$feature is deprecated";
 	my $expl = $features{$feature}{expl} // "Feature $feature is deprecated.";
 	my $severity = $features{$feature}{severity} // $self->default_severity;
 	return Perl::Critic::Violation->new($desc, $expl, $elem, $severity);
@@ -92,7 +92,7 @@ sub violates {
 			} elsif (exists $posix_deprecated{$elem}) {
 				my $includes = $elem->document->find('PPI::Statement::Include') || [];
 				if (any { ($_->module // '') eq 'POSIX' } @$includes) {
-					return $self->_violation('POSIX character functions', $elem);
+					return $self->_violation('POSIX character function', $elem);
 				}
 			} elsif ($elem eq 'defined' and $next = $elem->snext_sibling) {
 				$next = $next->schild(0) if $next->isa('PPI::Structure::List');
@@ -118,8 +118,8 @@ been deprecated or removed from Perl
 
 While L<Perl::Critic::Policy::Freenode::StrictWarnings> will expose usage of
 deprecated or removed features when a modern perl is used, this policy will
-detect such features in use regardless of perl version, as these features are
-usually deprecated for a good reason.
+detect such features in use regardless of perl version, to assist in keeping
+your code modern and forward-compatible.
 
 =head1 FEATURES
 
