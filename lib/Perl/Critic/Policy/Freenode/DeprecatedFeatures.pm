@@ -212,12 +212,6 @@ The method C<UNIVERSAL->import()> and similarly passing import arguments to
 C<use UNIVERSAL> is deprecated in perl v5.12.0 and throws a fatal error in perl
 v5.22.0.
 
-=head1 CAVEATS
-
-This policy is incomplete, as many deprecations are difficult to test for
-statically. It is recommended to use L<perlbrew> or L<perl-build> to test your
-code under newer versions of Perl, with C<warnings> enabled.
-
 =head1 AFFILIATION
 
 This policy is part of L<Perl::Critic::Freenode>.
@@ -225,6 +219,12 @@ This policy is part of L<Perl::Critic::Freenode>.
 =head1 CONFIGURATION
 
 This policy is not configurable except for the standard options.
+
+=head1 CAVEATS
+
+This policy is incomplete, as many deprecations are difficult to test for
+statically. It is recommended to use L<perlbrew> or L<perl-build> to test your
+code under newer versions of Perl, with C<warnings> enabled.
 
 =head1 AUTHOR
 
