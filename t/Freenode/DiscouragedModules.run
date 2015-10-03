@@ -11,6 +11,7 @@ use File::Slurp::Tiny;
 use Getopt::Long;
 use Getopt::Long::Descriptive;
 use IO::Async::Loop;
+use IO::Socket::IP;
 use JSON::MaybeXS;
 use JSON::PP;
 use List::Util;
@@ -37,7 +38,7 @@ use XML::TreeBuilder;
 use XML::Twig;
 
 ## name BadModules
-## failures 18
+## failures 19
 ## cut
 
 use Any::Moose;
@@ -49,6 +50,7 @@ use Error;
 use File::Slurp;
 use Getopt::Std;
 use HTML::Template;
+use IO::Socket::INET6;
 use JSON;
 use JSON::Any;
 use JSON::XS;

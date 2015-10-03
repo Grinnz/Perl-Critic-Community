@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - add IO::Socket::INET6 to discouraged modules
 
 0.011     2015-09-15 13:32:44 EDT
   - add Getopt::Std to discouraged modules
