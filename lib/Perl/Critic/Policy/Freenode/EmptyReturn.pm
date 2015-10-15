@@ -101,14 +101,18 @@ return the appropriate value explicitly.
 
 Empty returns are permitted by this policy if the subroutine contains no
 explicit return values, indicating it is intended to be used in void context.
-Note that while C<return ()> is functionally equivalent to an empty return, it
-is recommended for clarity in the case that a list-context return is intended.
 
 =head1 CAVEATS
 
 This policy currently only checks return statements in named subroutines,
-anonymous subroutines are not checked. Due to the complexity of code block
-syntax in Perl, this policy will miss many potential violations.
+anonymous subroutines are not checked. Also, return statements within blocks,
+other than compound statements like C<if> and C<foreach>, are not considered
+when determining if a function is intended to be used in void context.
+
+Any non-empty return will cause empty returns within the same subroutine to
+report violations, even though in list context, C<return> and C<return ()> are
+functionally equivalent. It is recommended to explicitly specify an empty list
+return with C<return ()> in a function that intends to return list context.
 
 =head1 AFFILIATION
 

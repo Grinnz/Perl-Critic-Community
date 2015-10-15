@@ -72,6 +72,10 @@ Don't use C<mod_perl> to write web applications
 
 Always use the three-argument form of C<open()>
 
+=item L<Perl::Critic::Policy::Freenode::POSIXImports>
+
+Don't use L<POSIX> without specifying an import list
+
 =item L<Perl::Critic::Policy::Freenode::Prototypes>
 
 Don't use function prototypes
