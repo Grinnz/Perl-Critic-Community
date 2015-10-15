@@ -184,7 +184,7 @@ you expected, and is deprecated in perl v5.6.2 and throws a fatal error in perl
 v5.22.0. To check if an array or hash is non-empty, test the variable directly.
 
  if (@foo) { ... }
- if (%bar) { ... }
+ if (keys %bar) { ... }
 
 =head2 do SUBROUTINE(LIST)
 
