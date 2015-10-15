@@ -7,6 +7,7 @@ use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
 use List::Util 'any';
+use Perl::Critic::Freenode::Utils qw(is_empty_return is_structural_block);
 
 our $VERSION = '0.012';
 
@@ -29,42 +30,18 @@ sub violates {
 		my ($elem, $child) = @_;
 		# Don't search in blocks unless we know they are structural
 		if ($child->isa('PPI::Structure::Block')) {
-			return undef unless _is_structural_block($child);
+			return undef unless is_structural_block($child);
 		}
 		return 1 if $child->isa('PPI::Token::Word') and $child eq 'return';
 		return 0;
 	});
 	
 	# Return a violation for each empty return, if any non-empty return is present
-	if ($returns and any { !_is_empty_return($_) } @$returns) {
-		return map { $self->violation(DESC, EXPL, $_) } grep { _is_empty_return($_) } @$returns;
+	if ($returns and any { !is_empty_return($_) } @$returns) {
+		return map { $self->violation(DESC, EXPL, $_) } grep { is_empty_return($_) } @$returns;
 	}
 	
 	return ();
-}
-
-sub _is_empty_return {
-	my $elem = shift;
-	
-	my $next = $elem->snext_sibling || return 1;
-	return 1 if $next->isa('PPI::Token::Structure') and $next eq ';';
-	return 1 if $next->isa('PPI::Token::Word') and exists $modifiers{$next};
-	
-	return 0;
-}
-
-sub _is_structural_block {
-	my $elem = shift;
-	
-	if (my $parent = $elem->parent) {
-		if ($parent->isa('PPI::Statement::Compound') and my $first = $parent->schild(0)) {
-			return 1 if $first->isa('PPI::Token::Word') and exists $compound{$first};
-		}
-	}
-	
-	# TODO: Allow bare blocks or blocks with labels
-	
-	return 0;
 }
 
 1;

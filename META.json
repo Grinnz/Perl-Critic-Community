@@ -36,9 +36,12 @@
       },
       "runtime" : {
          "requires" : {
+            "Carp" : "0",
+            "Exporter" : "0",
             "List::Util" : "1.33",
             "Perl::Critic" : "1.126",
             "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" : "1.125",
+            "Scalar::Util" : "0",
             "parent" : "0",
             "perl" : "5.010001",
             "version" : "0"
@@ -50,12 +53,20 @@
          "file" : "lib/Perl/Critic/Freenode.pm",
          "version" : "0.012"
       },
+      "Perl::Critic::Freenode::Utils" : {
+         "file" : "lib/Perl/Critic/Freenode/Utils.pm",
+         "version" : "0.012"
+      },
       "Perl::Critic::Policy::Freenode::AmpersandSubCalls" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/AmpersandSubCalls.pm",
          "version" : "0.012"
       },
       "Perl::Critic::Policy::Freenode::BarewordFilehandles" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/BarewordFilehandles.pm",
+         "version" : "0.012"
+      },
+      "Perl::Critic::Policy::Freenode::ConditionalImplicitReturn" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/ConditionalImplicitReturn.pm",
          "version" : "0.012"
       },
       "Perl::Critic::Policy::Freenode::DeprecatedFeatures" : {

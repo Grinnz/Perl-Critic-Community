@@ -82,9 +82,12 @@ EOW
       "module_name" => "Perl::Critic::Freenode",
       "recursive_test_files" => 1,
       "requires" => {
+        "Carp" => 0,
+        "Exporter" => 0,
         "List::Util" => "1.33",
         "Perl::Critic" => "1.126",
         "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.125",
+        "Scalar::Util" => 0,
         "parent" => 0,
         "perl" => "5.010001",
         "version" => 0
