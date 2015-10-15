@@ -16,21 +16,55 @@ use constant EXPL => 'return with no arguments may return either undef or an emp
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_LOWEST }
 sub default_themes { 'freenode' }
-sub applies_to { 'PPI::Token::Word' }
+sub applies_to { 'PPI::Statement::Sub' }
 
 my %modifiers = map { ($_ => 1) } qw(if unless while until for foreach when);
+my %compound = map { ($_ => 1) } qw(if unless while until for foreach given);
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless $elem eq 'return';
 	
-	my $next = $elem->snext_sibling;
-	if (!$next or ($next->isa('PPI::Token::Structure') and $next eq ';')
-	           or ($next->isa('PPI::Token::Word') and exists $modifiers{$next})) {
-		return $self->violation(DESC, EXPL, $elem);
+	my $block = $elem->block || return ();
+	my $returns = $block->find(sub {
+		my ($elem, $child) = @_;
+		# Don't search in blocks unless we know they are structural
+		if ($child->isa('PPI::Structure::Block')) {
+			return undef unless _is_structural_block($child);
+		}
+		return 1 if $child->isa('PPI::Token::Word') and $child eq 'return';
+		return 0;
+	});
+	
+	# Return a violation for each empty return, if any non-empty return is present
+	if ($returns and any { !_is_empty_return($_) } @$returns) {
+		return map { $self->violation(DESC, EXPL, $_) } grep { _is_empty_return($_) } @$returns;
 	}
 	
 	return ();
+}
+
+sub _is_empty_return {
+	my $elem = shift;
+	
+	my $next = $elem->snext_sibling || return 1;
+	return 1 if $next->isa('PPI::Token::Structure') and $next eq ';';
+	return 1 if $next->isa('PPI::Token::Word') and exists $modifiers{$next};
+	
+	return 0;
+}
+
+sub _is_structural_block {
+	my $elem = shift;
+	
+	if (my $parent = $elem->parent) {
+		if ($parent->isa('PPI::Statement::Compound') and my $first = $parent->schild(0)) {
+			return 1 if $first->isa('PPI::Token::Word') and exists $compound{$first};
+		}
+	}
+	
+	# TODO: Allow bare blocks or blocks with labels
+	
+	return 0;
 }
 
 1;
@@ -64,6 +98,17 @@ return the appropriate value explicitly.
     two => 2,
     three => get_stuff(), # oops! function returns empty list if @things is empty
   );
+
+Empty returns are permitted by this policy if the subroutine contains no
+explicit return values, indicating it is intended to be used in void context.
+Note that while C<return ()> is functionally equivalent to an empty return, it
+is recommended for clarity in the case that a list-context return is intended.
+
+=head1 CAVEATS
+
+This policy currently only checks return statements in named subroutines,
+anonymous subroutines are not checked. Due to the complexity of code block
+syntax in Perl, this policy will miss many potential violations.
 
 =head1 AFFILIATION
 

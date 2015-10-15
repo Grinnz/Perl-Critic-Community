@@ -2,40 +2,64 @@
 ## failures 1
 ## cut
 
-return;
+sub foo { return; return $foo; }
 
 ## name BareReturn
 ## failures 1
 ## cut
 
-sub foo { return }
+sub foo { return $foo; return }
 
 ## name ReturnEmptyList
 ## failures 0
 ## cut
 
-return ();
+sub foo { return (); return ($foo, $bar); }
 
 ## name ReturnScalar
 ## failures 0
 ## cut
 
-return undef;
+sub foo { return undef; return $foo; }
 
 ## name ReturnList
 ## failures 0
 ## cut
 
-return 1, 2, 3;
+sub foo { return 1, 2, 3; return $foo; }
 
 ## name ReturnModified
 ## failures 1
 ## cut
 
-return if foo();
+sub foo { return if bar(); return $foo; }
 
 ## name ReturnMidStatement
 ## failures 1
 ## cut
 
-foo() or return;
+sub foo { bar() or return; return $foo; }
+
+## name OnlyEmptyReturn
+## failures 0
+## cut
+
+sub foo { return if bar(); return; }
+
+## name ReturnInStructure
+## failures 1
+## cut
+
+sub foo { return if bar(); if (1) { return $foo } }
+
+## name OnlyEmptyReturnInStructure
+## failures 0
+## cut
+
+sub foo { return if bar(); if (1) { return } }
+
+## name ReturnInCode
+## failures 0
+## cut
+
+sub foo { return if bar(); my $code = sub { return $foo }; }
