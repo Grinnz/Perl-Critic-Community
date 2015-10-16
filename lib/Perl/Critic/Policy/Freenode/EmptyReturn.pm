@@ -19,9 +19,6 @@ sub default_severity { $SEVERITY_LOWEST }
 sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Statement::Sub' }
 
-my %modifiers = map { ($_ => 1) } qw(if unless while until for foreach when);
-my %compound = map { ($_ => 1) } qw(if unless while until for foreach given);
-
 sub violates {
 	my ($self, $elem) = @_;
 	
