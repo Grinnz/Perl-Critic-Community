@@ -44,6 +44,10 @@ Don't use C<&> to call subroutines
 
 Don't use bareword filehandles other than built-ins
 
+=item L<Perl::Critic::Policy::Freenode::ConditionalDeclarations>
+
+Don't declare variables conditionally
+
 =item L<Perl::Critic::Policy::Freenode::ConditionalImplicitReturn>
 
 Don't end a subroutine with a conditional block

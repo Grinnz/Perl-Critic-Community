@@ -77,7 +77,7 @@ EOW
         "Dan Book <dbook\@cpan.org>"
       ],
       "dist_name" => "Perl-Critic-Freenode",
-      "dist_version" => "0.012",
+      "dist_version" => "0.013",
       "license" => "artistic_2",
       "module_name" => "Perl::Critic::Freenode",
       "recursive_test_files" => 1,
@@ -86,7 +86,8 @@ EOW
         "Exporter" => 0,
         "List::Util" => "1.33",
         "Perl::Critic" => "1.126",
-        "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.125",
+        "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.126",
+        "Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations" => "1.126",
         "Scalar::Util" => 0,
         "parent" => 0,
         "perl" => "5.010001",

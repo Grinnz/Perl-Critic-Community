@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Add ConditionalDeclarations policy
 
 0.012     2015-10-16 15:13:21 EDT
   - add IO::Socket::INET6 to discouraged modules
