@@ -34,7 +34,7 @@ my %modules = (
 		expl => 'Error.pm is overly magical and discouraged by its maintainers. Try Throwable for exception classes in Moo/Moose, or Exception::Class otherwise. Try::Tiny or Try are recommended for the try/catch syntax.',
 	},
 	'File::Slurp' => {
-		expl => 'File::Slurp gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use File::Slurp::Tiny, File::Slurper, Path::Tiny, Data::Munge, or Mojo::Util.',
+		expl => 'File::Slurp gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use File::Slurper, Path::Tiny, Data::Munge, or Mojo::Util.',
 	},
 	'Getopt::Std' => {
 		expl => 'Getopt::Std was the original very simplistic command-line option processing module. It is now obsoleted by the much more complete solution Getopt::Long, which also supports short options, and is wrapped by module such as Getopt::Long::Descriptive and Getopt::Long::Modern for simpler usage.',
@@ -146,9 +146,8 @@ syntax.
 =head2 File::Slurp
 
 L<File::Slurp> gets file encodings all wrong, line endings on win32 are messed
-up, and it was written before layers were properly added. Use
-L<File::Slurp::Tiny>, L<File::Slurper>, L<Path::Tiny/"slurp">,
-L<Data::Munge/"slurp">, or L<Mojo::Util/"slurp">.
+up, and it was written before layers were properly added. Use L<File::Slurper>,
+L<Path::Tiny/"slurp">, L<Data::Munge/"slurp">, or L<Mojo::Util/"slurp">.
 
 =head2 Getopt::Std
 
