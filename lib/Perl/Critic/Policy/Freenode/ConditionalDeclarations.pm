@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations';
 
-our $VERSION = '0.013';
+our $VERSION = '0.014';
 
 sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
