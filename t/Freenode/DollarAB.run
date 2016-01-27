@@ -29,3 +29,14 @@ push @c, [ @row{sort { $a <=> $b } keys %row } ];
 ## cut
 
 my $x = $b[1]||" ";
+
+## name AllowedFunctions
+## failures 0
+## cut
+
+sort { $a; $b } ();
+reduce { $a; $b } ();
+pairgrep { $a; $b } ();
+pairfirst { $a; $b } ();
+pairmap { $a; $b } ();
+pairwise { $a; $b } ();

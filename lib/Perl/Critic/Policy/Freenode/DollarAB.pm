@@ -11,7 +11,16 @@ our $VERSION = '0.014';
 use constant DESC => 'Using $a or $b outside sort()';
 use constant EXPL => '$a and $b are special package variables for use in sort() and related functions. Declaring them as lexicals like "my $a" may break sort(). Use different variable names.';
 
-sub supported_parameters { () }
+sub supported_parameters {
+	(
+		{
+			name        => 'extra_pair_functions',
+			description => 'Non-standard functions in which to allow $a and $b',
+			behavior    => 'string list',
+		},
+	)
+}
+
 sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Token::Symbol' }
@@ -22,11 +31,14 @@ my %sorters = (
 	pairgrep  => 1,
 	pairfirst => 1,
 	pairmap   => 1,
+	pairwise  => 1,
 );
 
 sub violates {
 	my ($self, $elem) = @_;
 	return () unless $elem->symbol eq '$a' or $elem->symbol eq '$b';
+	
+	$sorters{$_} = 1 foreach keys %{$self->{_extra_pair_functions}};
 	
 	my $name = $self->_find_sorter($elem);
 	return $self->violation(DESC, EXPL, $elem) unless exists $sorters{$name};
@@ -78,7 +90,11 @@ This policy is part of L<Perl::Critic::Freenode>.
 
 =head1 CONFIGURATION
 
-This policy is not configurable except for the standard options.
+This policy can be configured to allow C<$a> and C<$b> in additional functions,
+by putting an entry in a C<.perlcriticrc> file like this:
+
+  [Freenode::DollarAB]
+  extra_pair_functions = pairfoo pairbar
 
 =head1 AUTHOR
 

@@ -1,4 +1,6 @@
 {{$NEXT}}
+  - allow pairwise in DollarAB policy
+  - allow DollarAB pair functions to be extended
 
 0.013     2015-12-17 18:07:03 EST
   - Add ConditionalDeclarations policy
