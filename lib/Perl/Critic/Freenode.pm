@@ -16,6 +16,10 @@ freenode IRC
 
   $ perlcritic --theme freenode script.pl
   $ perlcritic --theme freenode lib/
+  
+  # .perlcriticrc
+  theme = freenode
+  severity = 1
 
 =head1 DESCRIPTION
 
