@@ -44,6 +44,10 @@ announcing their participation in this grouping.
 
 Don't use C<&> to call subroutines
 
+=item L<Perl::Critic::Policy::Freenode::ArrayAssignAref>
+
+Don't assign an anonymous arrayref to an array
+
 =item L<Perl::Critic::Policy::Freenode::BarewordFilehandles>
 
 Don't use bareword filehandles other than built-ins

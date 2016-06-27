@@ -9,6 +9,10 @@ freenode IRC
 
   $ perlcritic --theme freenode script.pl
   $ perlcritic --theme freenode lib/
+  
+  # .perlcriticrc
+  theme = freenode
+  severity = 1
 
 =head1 DESCRIPTION
 
@@ -32,6 +36,10 @@ announcing their participation in this grouping.
 =item L<Perl::Critic::Policy::Freenode::AmpersandSubCalls>
 
 Don't use C<&> to call subroutines
+
+=item L<Perl::Critic::Policy::Freenode::ArrayAssignAref>
+
+Don't assign an anonymous arrayref to an array
 
 =item L<Perl::Critic::Policy::Freenode::BarewordFilehandles>
 

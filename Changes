@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - add ArrayAssignAref policy
 
 0.014     2016-01-26 20:45:18 EST
   - allow pairwise in DollarAB policy
