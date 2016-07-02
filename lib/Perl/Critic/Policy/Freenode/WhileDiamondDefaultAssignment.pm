@@ -8,8 +8,8 @@ use parent 'Perl::Critic::Policy';
 
 our $VERSION = '0.016';
 
-use constant DESC => '<>/readline/readdir/each result not explicitly assigned in while condition';
-use constant EXPL => 'When used alone in a while condition, the <> operator, readline, readdir, and each functions assign their result to $_, but do not localize it. Assign the result to an explicit lexical variable instead (my $line = <...>, my $dir = readdir ...)';
+use constant DESC => '<>/<<>>/readline/readdir/each result not explicitly assigned in while condition';
+use constant EXPL => 'When used alone in a while condition, the <>/<<>> operator, readline, readdir, and each functions assign their result to $_, but do not localize it. Assign the result to an explicit lexical variable instead (my $line = <...>, my $dir = readdir ...)';
 
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_HIGH }
@@ -36,9 +36,12 @@ sub violates {
 		my $middle = $statements[1];
 		return $self->violation(DESC, EXPL, $elem) if $middle->schildren
 			and $middle->schild(0)->isa('PPI::Token::QuoteLike::Readline');
+		# PPI parses double angle brackets as two shift operators
+		return $self->violation(DESC, EXPL, $elem) if $middle->schildren
+			and $middle->schild(0) eq '<<' and $middle->schild(1) eq '>>';
 		# Hack because PPI parses this case weirdly
 		return $self->violation(DESC, EXPL, $elem) if $middle->schildren >= 3
-			and $middle->schild(0) eq '<' and $middle->schild(1)->isa('PPI::Token') and $middle->schild(2) eq '>';
+			and $middle->schild(0) =~ m/\A<<?\z/ and $middle->schild(1)->isa('PPI::Token') and $middle->schild(2) =~ m/\A>>?\z/;;
 	} elsif ($elem eq 'while') {
 		# while (<>) {} or ... while <>
 		if ($next->isa('PPI::Structure::Condition')) {
@@ -49,6 +52,12 @@ sub violates {
 		}
 		
 		return $self->violation(DESC, EXPL, $elem) if $next->isa('PPI::Token::QuoteLike::Readline');
+		# PPI parses double angle brackets as two shift operators
+		if ($next eq '<<') {
+			my $closing = $next->snext_sibling;
+			$closing = $closing->snext_sibling if defined $closing and $closing ne '>>';
+			return $self->violation(DESC, EXPL, $elem) if defined $closing and $closing eq '>>';
+		}
 		if ($next->isa('PPI::Token::Word') and exists $bad_functions{$next} and is_function_call $next) {
 			return $self->violation(DESC, EXPL, $elem);
 		}
@@ -66,21 +75,24 @@ with implicit assignment to $_
 
 =head1 DESCRIPTION
 
-The diamond operator C<E<lt>E<gt>>, and functions C<readline()>, C<readdir()>,
-and C<each()> are extra magical in a while condition: if it is the only thing
-in the condition, it will assign its result to C<$_>, but it does not localize
-C<$_> to the while loop. (Note, this also applies to a C<for (;E<lt>E<gt>;)>
-construct.) This can unintentionally confuse outer loops that are already using
-C<$_> to iterate. To avoid this possibility, assign the result of the diamond
-operator or these functions to an explicit lexical variable.
+The diamond operator C<E<lt>E<gt>> (or C<E<lt>E<lt>E<gt>E<gt>>), and functions
+C<readline()>, C<readdir()>, and C<each()> are extra magical in a while
+condition: if it is the only thing in the condition, it will assign its result
+to C<$_>, but it does not localize C<$_> to the while loop. (Note, this also
+applies to a C<for (;E<lt>E<gt>;)> construct.) This can unintentionally confuse
+outer loops that are already using C<$_> to iterate. To avoid this possibility,
+assign the result of the diamond operator or these functions to an explicit
+lexical variable.
 
   while (<$fh>) { ... }                   # not ok
+  while (<<>>) { ... }                    # not ok
   ... while <STDIN>;                      # not ok
   for (;<>;) { ... }                      # not ok
   while (readline $fh) { ... }            # not ok
   while (readdir $dh) { ... }             # not ok
 
   while (my $line = <$fh>) { ... }        # ok
+  while (my $line = <<>>) { ... }         # ok
   ... while $line = <STDIN>;              # ok
   for (;my $line = <>;) { ... }           # ok
   while (my $line = readline $fh) { ... } # ok

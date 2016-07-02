@@ -1,23 +1,26 @@
 ## name DefaultAssignment
-## failures 2
+## failures 3
 ## cut
 
 while (<$fh>) {}
 while (<DATA>) {}
+while (<<>>) {}
 
 ## name DefaultAssignmentModifier
-## failures 2
+## failures 3
 ## cut
 
 1 while <$fh>;
 1 while <DATA>;
+1 while <<>>;
 
 ## name DefaultAssignmentFor
-## failures 2
+## failures 3
 ## cut
 
 for (;<$fh>;) {}
 for (;<DATA>;) {}
+for (;<<>>;) {}
 
 ## name DefaultAssignmentReadline
 ## failures 8
@@ -64,6 +67,9 @@ for (;my $line = <$fh>;) {}
 while (my $line = <DATA>) {}
 for (;my $line = <DATA>;) {}
 1 while $line = <DATA>;
+while (my $line = <<>>) {}
+for (;my $line = <<>>;) {}
+1 while $line = <<>>;
 while (my $line = readline $fh) {}
 while (my $line = readline($fh)) {}
 1 while $line = readline $fh;

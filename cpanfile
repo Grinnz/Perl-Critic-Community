@@ -9,3 +9,7 @@ requires 'Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref' =
 requires 'Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations'    => '1.126';
 requires 'Scalar::Util';
 requires 'version';
+
+on 'develop' => sub {
+	suggests 'App::PPI::Dumper';
+};
