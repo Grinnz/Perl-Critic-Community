@@ -37,7 +37,7 @@ sub violates {
 		return $self->violation(DESC, EXPL, $elem) if $middle->schildren
 			and $middle->schild(0)->isa('PPI::Token::QuoteLike::Readline');
 		# PPI parses double angle brackets as two shift operators
-		return $self->violation(DESC, EXPL, $elem) if $middle->schildren
+		return $self->violation(DESC, EXPL, $elem) if $middle->schildren >= 2
 			and $middle->schild(0) eq '<<' and $middle->schild(1) eq '>>';
 		# Hack because PPI parses this case weirdly
 		return $self->violation(DESC, EXPL, $elem) if $middle->schildren >= 3
