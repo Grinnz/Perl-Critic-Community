@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+0.015     2016-07-02 03:20:35 EDT
   - add ArrayAssignAref policy
   - update DeprecatedFeatures policy with features deprecated in 5.22 and to be removed in 5.26
 
