@@ -6,7 +6,7 @@ use Carp 'croak';
 use Exporter 'import';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.016';
+our $VERSION = '0.017';
 
 our @EXPORT_OK = qw(is_empty_return is_structural_block);
 
