@@ -86,7 +86,7 @@ sub violates {
 			# :=
 			if ($elem eq ':' and $next = $elem->next_sibling and $next->isa('PPI::Token::Operator') and $next eq '=') {
 				push @violations, $self->_violation(':=', $elem);
-			# ?PATTERN?
+			# ?PATTERN? - PPI parses this as multiple ? operators
 			} elsif ($elem eq '?' and $parent = $elem->parent and $parent->isa('PPI::Statement')) {
 				$next = $elem->snext_sibling;
 				until (!$next or ($next->isa('PPI::Token::Operator') and $next eq '?')) {
