@@ -31,17 +31,20 @@ defined &foo;
 foo ? bar ? 'foo' : 'bar' : 'baz';
 foo ? bar ? foo : bar : baz;
 $foo =~ m?foo?;
+$foo =~ s?foo?bar?;
 $foo =~ m/foo/x;
 $foo =~ s/foo/bar/x;
 qr/foo/x;
 "\N{FOO BAR}";
+`\N{FOO BAR}`;
+qx(\N{FOO BAR});
 qq{\N{FOO BAR}};
 qr/\N{FOO BAR}/;
-m/\N{FOO BAR}/;
-s/\N{FOO BAR}//;
+m'\N{FOO BAR}';
+s{\N{FOO BAR}}{};
 
 ## name BadFeatures
-## failures 31
+## failures 33
 ## cut
 
 $[ = 1;
@@ -73,10 +76,20 @@ $foo =~ m/foo/xx;
 $foo =~ s/foo/bar/xx;
 qr/foo/xx;
 "\N{FOO BAR}";
+`\N{FOO BAR}`;
 qq{\N{FOO BAR}};
-qr/\N{FOO BAR}/;
-m/\N{FOO BAR}/;
+qx(\N{FOO BAR});
+qr^\N{FOO BAR}^;
+m<\N{FOO BAR}>;
 s/\N{FOO BAR}//;
+
+## name MultipleBadFeatures
+## failures 6
+## cut
+
+qr!\N{FOO BAR}!xx;
+m,\N{FOO BAR},axbxc;
+s[\N{FOO BAR}][]xxx;
 
 ## name POSIXDeprecations
 ## failures 12

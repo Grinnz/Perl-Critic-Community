@@ -67,24 +67,25 @@ sub violates {
 	my $next;
 	my $parent;
 	my @args;
+	my @violations;
 	if ($elem->isa('PPI::Statement')) {
 		# use UNIVERSAL ...;
 		if ($elem->isa('PPI::Statement::Include')) {
 			if ($elem->type eq 'use' and $elem->module eq 'UNIVERSAL' and @args = $elem->arguments
 		        and (!$args[0]->isa('PPI::Structure::List') or $args[0]->schildren)) {
-				return $self->_violation('UNIVERSAL->import()', $elem);
+				push @violations, $self->_violation('UNIVERSAL->import()', $elem);
 			}
 		}
 	} elsif ($elem->isa('PPI::Token')) {
 		if ($elem->isa('PPI::Token::Symbol')) {
 			# $[
 			if ($elem eq '$[') {
-				return $self->_violation('$[', $elem);
+				push @violations, $self->_violation('$[', $elem);
 			}
 		} elsif ($elem->isa('PPI::Token::Operator')) {
 			# :=
 			if ($elem eq ':' and $next = $elem->next_sibling and $next->isa('PPI::Token::Operator') and $next eq '=') {
-				return $self->_violation(':=', $elem);
+				push @violations, $self->_violation(':=', $elem);
 			# ?PATTERN?
 			} elsif ($elem eq '?' and $parent = $elem->parent and $parent->isa('PPI::Statement')) {
 				$next = $elem->snext_sibling;
@@ -94,7 +95,7 @@ sub violates {
 				# If the statement has a : operator, this is probably a ternary operator.
 				# PPI also tends to detect the : as a loop label.
 				if ($next and none { ($_->isa('PPI::Token::Operator') and $_ eq ':') or $_->isa('PPI::Token::Label') } $parent->schildren) {
-					return $self->_violation('?PATTERN?', $elem);
+					push @violations, $self->_violation('?PATTERN?', $elem);
 				}
 			}
 		} elsif ($elem->isa('PPI::Token::Word')) {
@@ -102,7 +103,7 @@ sub violates {
 			if ($elem eq 'UNIVERSAL'
 		        and $next = $elem->snext_sibling and $next->isa('PPI::Token::Operator') and $next eq '->'
 		        and $next = $next->snext_sibling and $next->isa('PPI::Token::Word') and $next eq 'import') {
-				return $self->_violation('UNIVERSAL->import()', $next);
+				push @violations, $self->_violation('UNIVERSAL->import()', $next);
 			# for $x qw(...)
 			} elsif (($elem eq 'for' or $elem eq 'foreach') and !$elem->sprevious_sibling) {
 				$next = $elem->snext_sibling;
@@ -111,14 +112,14 @@ sub violates {
 					$next = $next->snext_sibling;
 				}
 				if ($next and $next->isa('PPI::Token::QuoteLike::Words')) {
-					return $self->_violation('qw(...) as parentheses', $next);
+					push @violations, $self->_violation('qw(...) as parentheses', $next);
 				}
 			# do SUBROUTINE(LIST)
 			} elsif ($elem eq 'do' and $next = $elem->snext_sibling) {
 				if ((($next->isa('PPI::Token::Word') and is_function_call $next)
 				    or ($next->isa('PPI::Token::Symbol') and ($next->raw_type eq '&' or $next->raw_type eq '$')))
 				    and ($next = $next->snext_sibling and $next->isa('PPI::Structure::List'))) {
-					return $self->_violation('do SUBROUTINE(LIST)', $elem);
+					push @violations, $self->_violation('do SUBROUTINE(LIST)', $elem);
 				}
 			# POSIX character function or POSIX::tmpnam()
 			} elsif (exists $posix_deprecated{$elem} or $elem eq 'tmpnam' or $elem eq 'POSIX::tmpnam') {
@@ -132,8 +133,8 @@ sub violates {
 					}
 				}
 				if ($is_posix) {
-					return $self->_violation('POSIX::tmpnam()', $elem) if $function_name eq 'tmpnam';
-					return $self->_violation('POSIX character function', $elem);
+					push @violations, $self->_violation('POSIX::tmpnam()', $elem) if $function_name eq 'tmpnam';
+					push @violations, $self->_violation('POSIX character function', $elem) if exists $posix_deprecated{$elem};
 				}
 			# defined array/hash
 			} elsif ($elem eq 'defined' and $next = $elem->snext_sibling) {
@@ -141,39 +142,61 @@ sub violates {
 				if ($next and $next->isa('PPI::Token::Symbol')
 				    and ($next->raw_type eq '@' or $next->raw_type eq '%')
 				    and $next->raw_type eq $next->symbol_type) {
-					return $self->_violation('defined on array/hash', $elem);
+					push @violations, $self->_violation('defined on array/hash', $elem);
 				}
 			}
 		} elsif ($elem->isa('PPI::Token::Regexp')) {
 			# ?PATTERN?
-			if ($elem->isa('PPI::Token::Regexp::Match') and ($elem->get_delimiters)[0] eq '?' and $elem !~ m/^m/) {
-				return $self->_violation('?PATTERN?', $elem);
-			# m//xx and s///xx
-			# get_modifiers puts the modifiers in a hash, so we can't tell if we get multiple
-			} elsif (!$elem->isa('PPI::Token::Regexp::Transliterate') and $elem =~ m!x[^/]*x[^/]*$!) {
-				return $self->_violation('qr//xx', $elem);
-			# NBSP in \N{...}
-			} elsif (!$elem->isa('PPI::Token::Regexp::Transliterate') and $elem->get_match_string =~ m/\\N\{[^}]*\x{a0}[^}]*\}/) {
-				return $self->_violation('NBSP in \\N{...}', $elem);
+			if ($elem->isa('PPI::Token::Regexp::Match') and ($elem->get_delimiters)[0] eq '??' and $elem !~ m/^m/) {
+				push @violations, $self->_violation('?PATTERN?', $elem);
+			}
+			if (!$elem->isa('PPI::Token::Regexp::Transliterate')) {
+				push @violations, $self->_violates_regex($elem);
+				push @violations, $self->_violates_interpolated($elem);
 			}
 		} elsif ($elem->isa('PPI::Token::QuoteLike')) {
-			# qr//xx
-			# get_modifiers puts the modifiers in a hash, so we can't tell if we get multiple
-			if ($elem->isa('PPI::Token::QuoteLike::Regexp') and $elem =~ m!x[^/]*x[^/]*$!) {
-				return $self->_violation('qr//xx', $elem);
-			# NBSP in \N{...}
-			} elsif ($elem->isa('PPI::Token::QuoteLike::Regexp') and $elem->get_match_string =~ m/\\N\{[^}]*\x{a0}[^}]*\}/) {
-				return $self->_violation('NBSP in \\N{...}', $elem);
+			if ($elem->isa('PPI::Token::QuoteLike::Regexp')) {
+				push @violations, $self->_violates_regex($elem);
+			}
+			if ($elem->isa('PPI::Token::QuoteLike::Regexp') or $elem->isa('PPI::Token::QuoteLike::Backtick') or $elem->isa('PPI::Token::QuoteLike::Command')) {
+				push @violations, $self->_violates_interpolated($elem);
 			}
 		} elsif ($elem->isa('PPI::Token::Quote')) {
-			# NBSP in \N{...}
-			if (($elem->isa('PPI::Token::Quote::Double') or $elem->isa('PPI::Token::Quote::Interpolate'))
-			    and $elem->string =~ m/\\N\{[^}]*\x{a0}[^}]*\}/) {
-				return $self->_violation('NBSP in \\N{...}', $elem);
+			if ($elem->isa('PPI::Token::Quote::Double') or $elem->isa('PPI::Token::Quote::Interpolate')) {
+				push @violations, $self->_violates_interpolated($elem);
 			}
 		}
 	}
-	return ();
+	return @violations;
+}
+
+sub _violates_regex {
+	my ($self, $elem) = @_;
+	my @violations;
+	# qr//xx
+	# get_modifiers puts the modifiers in a hash, so we need to parse the modifiers ourselves
+	my ($delim_first, $delim_second) = $elem->get_delimiters;
+	my $ending_delim = quotemeta substr +($delim_second // $delim_first), 1, 1;
+	(my $modifiers = $elem) =~ s/^.*$ending_delim//s;
+	push @violations, $self->_violation('qr//xx', $elem) if $modifiers =~ m/x.*x/s;
+	return @violations;
+}
+
+sub _violates_interpolated {
+	my ($self, $elem) = @_;
+	my @violations;
+	# NBSP in \N{...}
+	my $contents;
+	if ($elem->isa('PPI::Token::Regexp') or $elem->isa('PPI::Token::QuoteLike::Regexp')) {
+		$contents = $elem->get_match_string;
+	} elsif ($elem->isa('PPI::Token::Quote')) {
+		$contents = $elem->string;
+	} else {
+		# Backticks and qx elements have no contents method
+		$contents = $elem;
+	}
+	push @violations, $self->_violation('NBSP in \\N{...}', $elem) if $contents =~ m/\\N\{[^}]*\x{a0}[^}]*\}/;
+	return @violations;
 }
 
 1;
