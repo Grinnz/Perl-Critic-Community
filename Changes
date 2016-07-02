@@ -1,5 +1,6 @@
 {{$NEXT}}
   - add ArrayAssignAref policy
+  - update DeprecatedFeatures policy with features deprecated in 5.22 and to be removed in 5.26
 
 0.014     2016-01-26 20:45:18 EST
   - allow pairwise in DollarAB policy

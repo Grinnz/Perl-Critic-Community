@@ -31,8 +31,17 @@ my %features = (
 	'do SUBROUTINE(LIST)' => {
 		expl => 'Use of do to call a subroutine is deprecated in perl 5.',
 	},
+	'NBSP in \\N{...}' => {
+		expl => 'Use of the "no-break space" character in character names is deprecated in perl v5.22.0.',
+	},
 	'POSIX character function' => {
 		expl => 'Several character matching functions in POSIX.pm are deprecated in perl v5.20.0: isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, and isxdigit. Regular expressions are a more portable and correct way to test character strings.',
+	},
+	'POSIX::tmpnam()' => {
+		expl => 'The tmpnam() function from POSIX is deprecated in perl v5.22.0. Use File::Temp instead.',
+	},
+	'qr//xx' => {
+		expl => 'Use of multiple /x regular expression pattern modifiers is deprecated in perl v5.22.0.',
 	},
 	'qw(...) as parentheses' => {
 		expl => 'Use of qw(...) as parentheses is deprecated in perl v5.14.0. Wrap the list in literal parentheses when required, such as in a foreach loop.',
@@ -42,7 +51,7 @@ my %features = (
 	},
 );
 
-my %posix_deprecated = map { ($_ => 1) }
+my %posix_deprecated = map { ($_ => 1, "POSIX::$_" => 1) }
 	qw(isalnum isalpha iscntrl isdigit isgraph islower isprint ispunct isspace isupper isxdigit);
 
 sub _violation {
@@ -111,10 +120,19 @@ sub violates {
 				    and ($next = $next->snext_sibling and $next->isa('PPI::Structure::List'))) {
 					return $self->_violation('do SUBROUTINE(LIST)', $elem);
 				}
-			# POSIX character function
-			} elsif (exists $posix_deprecated{$elem}) {
-				my $includes = $elem->document->find('PPI::Statement::Include') || [];
-				if (any { ($_->module // '') eq 'POSIX' } @$includes) {
+			# POSIX character function or POSIX::tmpnam()
+			} elsif (exists $posix_deprecated{$elem} or $elem eq 'tmpnam' or $elem eq 'POSIX::tmpnam') {
+				my $is_posix = $elem =~ m/^POSIX::/ ? 1 : 0;
+				(my $function_name = $elem) =~ s/^POSIX:://;
+				unless ($is_posix) {
+					my $includes = $elem->document->find('PPI::Statement::Include') || [];
+					foreach my $stmt (grep { ($_->module // '') eq 'POSIX' } @$includes) {
+						my @args = $stmt->arguments;
+						$is_posix = 1 if !@args or any { $_ =~ m/\b\Q$function_name\E\b/ } @args;
+					}
+				}
+				if ($is_posix) {
+					return $self->_violation('POSIX::tmpnam()', $elem) if $function_name eq 'tmpnam';
 					return $self->_violation('POSIX character function', $elem);
 				}
 			# defined array/hash
@@ -130,6 +148,28 @@ sub violates {
 			# ?PATTERN?
 			if ($elem->isa('PPI::Token::Regexp::Match') and ($elem->get_delimiters)[0] eq '?' and $elem !~ m/^m/) {
 				return $self->_violation('?PATTERN?', $elem);
+			# m//xx and s///xx
+			# get_modifiers puts the modifiers in a hash, so we can't tell if we get multiple
+			} elsif (!$elem->isa('PPI::Token::Regexp::Transliterate') and $elem =~ m!x[^/]*x[^/]*$!) {
+				return $self->_violation('qr//xx', $elem);
+			# NBSP in \N{...}
+			} elsif (!$elem->isa('PPI::Token::Regexp::Transliterate') and $elem->get_match_string =~ m/\\N\{[^}]*\x{a0}[^}]*\}/) {
+				return $self->_violation('NBSP in \\N{...}', $elem);
+			}
+		} elsif ($elem->isa('PPI::Token::QuoteLike')) {
+			# qr//xx
+			# get_modifiers puts the modifiers in a hash, so we can't tell if we get multiple
+			if ($elem->isa('PPI::Token::QuoteLike::Regexp') and $elem =~ m!x[^/]*x[^/]*$!) {
+				return $self->_violation('qr//xx', $elem);
+			# NBSP in \N{...}
+			} elsif ($elem->isa('PPI::Token::QuoteLike::Regexp') and $elem->get_match_string =~ m/\\N\{[^}]*\x{a0}[^}]*\}/) {
+				return $self->_violation('NBSP in \\N{...}', $elem);
+			}
+		} elsif ($elem->isa('PPI::Token::Quote')) {
+			# NBSP in \N{...}
+			if (($elem->isa('PPI::Token::Quote::Double') or $elem->isa('PPI::Token::Quote::Interpolate'))
+			    and $elem->string =~ m/\\N\{[^}]*\x{a0}[^}]*\}/) {
+				return $self->_violation('NBSP in \\N{...}', $elem);
 			}
 		}
 	}
@@ -191,6 +231,11 @@ v5.22.0. To check if an array or hash is non-empty, test if it has elements.
 This form of C<do> to call a subroutine has been deprecated since perl 5, and
 is removed in perl v5.20.0.
 
+=head2 NBSP in \N{...}
+
+Use of the "no-break space" character in L<character names|charnames> is
+deprecated in perl v5.22.0 and an error in perl v5.26.0.
+
 =head2 POSIX character functions
 
 Several character matching functions in L<POSIX>.pm are deprecated in perl
@@ -198,6 +243,17 @@ v5.20.0. See the L<POSIX> documentation for more details. Most uses of these
 functions can be replaced with appropriate regex matches.
 
  isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, issuper, isxdigit
+
+=head2 POSIX::tmpnam()
+
+The C<tmpnam()> function from L<POSIX>.pm is deprecated in perl v5.22.0 and
+removed in perl v5.26.0. Use L<File::Temp> instead.
+
+=head2 qr//xx
+
+Use of multiple C</x> regular expression pattern modifiers on a single pattern
+is deprecated in perl v5.22.0 and an error in perl v5.26.0. This syntax
+previously had no extra effect.
 
 =head2 qw(...) as parentheses
 

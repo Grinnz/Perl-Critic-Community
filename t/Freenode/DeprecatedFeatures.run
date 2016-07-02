@@ -6,6 +6,7 @@ my $x : Foo = 1;
 use UNIVERSAL;
 use UNIVERSAL ();
 UNIVERSAL->can('foo');
+use POSIX ();
 for my $foo (qw(foo bar)) { ... }
 1 for qw(foo bar);
 do { ... };
@@ -22,6 +23,7 @@ ispunct $foo;
 isspace $foo;
 isupper $foo;
 isxdigit $foo;
+tmpnam $foo;
 defined $foo;
 defined $foo[0];
 defined $foo{bar};
@@ -29,9 +31,17 @@ defined &foo;
 foo ? bar ? 'foo' : 'bar' : 'baz';
 foo ? bar ? foo : bar : baz;
 $foo =~ m?foo?;
+$foo =~ m/foo/x;
+$foo =~ s/foo/bar/x;
+qr/foo/x;
+"\N{FOO BAR}";
+qq{\N{FOO BAR}};
+qr/\N{FOO BAR}/;
+m/\N{FOO BAR}/;
+s/\N{FOO BAR}//;
 
 ## name BadFeatures
-## failures 11
+## failures 31
 ## cut
 
 $[ = 1;
@@ -42,14 +52,34 @@ for my $foo qw(foo bar) { ... }
 do foo(...);
 do &foo(...);
 do $foo(...);
+POSIX::isalnum($foo);
+POSIX::isalpha($foo);
+POSIX::iscntrl($foo);
+POSIX::isdigit($foo);
+POSIX::isgraph($foo);
+POSIX::islower($foo);
+POSIX::isprint($foo);
+POSIX::ispunct($foo);
+POSIX::isspace($foo);
+POSIX::isupper($foo);
+POSIX::isxdigit($foo);
+POSIX::tmpnam($foo);
 defined @foo;
 defined %foo;
 defined(@foo);
 defined(%foo);
 $foo =~ ?foo?;
+$foo =~ m/foo/xx;
+$foo =~ s/foo/bar/xx;
+qr/foo/xx;
+"\N{FOO BAR}";
+qq{\N{FOO BAR}};
+qr/\N{FOO BAR}/;
+m/\N{FOO BAR}/;
+s/\N{FOO BAR}//;
 
 ## name POSIXDeprecations
-## failures 11
+## failures 12
 ## cut
 
 use POSIX;
@@ -64,3 +94,22 @@ ispunct $foo;
 isspace $foo;
 isupper $foo;
 isxdigit $foo;
+tmpnam $foo;
+
+## name POSIXDeprecationsImported
+## failures 12
+## cut
+
+use POSIX qw(isalnum isalpha iscntrl isdigit isgraph islower isprint ispunct isspace isupper isxdigit tmpnam);
+isalnum $foo;
+isalpha $foo;
+iscntrl $foo;
+isdigit $foo;
+isgraph $foo;
+islower $foo;
+isprint $foo;
+ispunct $foo;
+isspace $foo;
+isupper $foo;
+isxdigit $foo;
+tmpnam $foo;
