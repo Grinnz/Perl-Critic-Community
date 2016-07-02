@@ -1,5 +1,8 @@
 {{$NEXT}}
+
+0.016     2016-07-02 17:53:20 EDT
   - Support <<>> operator in WhileDiamondDefaultAssignment policy
+  - Fixes for DeprecatedFeatures checking of /xx violations
 
 0.015     2016-07-02 03:20:35 EDT
   - add ArrayAssignAref policy
