@@ -57,7 +57,7 @@ my %modules = (
 		expl => 'JSON::XS\'s author refuses to use public bugtracking and actively breaks interoperability. Cpanel::JSON::XS is a fork with several bugfixes and a more collaborative maintainer. See also JSON::MaybeXS.',
 	},
 	'List::MoreUtils' => {
-		expl => 'List::MoreUtils is a far more complex distribution than it needs to be. See List::Util or List::UtilsBy for better options.',
+		expl => 'List::MoreUtils is a far more complex distribution than it needs to be. Use List::SomeUtils instead, or see List::Util or List::UtilsBy for alternatives.',
 		severity => $SEVERITY_LOW,
 	},
 	'Mouse' => {
@@ -186,8 +186,9 @@ more collaborative maintainer. See also L<JSON::MaybeXS>.
 
 =head2 List::MoreUtils
 
-L<List::MoreUtils> is a far more complex distribution than it needs to be. See
-L<List::Util> or L<List::UtilsBy> for better options.
+L<List::MoreUtils> is a far more complex distribution than it needs to be. Use
+L<List::SomeUtils> instead, or see L<List::Util> or L<List::UtilsBy> for
+alternatives.
 
 =head2 Mouse
 
