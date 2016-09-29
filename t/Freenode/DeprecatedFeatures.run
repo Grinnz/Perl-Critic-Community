@@ -3,7 +3,6 @@
 ## cut
 
 my $x : Foo = 1;
-use UNIVERSAL;
 use UNIVERSAL ();
 UNIVERSAL->can('foo');
 use POSIX ();
@@ -44,12 +43,13 @@ m'\N{FOO BAR}';
 s{\N{FOO BAR}}{};
 
 ## name BadFeatures
-## failures 33
+## failures 34
 ## cut
 
 $[ = 1;
 my $x := 1;
 UNIVERSAL->import;
+use UNIVERSAL;
 use UNIVERSAL 'foo';
 for my $foo qw(foo bar) { ... }
 do foo(...);

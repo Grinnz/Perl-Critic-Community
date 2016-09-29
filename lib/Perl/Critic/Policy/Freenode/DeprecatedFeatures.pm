@@ -71,9 +71,11 @@ sub violates {
 	if ($elem->isa('PPI::Statement')) {
 		# use UNIVERSAL ...;
 		if ($elem->isa('PPI::Statement::Include')) {
-			if ($elem->type eq 'use' and $elem->module eq 'UNIVERSAL' and @args = $elem->arguments
-		        and (!$args[0]->isa('PPI::Structure::List') or $args[0]->schildren)) {
-				push @violations, $self->_violation('UNIVERSAL->import()', $elem);
+			if ($elem->type eq 'use' and $elem->module eq 'UNIVERSAL') {
+				my @args = $elem->arguments;
+				if (!@args or !$args[0]->isa('PPI::Structure::List') or $args[0]->schildren) {
+					push @violations, $self->_violation('UNIVERSAL->import()', $elem);
+				}
 			}
 		}
 	} elsif ($elem->isa('PPI::Token')) {
@@ -289,7 +291,8 @@ literal in parentheses: C<for my $foo (qw(...)) { ... }>.
 
 The method C<< UNIVERSAL->import() >> and similarly passing import arguments to
 C<use UNIVERSAL> is deprecated in perl v5.12.0 and throws a fatal error in perl
-v5.22.0.
+v5.22.0. Calling C<use UNIVERSAL> with no arguments is not an error, but serves
+no purpose.
 
 =head1 AFFILIATION
 
