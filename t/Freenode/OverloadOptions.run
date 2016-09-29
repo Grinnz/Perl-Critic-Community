@@ -20,6 +20,13 @@ use overload ('""', sub { $_[0]->name }), qw(fallback 1);
 use overload '""' => sub { $_[0]->name }, bool => sub {1};
 use overload (q{""}, sub { $_[0]->name }, "bool", sub {1});
 
+## name UndefFallback
+## failures 2
+## cut
+
+use overload bool => sub {1}, fallback => undef;
+use overload bool => sub {1}, 'fallback';
+
 ## name NoBoolOrFallback
 ## failures 2
 ## cut
