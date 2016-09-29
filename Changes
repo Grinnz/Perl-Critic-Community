@@ -1,5 +1,6 @@
 {{$NEXT}}
   - DeprecatedFeatures will now consider "use UNIVERSAL;" a policy violation
+  - Add OverloadOptions policy
 
 0.016     2016-07-02 17:53:20 EDT
   - Support <<>> operator in WhileDiamondDefaultAssignment policy
