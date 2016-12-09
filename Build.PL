@@ -93,6 +93,7 @@ EOW
         "Exporter" => 0,
         "List::Util" => "1.33",
         "Perl::Critic" => "1.126",
+        "Perl::Critic::Policy::Objects::ProhibitIndirectSyntax" => "1.126",
         "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" => "1.126",
         "Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref" => 90,
         "Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations" => "1.126",

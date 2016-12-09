@@ -73,6 +73,10 @@ Don't use C<each()> to iterate through a hash
 
 Don't use C<return> with no arguments
 
+=item L<Perl::Critic::Policy::Freenode::IndirectObjectNotation>
+
+Don't call methods indirectly
+
 =item L<Perl::Critic::Policy::Freenode::ModPerl>
 
 Don't use C<mod_perl> to write web applications

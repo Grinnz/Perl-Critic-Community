@@ -43,6 +43,7 @@
             "Exporter" : "0",
             "List::Util" : "1.33",
             "Perl::Critic" : "1.126",
+            "Perl::Critic::Policy::Objects::ProhibitIndirectSyntax" : "1.126",
             "Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils" : "1.126",
             "Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref" : "90",
             "Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations" : "1.126",
@@ -110,6 +111,10 @@
       },
       "Perl::Critic::Policy::Freenode::EmptyReturn" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/EmptyReturn.pm",
+         "version" : "0.018"
+      },
+      "Perl::Critic::Policy::Freenode::IndirectObjectNotation" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/IndirectObjectNotation.pm",
          "version" : "0.018"
       },
       "Perl::Critic::Policy::Freenode::ModPerl" : {
