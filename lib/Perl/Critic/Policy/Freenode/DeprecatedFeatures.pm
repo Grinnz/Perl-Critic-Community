@@ -25,6 +25,9 @@ my %features = (
 	'?PATTERN?' => {
 		expl => 'Use of ? as a match regex delimiter without an initial m is deprecated in perl v5.14.0. Use m?PATTERN? instead.',
 	},
+	'autoderef' => {
+		expl => 'Use of each/keys/pop/push/shift/splice/unshift/values on a reference is an experimental feature that is removed in perl v5.24.0. Dereference the array or hash to use these functions on it.',
+	},
 	'defined on array/hash' => {
 		expl => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
 	},
@@ -53,6 +56,9 @@ my %features = (
 
 my %posix_deprecated = map { ($_ => 1, "POSIX::$_" => 1) }
 	qw(isalnum isalpha iscntrl isdigit isgraph islower isprint ispunct isspace isupper isxdigit);
+
+my %autoderef_functions = map { ($_ => 1) }
+	qw(each keys pop push shift splice unshift values);
 
 sub _violation {
 	my ($self, $feature, $elem) = @_;
@@ -145,6 +151,29 @@ sub violates {
 				    and ($next->raw_type eq '@' or $next->raw_type eq '%')
 				    and $next->raw_type eq $next->symbol_type) {
 					push @violations, $self->_violation('defined on array/hash', $elem);
+				}
+			# autoderef
+			} elsif (exists $autoderef_functions{$elem} and $next = $elem->snext_sibling) {
+				$next = $next->schild(0) if $next->isa('PPI::Structure::List');
+				$next = $next->schild(0) if $next->isa('PPI::Statement::Expression');
+				if ($next and $next->isa('PPI::Token::Symbol') and $next->raw_type eq '$') {
+					# try to detect postderef, very hacky; PPI does not understand postderef yet
+					my $is_postderef;
+					my $last;
+					until (!$next or ($next->isa('PPI::Token::Structure') and $next eq ';')
+						or ($next->isa('PPI::Token::Operator') and $next eq ',')) {
+						$last = $next;
+						$next = $next->snext_sibling;
+					}
+					if ($last and $last->isa('PPI::Token::Magic') and ($last eq '@*' or $last eq '%*')) {
+						$is_postderef = 1;
+					} elsif ($last and $last->isa('PPI::Token::Operator') and $last eq '*') {
+						my $prev = $last->sprevious_sibling;
+						if ($prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%')) {
+							$is_postderef = 1;
+						}
+					}
+					push @violations, $self->_violation('autoderef', $elem) unless $is_postderef;
 				}
 			}
 		} elsif ($elem->isa('PPI::Token::Regexp')) {
@@ -241,6 +270,16 @@ replace this functionality.
 
 The C<?PATTERN?> regex match syntax is deprecated in perl v5.14.0 and removed
 in perl v5.22.0. Use C<m?PATTERN?> instead.
+
+=head2 autoderef
+
+An experimental feature was introduced in perl v5.14.0 to allow calling various
+builtin functions (which operate on arrays or hashes) on a reference, which
+would automatically dereference the operand. This led to ambiguity when passed
+objects that overload both array and hash dereferencing, and so was removed in
+perl v5.24.0. Instead, explicitly dereference the reference when calling these
+functions. The functions affected are C<each>, C<keys>, C<pop>, C<push>,
+C<shift>, C<splice>, C<unshift>, and C<values>.
 
 =head2 defined on array/hash
 

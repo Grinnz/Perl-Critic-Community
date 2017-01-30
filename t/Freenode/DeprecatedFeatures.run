@@ -41,9 +41,19 @@ qq{\N{FOO BAR}};
 qr/\N{FOO BAR}/;
 m'\N{FOO BAR}';
 s{\N{FOO BAR}}{};
+keys %hash;
+keys %$href;
+keys(%{$href});
+keys %{$foo{bar}[5]};
+keys $foo->{bar}[5]->%*;
+shift(@array);
+shift @$aref;
+shift @{$aref};
+shift(@{$foo->{bar}[5]});
+shift $foo->{bar}[5]->@*;
 
 ## name BadFeatures
-## failures 34
+## failures 42
 ## cut
 
 $[ = 1;
@@ -82,6 +92,14 @@ qx(\N{FOO BAR});
 qr^\N{FOO BAR}^;
 m<\N{FOO BAR}>;
 s/\N{FOO BAR}//;
+each $ref;
+keys($ref);
+pop $foo->{bar};
+push $foo{bar}[0];
+shift($foo->[5]);
+splice $foo, $bar, $baz;
+unshift $ref, @bar;
+values $ref;
 
 ## name MultipleBadFeatures
 ## failures 6
