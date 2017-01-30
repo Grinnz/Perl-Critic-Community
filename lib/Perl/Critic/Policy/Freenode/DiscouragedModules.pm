@@ -7,7 +7,7 @@ use Perl::Critic::Utils qw(:severities :classification :ppi);
 use Perl::Critic::Violation;
 use parent 'Perl::Critic::Policy';
 
-our $VERSION = '0.019';
+our $VERSION = '0.020';
 
 sub supported_parameters { () }
 sub default_severity { $SEVERITY_HIGH }
