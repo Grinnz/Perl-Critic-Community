@@ -51,6 +51,8 @@ shift @$aref;
 shift @{$aref};
 shift(@{$foo->{bar}[5]});
 shift $foo->{bar}[5]->@*;
+shift;
+shift();
 
 ## name BadFeatures
 ## failures 42

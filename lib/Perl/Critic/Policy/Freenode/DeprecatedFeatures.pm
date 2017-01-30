@@ -155,7 +155,7 @@ sub violates {
 			# autoderef
 			} elsif (exists $autoderef_functions{$elem} and $next = $elem->snext_sibling) {
 				$next = $next->schild(0) if $next->isa('PPI::Structure::List');
-				$next = $next->schild(0) if $next->isa('PPI::Statement::Expression');
+				$next = $next->schild(0) if $next and $next->isa('PPI::Statement::Expression');
 				if ($next and $next->isa('PPI::Token::Symbol') and $next->raw_type eq '$') {
 					# try to detect postderef, very hacky; PPI does not understand postderef yet
 					my $is_postderef;
@@ -169,7 +169,7 @@ sub violates {
 						$is_postderef = 1;
 					} elsif ($last and $last->isa('PPI::Token::Operator') and $last eq '*') {
 						my $prev = $last->sprevious_sibling;
-						if ($prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%')) {
+						if ($prev and $prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%')) {
 							$is_postderef = 1;
 						}
 					}
