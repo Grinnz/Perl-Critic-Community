@@ -323,8 +323,9 @@ previously had no extra effect.
 
 Literal parentheses are required for certain statements such as a
 C<for my $foo (...) { ... }> construct. Using a C<qw(...)> list literal without
-surrounding parentheses in this syntax is deprecated in perl v5.14.0. Wrap the
-literal in parentheses: C<for my $foo (qw(...)) { ... }>.
+surrounding parentheses in this syntax is deprecated in perl v5.14.0 and a
+syntax error in perl v5.18.0. Wrap the literal in parentheses:
+C<for my $foo (qw(...)) { ... }>.
 
 =head2 UNIVERSAL->import()
 
