@@ -68,7 +68,7 @@ my %modules = (
 		expl => 'Net::IRC is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are POE::Component::IRC (and Bot::BasicBot based on that), Net::Async::IRC, and Mojo::IRC.',
 	},
 	'Readonly' => {
-		expl => 'Readonly.pm is buggy and slow. Use Const::Fast instead, or the core pragma constant.',
+		expl => 'Readonly.pm is buggy and slow. Use Const::Fast or ReadonlyX instead, or the core pragma constant.',
 		severity => $SEVERITY_MEDIUM,
 	},
 	'Switch' => {
@@ -203,8 +203,8 @@ L<Bot::BasicBot>), L<Net::Async::IRC>, and L<Mojo::IRC>.
 
 =head2 Readonly
 
-L<Readonly>.pm is buggy and slow. Use L<Const::Fast> instead, or the core
-pragma L<constant>.
+L<Readonly>.pm is buggy and slow. Use L<Const::Fast> or L<ReadonlyX> instead,
+or the core pragma L<constant>.
 
 =head2 Switch
 
