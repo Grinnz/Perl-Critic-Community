@@ -53,6 +53,7 @@ shift();
 require Foo::Bar;
 use Foo::Bar;
 no Foo::Bar;
+require '::Foo::Bar.pm';
 
 ## name BadFeatures
 ## failures 42

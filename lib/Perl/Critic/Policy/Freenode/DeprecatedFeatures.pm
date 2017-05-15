@@ -77,14 +77,14 @@ sub violates {
 	if ($elem->isa('PPI::Statement')) {
 		if ($elem->isa('PPI::Statement::Include')) {
 			# use UNIVERSAL ...;
-			if ($elem->type eq 'use' and $elem->module eq 'UNIVERSAL') {
+			if ($elem->type eq 'use' and defined $elem->module and $elem->module eq 'UNIVERSAL') {
 				my @args = $elem->arguments;
 				if (!@args or !$args[0]->isa('PPI::Structure::List') or $args[0]->schildren) {
 					push @violations, $self->_violation('UNIVERSAL->import()', $elem);
 				}
 			}
 			# require ::Foo::Bar
-			if ($elem->module =~ m/^::/) {
+			if (defined $elem->module and $elem->module =~ m/^::/) {
 				push @violations, $self->_violation('require ::Foo::Bar', $elem);
 			}
 		}
