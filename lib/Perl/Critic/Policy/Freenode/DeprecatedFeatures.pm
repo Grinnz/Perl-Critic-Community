@@ -49,6 +49,9 @@ my %features = (
 	'qw(...) as parentheses' => {
 		expl => 'Use of qw(...) as parentheses is deprecated in perl v5.14.0. Wrap the list in literal parentheses when required, such as in a foreach loop.',
 	},
+	'require ::Foo::Bar' => {
+		expl => 'Bareword require starting with a double colon is an error in perl v5.26.0.',
+	},
 	'UNIVERSAL->import()' => {
 		expl => 'The method UNIVERSAL->import() (or passing import arguments to "use UNIVERSAL") is deprecated in perl v5.12.0.',
 	},
@@ -82,6 +85,9 @@ sub violates {
 				if (!@args or !$args[0]->isa('PPI::Structure::List') or $args[0]->schildren) {
 					push @violations, $self->_violation('UNIVERSAL->import()', $elem);
 				}
+			}
+			if ($elem->module =~ m/^::/) {
+				push @violations, $self->_violation('require ::Foo::Bar', $elem);
 			}
 		}
 	} elsif ($elem->isa('PPI::Token')) {
@@ -326,6 +332,12 @@ C<for my $foo (...) { ... }> construct. Using a C<qw(...)> list literal without
 surrounding parentheses in this syntax is deprecated in perl v5.14.0 and a
 syntax error in perl v5.18.0. Wrap the literal in parentheses:
 C<for my $foo (qw(...)) { ... }>.
+
+=head2 require ::Foo::Bar
+
+A bareword C<require> (or C<use>) starting with a double colon would
+inadvertently translate to a path starting with C</>. Starting in perl v5.26.0,
+this is a fatal error.
 
 =head2 UNIVERSAL->import()
 

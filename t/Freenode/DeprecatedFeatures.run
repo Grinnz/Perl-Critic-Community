@@ -53,9 +53,12 @@ shift(@{$foo->{bar}[5]});
 shift $foo->{bar}[5]->@*;
 shift;
 shift();
+require Foo::Bar;
+use Foo::Bar;
+no Foo::Bar;
 
 ## name BadFeatures
-## failures 42
+## failures 45
 ## cut
 
 $[ = 1;
@@ -102,6 +105,9 @@ shift($foo->[5]);
 splice $foo, $bar, $baz;
 unshift $ref, @bar;
 values $ref;
+require ::Foo::Bar;
+use ::Foo::Bar;
+no ::Foo::Bar;
 
 ## name MultipleBadFeatures
 ## failures 6
