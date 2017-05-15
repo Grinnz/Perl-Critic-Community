@@ -43,9 +43,6 @@ my %features = (
 	'POSIX::tmpnam()' => {
 		expl => 'The tmpnam() function from POSIX is deprecated in perl v5.22.0. Use File::Temp instead.',
 	},
-	'qr//xx' => {
-		expl => 'Use of multiple /x regular expression pattern modifiers is deprecated in perl v5.22.0.',
-	},
 	'qw(...) as parentheses' => {
 		expl => 'Use of qw(...) as parentheses is deprecated in perl v5.14.0. Wrap the list in literal parentheses when required, such as in a foreach loop.',
 	},
@@ -188,13 +185,9 @@ sub violates {
 				push @violations, $self->_violation('?PATTERN?', $elem);
 			}
 			if (!$elem->isa('PPI::Token::Regexp::Transliterate')) {
-				push @violations, $self->_violates_regex($elem);
 				push @violations, $self->_violates_interpolated($elem);
 			}
 		} elsif ($elem->isa('PPI::Token::QuoteLike')) {
-			if ($elem->isa('PPI::Token::QuoteLike::Regexp')) {
-				push @violations, $self->_violates_regex($elem);
-			}
 			if ($elem->isa('PPI::Token::QuoteLike::Regexp') or $elem->isa('PPI::Token::QuoteLike::Backtick') or $elem->isa('PPI::Token::QuoteLike::Command')) {
 				push @violations, $self->_violates_interpolated($elem);
 			}
@@ -204,18 +197,6 @@ sub violates {
 			}
 		}
 	}
-	return @violations;
-}
-
-sub _violates_regex {
-	my ($self, $elem) = @_;
-	my @violations;
-	# qr//xx
-	# get_modifiers puts the modifiers in a hash, so we need to parse the modifiers ourselves
-	my ($delim_first, $delim_second) = $elem->get_delimiters;
-	my $ending_delim = quotemeta substr +($delim_second // $delim_first), 1, 1;
-	(my $modifiers = $elem) =~ s/^.*$ending_delim//s;
-	push @violations, $self->_violation('qr//xx', $elem) if $modifiers =~ m/x.*x/s;
 	return @violations;
 }
 
@@ -318,12 +299,6 @@ functions can be replaced with appropriate regex matches.
 
 The C<tmpnam()> function from L<POSIX>.pm is deprecated in perl v5.22.0 and
 removed in perl v5.26.0. Use L<File::Temp> instead.
-
-=head2 qr//xx
-
-Use of multiple C</x> regular expression pattern modifiers on a single pattern
-is deprecated in perl v5.22.0 and an error in perl v5.26.0. This syntax
-previously had no extra effect.
 
 =head2 qw(...) as parentheses
 
