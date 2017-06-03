@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Be more lenient when trying to detect postderef for DeprecatedFeatures autoderef violations
 
 0.020     2017-05-15 20:45:02 EDT
   - Updates to documentation for DeprecatedFeatures and DiscouragedModules policies

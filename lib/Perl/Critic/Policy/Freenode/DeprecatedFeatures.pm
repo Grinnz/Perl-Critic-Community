@@ -163,18 +163,18 @@ sub violates {
 				if ($next and $next->isa('PPI::Token::Symbol') and $next->raw_type eq '$') {
 					# try to detect postderef, very hacky; PPI does not understand postderef yet
 					my $is_postderef;
-					my $last;
 					until (!$next or ($next->isa('PPI::Token::Structure') and $next eq ';')
 						or ($next->isa('PPI::Token::Operator') and $next eq ',')) {
-						$last = $next;
 						$next = $next->snext_sibling;
-					}
-					if ($last and $last->isa('PPI::Token::Magic') and ($last eq '@*' or $last eq '%*')) {
-						$is_postderef = 1;
-					} elsif ($last and $last->isa('PPI::Token::Operator') and $last eq '*') {
-						my $prev = $last->sprevious_sibling;
-						if ($prev and $prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%')) {
+						if ($next and $next->isa('PPI::Token::Magic') and ($next eq '@*' or $next eq '%*')) {
 							$is_postderef = 1;
+							last;
+						} elsif ($next and $next->isa('PPI::Token::Operator') and $next eq '*') {
+							my $prev = $next->sprevious_sibling;
+							if ($prev and $prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%')) {
+								$is_postderef = 1;
+								last;
+							}
 						}
 					}
 					push @violations, $self->_violation('autoderef', $elem) unless $is_postderef;
