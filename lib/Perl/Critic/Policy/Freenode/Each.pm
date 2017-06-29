@@ -62,4 +62,4 @@ the terms of the Artistic License version 2.0.
 
 =head1 SEE ALSO
 
-L<Perl::Critic>
+L<Perl::Critic>, L<http://blogs.perl.org/users/rurban/2014/04/do-not-use-each.html>
