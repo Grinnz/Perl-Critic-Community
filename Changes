@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Also consider -W a violation of WarningsSwitch policy
 
 0.021     2017-06-03 19:49:16 EDT
   - Be more lenient when trying to detect postderef for DeprecatedFeatures autoderef violations
