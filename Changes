@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Make PackageMatchesFilename more robust against infinite loops
 
 0.023     2017-08-16 22:22:40 EDT
   - Fix issue where PackageMatchesFilename policy would loop infinitely

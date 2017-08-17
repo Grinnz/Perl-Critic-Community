@@ -23,20 +23,16 @@ sub violates {
 	my $packages = $elem->find('PPI::Statement::Package') || [];
 	
 	my $filepath = path($doc->filename)->realpath;
-	my @path_parts;
-	unshift @path_parts, $filepath->basename(qr/\.pm/);
-	while (!$filepath->is_rootdir) {
-		$filepath = $filepath->parent;
-		unshift @path_parts, $filepath->basename;
-	}
+	my $basename = $filepath->basename(qr/\.pm/);
+	$filepath = $filepath->parent->child($basename);
 	
 	my $found_match;
 	PKG: foreach my $package (@$packages) {
 		my $namespace = $package->namespace;
-		my @path_copy = @path_parts;
+		my $path_copy = $filepath;
 		foreach my $part (reverse split '::', $namespace) {
-			next PKG unless $part eq $path_copy[-1];
-			pop @path_copy;
+			next PKG unless $part eq $path_copy->basename;
+			$path_copy = $path_copy->parent;
 		}
 		$found_match = 1;
 		last;
