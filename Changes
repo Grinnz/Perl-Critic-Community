@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+0.023     2017-08-16 22:22:40 EDT
+  - Fix issue where PackageMatchesFilename policy would loop infinitely
+
 0.022     2017-08-16 22:17:38 EDT
   - Also consider -W a violation of WarningsSwitch policy
   - Fix false positive in DollarAB policy where $a or $b is within another block
