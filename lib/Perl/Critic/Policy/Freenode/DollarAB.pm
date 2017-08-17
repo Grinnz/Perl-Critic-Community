@@ -57,7 +57,7 @@ sub _find_sorter {
 	$function = $function->previous_token until !$function
 		or ($function->isa('PPI::Token::Word')
 			and (is_method_call $function or is_function_call $function or is_hash_key $function));
-	return '' unless $function and $function->isa('PPI::Token::Word')
+	return $self->_find_sorter($outer) unless $function and $function->isa('PPI::Token::Word')
 		and (is_method_call $function or is_function_call $function or is_hash_key $function);
 	
 	my $name = $function;
