@@ -18,13 +18,13 @@ sub applies_to { 'PPI::Document' }
 
 sub violates {
 	my ($self, $elem, $doc) = @_;
-	return () unless $doc->is_module and $doc->filename =~ m/\.pmc?\z/;
+	return () unless $doc->is_module and $doc->filename =~ m/\.pm\z/;
 	
 	my $packages = $elem->find('PPI::Statement::Package') || [];
 	
 	my $filepath = path($doc->filename)->absolute;
 	my @path_parts;
-	unshift @path_parts, $filepath->basename(qr/\.pmc?/);
+	unshift @path_parts, $filepath->basename(qr/\.pm/);
 	while (!$filepath->is_rootdir) {
 		$filepath = $filepath->parent;
 		unshift @path_parts, $filepath->basename;
