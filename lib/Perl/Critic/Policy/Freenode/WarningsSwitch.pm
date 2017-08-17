@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
-our $VERSION = '0.023';
+our $VERSION = '0.024';
 
 use constant DESC => 'Using -w switch';
 use constant EXPL => 'Don\'t use -w (or -W), it\'s too eager. use warnings; instead.';
