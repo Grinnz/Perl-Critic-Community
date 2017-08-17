@@ -22,7 +22,7 @@ sub violates {
 	
 	my $packages = $elem->find('PPI::Statement::Package') || [];
 	
-	my $filepath = path($doc->filename)->absolute;
+	my $filepath = path($doc->filename)->realpath;
 	my @path_parts;
 	unshift @path_parts, $filepath->basename(qr/\.pm/);
 	while (!$filepath->is_rootdir) {
