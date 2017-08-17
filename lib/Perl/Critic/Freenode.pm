@@ -96,6 +96,10 @@ Always use the three-argument form of C<open()>
 
 Don't use L<overload> without specifying a bool overload and enabling fallback
 
+=item L<Perl::Critic::Policy::Freenode::PackageMatchesFilename>
+
+Module files should declare a package matching the filename
+
 =item L<Perl::Critic::Policy::Freenode::POSIXImports>
 
 Don't use L<POSIX> without specifying an import list
