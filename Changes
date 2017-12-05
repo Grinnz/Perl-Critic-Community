@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Fix DeprecatedFeatures to recognize correctly-parsed postderef in PPI 1.237+
 
 0.024     2017-08-16 22:39:53 EDT
   - Make PackageMatchesFilename more robust against infinite loops
