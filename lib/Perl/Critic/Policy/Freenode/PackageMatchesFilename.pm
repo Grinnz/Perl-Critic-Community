@@ -18,7 +18,7 @@ sub applies_to { 'PPI::Document' }
 
 sub violates {
 	my ($self, $elem, $doc) = @_;
-	return () unless $doc->is_module and $doc->filename =~ m/\.pm\z/;
+	return () unless $doc->is_module and $doc->filename and $doc->filename =~ m/\.pm\z/;
 	
 	my $packages = $elem->find('PPI::Statement::Package') || [];
 	
