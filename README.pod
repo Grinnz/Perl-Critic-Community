@@ -144,6 +144,8 @@ Dan Book, C<dbook@cpan.org>
 
 =item Matt S Trout (mst)
 
+=item William Taylor (willt)
+
 =back
 
 =head1 COPYRIGHT AND LICENSE
