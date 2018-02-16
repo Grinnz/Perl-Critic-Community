@@ -23,7 +23,13 @@ sub violates {
 	
 	# Check if signatures are enabled
 	my $includes = $elem->find('PPI::Statement::Include') || [];
-	return () if any { $_->pragma eq 'feature' and m/\bsignatures\b/ } @$includes;
+	foreach my $include (@$includes) {
+	  next unless $include->type eq 'use';
+	  return () if $include->pragma eq 'feature' and $include =~ m/\bsignatures\b/;
+	  return () if $include->pragma eq 'experimental' and $include =~ m/\bsignatures\b/;
+	  return () if $include->module eq 'Mojo::Base' and $include =~ m/-signatures\b/;
+	  return () if $include->module eq 'Mojolicious::Lite' and $include =~ m/-signatures\b/;
+	}
 	
 	my $prototypes = $elem->find('PPI::Token::Prototype') || [];
 	my @violations;
@@ -52,7 +58,8 @@ modern method of declaring arguments.
 
   sub foo ($$) { ... } # not ok
   sub foo { ... }      # ok
-  use feature 'signatures'; sub foo ($bar, $baz) { ... } # ok
+  use feature 'signatures'; sub foo ($bar, $baz) { ... }      # ok
+  use experimental 'signatures'; sub foo ($bar, $baz) { ... } # ok
 
 This policy is similar to the core policy
 L<Perl::Critic::Policy::Subroutines::ProhibitSubroutinePrototypes>, but
