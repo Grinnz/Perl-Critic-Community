@@ -6,8 +6,6 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
-use List::Util 'any';
-
 our $VERSION = '0.026';
 
 use constant DESC => 'Using function prototypes';
