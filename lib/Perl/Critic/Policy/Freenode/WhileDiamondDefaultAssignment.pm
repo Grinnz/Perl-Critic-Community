@@ -80,9 +80,11 @@ C<readline()>, C<readdir()>, and C<each()> are extra magical in a while
 condition: if it is the only thing in the condition, it will assign its result
 to C<$_>, but it does not localize C<$_> to the while loop. (Note, this also
 applies to a C<for (;E<lt>E<gt>;)> construct.) This can unintentionally confuse
-outer loops that are already using C<$_> to iterate. To avoid this possibility,
-assign the result of the diamond operator or these functions to an explicit
-lexical variable.
+outer loops that are already using C<$_> to iterate. In addition, using C<$_>
+at all means that your loop can get confused by other code which does not
+politely localize its usage of the global variable. To avoid these
+possibilities, assign the result of the diamond operator or these functions to
+an explicit lexical variable.
 
   while (<$fh>) { ... }                   # not ok
   while (<<>>) { ... }                    # not ok
