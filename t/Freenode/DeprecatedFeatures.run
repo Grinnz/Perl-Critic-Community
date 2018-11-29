@@ -27,6 +27,7 @@ defined $foo;
 defined $foo[0];
 defined $foo{bar};
 defined &foo;
+$obj->defined(@foo);
 foo ? bar ? 'foo' : 'bar' : 'baz';
 foo ? bar ? foo : bar : baz;
 $foo =~ m?foo?;
@@ -58,9 +59,13 @@ no Foo::Bar;
 require '::Foo::Bar.pm';
 qr/\cT\\C/;
 m/\cT\\C/;
+chdir;
+chdir();
+chdir 'foo';
+chdir(getcwd);
 
 ## name BadFeatures
-## failures 44
+## failures 47
 ## cut
 
 $[ = 1;
@@ -109,6 +114,9 @@ use ::Foo::Bar;
 no ::Foo::Bar;
 qr/\C/;
 m/\C/;
+chdir '';
+chdir(qq());
+chdir undef();
 
 ## name POSIXDeprecations
 ## failures 12
