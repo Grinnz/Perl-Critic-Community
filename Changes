@@ -7,6 +7,7 @@
     severity as configured.
   - Fixed DeprecatedFeatures to avoid false positives on method calls with the
     same name as autoderef functions.
+  - Added /\C/ to DeprecatedFeatures policy.
 
 0.027     2018-06-20 20:17:06 EDT
   - Add LoopOnHash policy

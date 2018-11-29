@@ -56,9 +56,11 @@ require Foo::Bar;
 use Foo::Bar;
 no Foo::Bar;
 require '::Foo::Bar.pm';
+qr/\cT\\C/;
+m/\cT\\C/;
 
 ## name BadFeatures
-## failures 42
+## failures 44
 ## cut
 
 $[ = 1;
@@ -105,6 +107,8 @@ values $ref;
 require ::Foo::Bar;
 use ::Foo::Bar;
 no ::Foo::Bar;
+qr/\C/;
+m/\C/;
 
 ## name POSIXDeprecations
 ## failures 12

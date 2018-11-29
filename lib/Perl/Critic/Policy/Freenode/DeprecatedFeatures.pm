@@ -17,6 +17,7 @@ sub applies_to { 'PPI::Element' }
 my %features = (
 	':=' => 'Use of := as an empty attribute list is deprecated in perl v5.12.0, use = alone.',
 	'$[' => 'Use of $[ is deprecated in perl v5.12.0. See Array::Base and String::Base.',
+	'/\\C/' => 'Use of the \\C character class in regular expressions is removed in perl v5.24.0. To examine a string\'s UTF-8-encoded byte representation, encode it to UTF-8.',
 	'?PATTERN?' => 'Use of ? as a match regex delimiter without an initial m is deprecated in perl v5.14.0. Use m?PATTERN? instead.',
 	'autoderef' => 'Use of each/keys/pop/push/shift/splice/unshift/values on a reference is an experimental feature that is removed in perl v5.24.0. Dereference the array or hash to use these functions on it.',
 	'defined on array/hash' => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
@@ -186,6 +187,8 @@ sub _violates_interpolated {
 	my $contents;
 	if ($elem->isa('PPI::Token::Regexp') or $elem->isa('PPI::Token::QuoteLike::Regexp')) {
 		$contents = $elem->get_match_string;
+		# /\C/
+		push @violations, $self->_violation('/\\C/', $elem) if $contents =~ m/(?<!\\)\\C/;
 	} elsif ($elem->isa('PPI::Token::Quote')) {
 		$contents = $elem->string;
 	} else {
@@ -231,6 +234,15 @@ L<arybase>.pm in v5.16.0, and it is essentially a synonym for C<0> under
 C<use v5.16> or C<no feature "array_base">. While it is probably a bad idea in
 general, the modules L<Array::Base> and L<String::Base> can now be used to
 replace this functionality.
+
+=head2 /\C/
+
+The C<\C> regular expression character class would match a single byte of the
+internal representation of the string, which was dangerous because it violated
+the logical character abstraction of Perl strings, and substitutions using it
+could result in malformed UTF-8 sequences. It was deprecated in perl v5.20.0
+and removed in perl v5.24.0. Instead, explicitly encode the string to UTF-8
+using L<Encode> to examine its UTF-8-encoded byte representation.
 
 =head2 ?PATTERN?
 
