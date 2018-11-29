@@ -132,9 +132,12 @@ sub violates {
 				}
 			# autoderef
 			} elsif (exists $autoderef_functions{$elem} and $next = $elem->snext_sibling) {
+				my $prev = $elem->sprevious_sibling;
 				$next = $next->schild(0) if $next->isa('PPI::Structure::List');
 				$next = $next->schild(0) if $next and $next->isa('PPI::Statement::Expression');
-				if ($next and $next->isa('PPI::Token::Symbol') and $next->raw_type eq '$') {
+				# avoid false positives for method calls
+				if (!($prev and $prev->isa('PPI::Token::Operator') and $prev eq '->')
+					and $next and $next->isa('PPI::Token::Symbol') and $next->raw_type eq '$') {
 					# try to detect postderef, hacky for PPI that doesn't understand postderef yet
 					my $is_postderef;
 					until (!$next or ($next->isa('PPI::Token::Structure') and $next eq ';')

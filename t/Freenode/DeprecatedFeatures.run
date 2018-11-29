@@ -51,6 +51,7 @@ shift(@{$foo->{bar}[5]});
 shift $foo->{bar}[5]->@*;
 shift;
 shift();
+Foo->shift($foo);
 require Foo::Bar;
 use Foo::Bar;
 no Foo::Bar;
