@@ -20,6 +20,7 @@ my %features = (
 	'/\\C/' => 'Use of the \\C character class in regular expressions is deprecated in perl v5.20.0. To examine a string\'s UTF-8-encoded byte representation, encode it to UTF-8.',
 	'?PATTERN?' => 'Use of ? as a match regex delimiter without an initial m is deprecated in perl v5.14.0. Use m?PATTERN? instead.',
 	'autoderef' => 'Use of each/keys/pop/push/shift/splice/unshift/values on a reference is an experimental feature that is removed in perl v5.24.0. Dereference the array or hash to use these functions on it.',
+	'Bare here-doc' => 'Use of bare << to create a here-doc with an empty string terminator is deprecated in perl 5. Use a quoted empty string like <<\'\'.',
 	'chdir(\'\')' => 'Use of chdir(\'\') or chdir(undef) to chdir home is deprecated in perl v5.8.0. Use chdir() instead.',
 	'defined on array/hash' => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
 	'do SUBROUTINE(LIST)' => 'Use of do to call a subroutine is deprecated in perl 5.',
@@ -86,6 +87,10 @@ sub violates {
 				if ($next and none { ($_->isa('PPI::Token::Operator') and $_ eq ':') or $_->isa('PPI::Token::Label') } $parent->schildren) {
 					push @violations, $self->_violation('?PATTERN?', $elem);
 				}
+			# Bare here-doc - differentiate this from the legitimate << operator
+			} elsif ($elem eq '<<' and (!($next = $elem->snext_sibling) or $next->isa('PPI::Token::Operator')
+				or ($next->isa('PPI::Token::Structure') and $next ne '(' and $next ne '{' and $next ne '['))) {
+				push @violations, $self->_violation('Bare here-doc', $elem);
 			}
 		} elsif ($elem->isa('PPI::Token::Word')) {
 			# UNIVERSAL->import()
@@ -175,6 +180,11 @@ sub violates {
 			}
 			if (!$elem->isa('PPI::Token::Regexp::Transliterate')) {
 				push @violations, $self->_violates_interpolated($elem);
+			}
+		} elsif ($elem->isa('PPI::Token::HereDoc')) {
+			# Bare here-doc
+			if ($elem eq '<<') {
+				push @violations, $self->_violation('Bare here-doc', $elem);
 			}
 		} elsif ($elem->isa('PPI::Token::QuoteLike')) {
 			if ($elem->isa('PPI::Token::QuoteLike::Regexp') or $elem->isa('PPI::Token::QuoteLike::Backtick') or $elem->isa('PPI::Token::QuoteLike::Command')) {
@@ -267,6 +277,13 @@ objects that overload both array and hash dereferencing, and so was removed in
 perl v5.24.0. Instead, explicitly dereference the reference when calling these
 functions. The functions affected are C<each>, C<keys>, C<pop>, C<push>,
 C<shift>, C<splice>, C<unshift>, and C<values>.
+
+=head2 Bare here-doc
+
+Using C< << > to initiate a here-doc would create it with an empty terminator,
+similar to C< <<'' >, so the here-doc would terminate on the next empty line.
+Omitting the quoted empty string has been deprecated since perl 5, and is a
+fatal error in perl v5.28.0.
 
 =head2 chdir('')
 

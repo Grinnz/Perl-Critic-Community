@@ -63,9 +63,16 @@ chdir;
 chdir();
 chdir 'foo';
 chdir(getcwd);
+<< 'foo';
+foo
+<<'';
+
+<<foo;
+foo
+foo << (bar);
 
 ## name BadFeatures
-## failures 47
+## failures 51
 ## cut
 
 $[ = 1;
@@ -117,6 +124,14 @@ m/\C/;
 chdir '';
 chdir(qq());
 chdir undef();
+<<;
+
+(<<);
+
+{<<}
+
+<< . bar;
+
 
 ## name POSIXDeprecations
 ## failures 12
