@@ -88,7 +88,8 @@ sub violates {
 					push @violations, $self->_violation('?PATTERN?', $elem);
 				}
 			# Bare here-doc - differentiate this from the legitimate << operator
-			} elsif ($elem eq '<<' and (!($next = $elem->snext_sibling) or $next->isa('PPI::Token::Operator')
+			} elsif ($elem eq '<<' and (!($next = $elem->snext_sibling)
+				or ($next->isa('PPI::Token::Operator') and $next ne '~' and $next ne '!' and $next ne '+' and $next ne '-')
 				or ($next->isa('PPI::Token::Structure') and $next ne '(' and $next ne '{' and $next ne '['))) {
 				push @violations, $self->_violation('Bare here-doc', $elem);
 			}
