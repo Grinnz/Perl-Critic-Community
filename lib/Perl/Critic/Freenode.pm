@@ -108,6 +108,10 @@ Module files should declare a package matching the filename
 
 Don't use L<POSIX> without specifying an import list
 
+=item L<Perl::Critic::Policy::Freenode::PreferredAlternatives>
+
+Various modules with preferred alternatives
+
 =item L<Perl::Critic::Policy::Freenode::Prototypes>
 
 Don't use function prototypes

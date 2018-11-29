@@ -1,4 +1,10 @@
 {{$NEXT}}
+  - Split out lower severity violations from DiscouragedModules policy into a
+    new PreferredAlternatives policy. Perl::Critic does not support filtering
+    individual violations by severity, only policies, so this will allow
+    separately configuring and filtering these violations.
+  - Fixed DiscouragedModules and DeprecatedFeatures policy violations to report
+    severity as configured.
 
 0.027     2018-06-20 20:17:06 EDT
   - Add LoopOnHash policy

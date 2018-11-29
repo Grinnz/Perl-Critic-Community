@@ -5,7 +5,6 @@ use warnings;
 
 use List::Util 'any', 'none';
 use Perl::Critic::Utils qw(:severities :classification :ppi);
-use Perl::Critic::Violation;
 use parent 'Perl::Critic::Policy';
 
 our $VERSION = '0.028';
@@ -16,42 +15,18 @@ sub default_themes { 'freenode' }
 sub applies_to { 'PPI::Element' }
 
 my %features = (
-	':=' => {
-		expl => 'Use of := as an empty attribute list is deprecated in perl v5.12.0, use = alone.',
-	},
-	'$[' => {
-		expl => 'Use of $[ is deprecated in perl v5.12.0. See Array::Base and String::Base.',
-	},
-	'?PATTERN?' => {
-		expl => 'Use of ? as a match regex delimiter without an initial m is deprecated in perl v5.14.0. Use m?PATTERN? instead.',
-	},
-	'autoderef' => {
-		expl => 'Use of each/keys/pop/push/shift/splice/unshift/values on a reference is an experimental feature that is removed in perl v5.24.0. Dereference the array or hash to use these functions on it.',
-	},
-	'defined on array/hash' => {
-		expl => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
-	},
-	'do SUBROUTINE(LIST)' => {
-		expl => 'Use of do to call a subroutine is deprecated in perl 5.',
-	},
-	'NBSP in \\N{...}' => {
-		expl => 'Use of the "no-break space" character in character names is deprecated in perl v5.22.0.',
-	},
-	'POSIX character function' => {
-		expl => 'Several character matching functions in POSIX.pm are deprecated in perl v5.20.0: isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, and isxdigit. Regular expressions are a more portable and correct way to test character strings.',
-	},
-	'POSIX::tmpnam()' => {
-		expl => 'The tmpnam() function from POSIX is deprecated in perl v5.22.0. Use File::Temp instead.',
-	},
-	'qw(...) as parentheses' => {
-		expl => 'Use of qw(...) as parentheses is deprecated in perl v5.14.0. Wrap the list in literal parentheses when required, such as in a foreach loop.',
-	},
-	'require ::Foo::Bar' => {
-		expl => 'Bareword require starting with a double colon is an error in perl v5.26.0.',
-	},
-	'UNIVERSAL->import()' => {
-		expl => 'The method UNIVERSAL->import() (or passing import arguments to "use UNIVERSAL") is deprecated in perl v5.12.0.',
-	},
+	':=' => 'Use of := as an empty attribute list is deprecated in perl v5.12.0, use = alone.',
+	'$[' => 'Use of $[ is deprecated in perl v5.12.0. See Array::Base and String::Base.',
+	'?PATTERN?' => 'Use of ? as a match regex delimiter without an initial m is deprecated in perl v5.14.0. Use m?PATTERN? instead.',
+	'autoderef' => 'Use of each/keys/pop/push/shift/splice/unshift/values on a reference is an experimental feature that is removed in perl v5.24.0. Dereference the array or hash to use these functions on it.',
+	'defined on array/hash' => 'Use of defined() on an array or hash is deprecated in perl v5.6.2. The array or hash can be tested directly to check for non-emptiness: if (@foo) { ... }',
+	'do SUBROUTINE(LIST)' => 'Use of do to call a subroutine is deprecated in perl 5.',
+	'NBSP in \\N{...}' => 'Use of the "no-break space" character in character names is deprecated in perl v5.22.0.',
+	'POSIX character function' => 'Several character matching functions in POSIX.pm are deprecated in perl v5.20.0: isalnum, isalpha, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, and isxdigit. Regular expressions are a more portable and correct way to test character strings.',
+	'POSIX::tmpnam()' => 'The tmpnam() function from POSIX is deprecated in perl v5.22.0. Use File::Temp instead.',
+	'qw(...) as parentheses' => 'Use of qw(...) as parentheses is deprecated in perl v5.14.0. Wrap the list in literal parentheses when required, such as in a foreach loop.',
+	'require ::Foo::Bar' => 'Bareword require starting with a double colon is an error in perl v5.26.0.',
+	'UNIVERSAL->import()' => 'The method UNIVERSAL->import() (or passing import arguments to "use UNIVERSAL") is deprecated in perl v5.12.0.',
 );
 
 my %posix_deprecated = map { ($_ => 1, "POSIX::$_" => 1) }
@@ -63,9 +38,8 @@ my %autoderef_functions = map { ($_ => 1) }
 sub _violation {
 	my ($self, $feature, $elem) = @_;
 	my $desc = "$feature is deprecated";
-	my $expl = $features{$feature}{expl} // "$feature is deprecated or removed from recent versions of Perl.";
-	my $severity = $features{$feature}{severity} // $self->default_severity;
-	return Perl::Critic::Violation->new($desc, $expl, $elem, $severity);
+	my $expl = $features{$feature} // "$feature is deprecated or removed from recent versions of Perl.";
+	return $self->violation($desc, $expl, $elem);
 }
 
 sub violates {
