@@ -84,6 +84,10 @@ Don't use C<return> with no arguments
 
 Don't call methods indirectly
 
+=item L<Perl::Critic::Policy::Freenode::LexicalForeachIterator>
+
+Don't use undeclared foreach loop iterators
+
 =item L<Perl::Critic::Policy::Freenode::LoopOnHash>
 
 Don't loop over hashes

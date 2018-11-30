@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Added LexicalForeachIterator policy
 
 0.028     2018-11-29 19:32:49 EST
   - Split out lower severity violations from DiscouragedModules policy into a

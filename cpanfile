@@ -10,6 +10,7 @@ requires 'Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils'          =
 requires 'Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref' => '90';
 requires 'Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations'    => '1.126';
 requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash'                 => '0.005';
+requires 'Perl::Critic::Policy::Variables::RequireLexicalLoopIterators'        => '1.126';
 requires 'Scalar::Util';
 requires 'version';
 
