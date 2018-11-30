@@ -49,6 +49,7 @@
             "Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref" : "90",
             "Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations" : "1.126",
             "Perl::Critic::Policy::Variables::ProhibitLoopOnHash" : "0.005",
+            "Perl::Critic::Policy::Variables::RequireLexicalLoopIterators" : "1.126",
             "Scalar::Util" : "0",
             "parent" : "0",
             "perl" : "5.010001",
@@ -69,107 +70,111 @@
    "provides" : {
       "Perl::Critic::Freenode" : {
          "file" : "lib/Perl/Critic/Freenode.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Freenode::Utils" : {
          "file" : "lib/Perl/Critic/Freenode/Utils.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::AmpersandSubCalls" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/AmpersandSubCalls.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::ArrayAssignAref" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/ArrayAssignAref.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::BarewordFilehandles" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/BarewordFilehandles.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::ConditionalDeclarations" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/ConditionalDeclarations.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::ConditionalImplicitReturn" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/ConditionalImplicitReturn.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::DeprecatedFeatures" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/DeprecatedFeatures.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::DiscouragedModules" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/DiscouragedModules.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::DollarAB" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/DollarAB.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::Each" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Each.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::EmptyReturn" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/EmptyReturn.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::IndirectObjectNotation" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/IndirectObjectNotation.pm",
-         "version" : "0.028"
+         "version" : "0.029"
+      },
+      "Perl::Critic::Policy::Freenode::LexicalForeachIterator" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/LexicalForeachIterator.pm",
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::LoopOnHash" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/LoopOnHash.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::ModPerl" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/ModPerl.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::OpenArgs" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/OpenArgs.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::OverloadOptions" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/OverloadOptions.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::POSIXImports" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/POSIXImports.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::PackageMatchesFilename" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/PackageMatchesFilename.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::PreferredAlternatives" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/PreferredAlternatives.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::Prototypes" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Prototypes.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::StrictWarnings" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/StrictWarnings.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::Threads" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Threads.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::Wantarray" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/Wantarray.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::WarningsSwitch" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/WarningsSwitch.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       },
       "Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/WhileDiamondDefaultAssignment.pm",
-         "version" : "0.028"
+         "version" : "0.029"
       }
    },
    "release_status" : "stable",
@@ -185,7 +190,7 @@
       },
       "x_IRC" : "irc://chat.freenode.net/#perl"
    },
-   "version" : "0.028",
+   "version" : "0.029",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.028000"
@@ -379,7 +384,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "0.028",
+                  "tag" : "0.029",
                   "tag_format" : "%v",
                   "tag_message" : "%v"
                },
