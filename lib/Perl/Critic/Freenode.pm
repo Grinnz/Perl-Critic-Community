@@ -3,7 +3,7 @@ package Perl::Critic::Freenode;
 use strict;
 use warnings;
 
-our $VERSION = '0.028';
+our $VERSION = '0.029';
 
 1;
 
