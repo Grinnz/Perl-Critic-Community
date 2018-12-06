@@ -56,7 +56,7 @@ Various modules are discouraged by the denizens of #perl on Freenode IRC, for
 various reasons which may include: buggy behavior, cruft, performance problems,
 maintainer issues, or simply better modern replacements. This is a high
 severity complement to
-L<Perl::Critic::Freenode::Policy::PreferredAlternatives>.
+L<Perl::Critic::Policy::Freenode::PreferredAlternatives>.
 
 =head1 MODULES
 
