@@ -1,6 +1,6 @@
 {{$NEXT}}
   - Added LexicalForeachIterator policy
-  - Require PPI 1.252+ allowing simplifications to the DeprecatedFeatures policy
+  - Require PPI 1.252+ allowing simplifications to the DeprecatedFeatures and WhileDiamondDefaultAssignment policies
 
 0.028     2018-11-29 19:32:49 EST
   - Split out lower severity violations from DiscouragedModules policy into a
