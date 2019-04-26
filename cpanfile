@@ -11,6 +11,7 @@ requires 'Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref' =
 requires 'Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations'    => '1.126';
 requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash'                 => '0.005';
 requires 'Perl::Critic::Policy::Variables::RequireLexicalLoopIterators'        => '1.126';
+requires 'PPI'          => '1.252';
 requires 'Scalar::Util';
 requires 'version';
 

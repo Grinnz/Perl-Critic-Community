@@ -152,15 +152,9 @@ sub violates {
 							or ($next->isa('PPI::Token::Operator') and $next eq ',')) {
 							$next = $next->snext_sibling;
 							# this can just look for PPI::Token::Cast in PPI 1.237+
-							if ($next and ($next->isa('PPI::Token::Magic') or $next->isa('PPI::Token::Cast')) and ($next eq '@*' or $next eq '%*')) {
+							if ($next and $next->isa('PPI::Token::Cast') and ($next eq '@*' or $next eq '%*')) {
 								$is_postderef = 1;
 								last;
-							} elsif ($next and $next->isa('PPI::Token::Operator') and $next eq '*') {
-								my $prev = $next->sprevious_sibling;
-								if ($prev and $prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%')) {
-									$is_postderef = 1;
-									last;
-								}
 							}
 						}
 						push @violations, $self->_violation('autoderef', $elem) unless $is_postderef;
