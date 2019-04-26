@@ -92,7 +92,7 @@ EOW
         "Carp" => 0,
         "Exporter" => 0,
         "List::Util" => "1.33",
-        "PPI" => "1.252",
+        "PPI" => "1.254",
         "Path::Tiny" => "0.101",
         "Perl::Critic" => "1.126",
         "Perl::Critic::Policy::Objects::ProhibitIndirectSyntax" => "1.126",

@@ -36,9 +36,6 @@ sub violates {
 		my $middle = $statements[1];
 		return $self->violation(DESC, EXPL, $elem) if $middle->schildren
 			and $middle->schild(0)->isa('PPI::Token::QuoteLike::Readline');
-		# Hack because PPI parses this case weirdly
-		return $self->violation(DESC, EXPL, $elem) if $middle->schildren >= 3
-			and $middle->schild(0) eq '<' and $middle->schild(1)->isa('PPI::Token') and $middle->schild(2) eq '>';
 	} elsif ($elem eq 'while') {
 		# while (<>) {} or ... while <>
 		if ($next->isa('PPI::Structure::Condition')) {
