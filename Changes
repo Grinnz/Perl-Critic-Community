@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Allow signature_enablers to be configured for Prototypes policy (#34)
 
 0.029     2019-04-26 13:12:43 EDT
   - Added LexicalForeachIterator policy
