@@ -133,6 +133,10 @@
          "file" : "lib/Perl/Critic/Policy/Freenode/ModPerl.pm",
          "version" : "0.031"
       },
+      "Perl::Critic::Policy::Freenode::MultidimensionalArrayEmulation" : {
+         "file" : "lib/Perl/Critic/Policy/Freenode/MultidimensionalArrayEmulation.pm",
+         "version" : "0.031"
+      },
       "Perl::Critic::Policy::Freenode::OpenArgs" : {
          "file" : "lib/Perl/Critic/Policy/Freenode/OpenArgs.pm",
          "version" : "0.031"
