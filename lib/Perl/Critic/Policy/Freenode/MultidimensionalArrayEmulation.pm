@@ -22,36 +22,37 @@ sub violates {
 	my ($self, $elem) = @_;
 	return () unless $elem->complete and $elem->braces eq '{}';
 	
-	my $is_list;
 	my @contents = $elem->schildren;
 	@contents = $contents[0]->schildren if @contents == 1 and $contents[0]->isa('PPI::Statement::Expression');
 	
+	# check for function call with no parentheses; following args won't trigger MAE
 	if (@contents > 1 and $contents[0]->isa('PPI::Token::Word') and !$contents[1]->isa('PPI::Structure::List')
 		and !($contents[1]->isa('PPI::Token::Operator') and ($contents[1] eq ',' or $contents[1] eq '=>'))) {
-		# possibly function call with no parentheses; following args won't trigger MAE
 		return ();
 	}
 	
 	# check if contains top level , or multi-word qw
-	if (any { $_->isa('PPI::Token::Operator') and ($_ eq ',' or $_ eq '=>') } @contents) {
-		$is_list = 1;
-	} elsif (any { $_->isa('PPI::Token::QuoteLike::Words') and (my @words = $_->literal) > 1 } @contents) {
-		$is_list = 1;
-	}
-	return () unless $is_list;
+	return () unless any {
+		($_->isa('PPI::Token::Operator') and ($_ eq ',' or $_ eq '=>')) or
+		($_->isa('PPI::Token::QuoteLike::Words') and (my @words = $_->literal) > 1)
+	} @contents;
+	
+	# check if it's a postderef slice
+	my $prev = $elem->sprevious_sibling;
+	return () if $prev and $prev->isa('PPI::Token::Cast') and ($prev eq '@' or $prev eq '%');
 	
 	# check if it's a slice
-	my $prev = $elem;
 	my ($cast, $found_symbol);
+	$prev = $elem;
 	while ($prev = $prev->sprevious_sibling) {
 		last if $found_symbol and !$prev->isa('PPI::Token::Cast');
 		if ($prev->isa('PPI::Token::Symbol')) {
 			$cast = $prev->raw_type;
 			$found_symbol = 1;
-		} elsif ($prev->isa('PPI::Token::Cast')) {
-			$cast = $prev;
 		} elsif ($prev->isa('PPI::Structure::Block')) {
 			$found_symbol = 1;
+		} elsif ($found_symbol and $prev->isa('PPI::Token::Cast')) {
+			$cast = $prev;
 		} else {
 			last unless $prev->isa('PPI::Structure::Subscript')
 				or ($prev->isa('PPI::Token::Operator') and $prev eq '->');

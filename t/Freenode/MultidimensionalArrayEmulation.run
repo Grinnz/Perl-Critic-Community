@@ -18,11 +18,13 @@ $foo{bar 1, 2};
 @{$foo{bar}}{a => 'b'};
 @{@foo[0]}{'a','b'};
 @$foo{'a','b'};
+$foo->@{'a','b'};
 %foo{'bar','baz'};
 %{foo}{'bar','baz'};
 %{$foo{bar}}{'a','b'};
 %{@foo[0]}{'a','b'};
 %$foo{'a','b'};
+$foo->%{'a','b'};
 
 ## name MAE
 ## failures 10
