@@ -1,5 +1,5 @@
 {{$NEXT}}
-  - Add FindBin to DiscouragedModules policy
+  - Add FindBin to DiscouragedModules policy (#31)
 
 0.030     2019-08-26 11:27:15 EDT
   - Allow signature_enablers to be configured for Prototypes policy (#34)
