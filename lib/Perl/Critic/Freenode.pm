@@ -96,6 +96,10 @@ Don't loop over hashes
 
 Don't use C<mod_perl> to write web applications
 
+=item L<Perl::Critic::Policy::Freenode::MultidimensionalArrayEmulation>
+
+Don't use multidimensional array emulation
+
 =item L<Perl::Critic::Policy::Freenode::OpenArgs>
 
 Always use the three-argument form of C<open()>
