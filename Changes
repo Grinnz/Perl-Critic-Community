@@ -1,4 +1,5 @@
 {{$NEXT}}
+  - Add check for CORE::wantarray and CORE'wantarray to WantArray policy (#36)
 
 0.031     2019-09-25 19:00:39 EDT
   - Add FindBin to DiscouragedModules policy (#31)
