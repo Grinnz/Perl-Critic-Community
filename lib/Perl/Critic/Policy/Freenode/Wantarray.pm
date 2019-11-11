@@ -18,7 +18,7 @@ sub applies_to { 'PPI::Token::Word' }
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless (($elem eq 'wantarray' or $elem eq 'CORE::wantarray') and is_function_call $elem);
+	return () unless (($elem eq 'wantarray' or $elem->literal eq 'CORE::wantarray') and is_function_call $elem);
 	return $self->violation(DESC, EXPL, $elem);
 }
 

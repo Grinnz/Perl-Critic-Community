@@ -10,6 +10,12 @@ return wantarray ? () : undef;
 
 return CORE::wantarray ? () : undef;
 
+## name UseCoreApostrapheWantArray
+## failures 1
+## cut
+
+return CORE'wantarray ? () : undef;
+
 ## name NoWantarray
 ## failures 0
 ## cut
