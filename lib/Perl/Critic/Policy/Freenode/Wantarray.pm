@@ -18,7 +18,7 @@ sub applies_to { 'PPI::Token::Word' }
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless $elem eq 'wantarray' and is_function_call $elem;
+	return () unless (($elem eq 'wantarray' or $elem eq 'CORE::wantarray') and is_function_call $elem);
 	return $self->violation(DESC, EXPL, $elem);
 }
 
@@ -41,6 +41,7 @@ explicitly documented to return either a scalar value or a list, so there is no
 potential for confusion or vulnerability.
 
   return wantarray ? ('a','b','c') : 3; # not ok
+  return CORE::wantarray ? ('a', 'b', 'c') : 3; # not ok
   return ('a','b','c');                 # ok
   return 3;                             # ok
 
