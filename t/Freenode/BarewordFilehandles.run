@@ -74,35 +74,15 @@ open our $fh, '>', $some_file or die;
 open(our $fh, '>', $some_file);
 open(our $fh, '>', $some_file) or die;
 
-open \*FH, '>', $some_file;
-open \*FH, '>', $some_file or die;
-open(\*FH, '>', $some_file);
-open(\*FH, '>', $some_file) or die;
+open local $foo{fh}, '>', $some_file;
+open local $foo{fh}, '>', $some_file or die;
+open(local $foo{fh}, '>', $some_file);
+open(local $foo{fh}, '>', $some_file) or die;
 
-open *FH, '>', $some_file;
-open *FH, '>', $some_file or die;
-open(*FH, '>', $some_file);
-open(*FH, '>', $some_file) or die;
-
-open local *FH, '>', $some_file;
-open local *FH, '>', $some_file or die;
-open(local *FH, '>', $some_file);
-open(local *FH, '>', $some_file) or die;
-
-open \*FH, ">$some_file";
-open \*FH, ">$some_file" or die;
-open(\*FH, ">$some_file");
-open(\*FH, ">$some_file") or die;
-
-open *FH, ">$some_file";
-open *FH, ">$some_file" or die;
-open(*FH, ">$some_file");
-open(*FH, ">$some_file") or die;
-
-open local *FH, ">$some_file";
-open local *FH, ">$some_file" or die;
-open(local *FH, ">$some_file");
-open(local *FH, ">$some_file") or die;
+open local $foo{fh}, ">$some_file";
+open local $foo{fh}, ">$some_file" or die;
+open(local $foo{fh}, ">$some_file");
+open(local $foo{fh}, ">$some_file") or die;
 
 open local *STDIN, '>', $some_file;
 open local *STDIN, '>', $some_file or die;
