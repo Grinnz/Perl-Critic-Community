@@ -69,8 +69,8 @@ return the appropriate value explicitly.
   }
   my %stuff = (
     one => 1,
-    two => 2,
-    three => get_stuff(), # oops! function returns empty list if @things is empty
+    two => get_stuff(), # oops! function returns empty list if @things is empty
+    three => 3,
   );
 
 Empty returns are permitted by this policy if the subroutine contains no
