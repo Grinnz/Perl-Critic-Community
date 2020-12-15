@@ -25,6 +25,7 @@ use Path::Tiny;
 use Plack;
 use POE;
 use Switch::Plain;
+use Syntax::Keyword::Try;
 use Template;
 with 'Throwable';
 use Try;

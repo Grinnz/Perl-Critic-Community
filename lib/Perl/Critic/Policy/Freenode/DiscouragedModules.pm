@@ -19,7 +19,7 @@ my %modules = (
 	'Class::DBI' => 'Class::DBI is an ancient database ORM abstraction layer which is buggy and abandoned. See DBIx::Class for a more modern DBI-based ORM, or Mad::Mapper for a Mojolicious-style ORM.',
 	'CGI' => 'CGI.pm is an ancient module for communicating via the CGI protocol, with tons of bad practices and cruft. Use a modern framework such as those based on Plack (Web::Simple, Dancer2, Catalyst) or Mojolicious, they can still be served via CGI if you choose.',
 	'Coro' => 'Coro no longer works on perl 5.22, you need to use the author\'s forked version of Perl. Avoid at all costs.',
-	'Error' => 'Error.pm is overly magical and discouraged by its maintainers. Try Throwable for exception classes in Moo/Moose, or Exception::Class otherwise. Try::Tiny or Try are recommended for the try/catch syntax.',
+	'Error' => 'Error.pm is overly magical and discouraged by its maintainers. Try Throwable for exception classes in Moo/Moose, or Exception::Class otherwise. Try::Tiny or Syntax::Keyword::Try are recommended for the try/catch syntax.',
 	'File::Slurp' => 'File::Slurp gets file encodings all wrong, line endings on win32 are messed up, and it was written before layers were properly added. Use File::Slurper, Path::Tiny, Data::Munge, or Mojo::File.',
 	'FindBin' => 'FindBin depends on the sometimes vague definition of "initial script" and can\'t be updated to fix bugs in old Perls. Use Dir::Self or lib::relative to work with the absolute path of the current source file instead.',
 	'HTML::Template' => 'HTML::Template is an old and buggy module, try Template Toolkit, HTML::Zoom, or Text::Template instead, or HTML::Template::Pro if you must use the same syntax.',
@@ -93,8 +93,8 @@ version of Perl. Avoid at all costs.
 
 L<Error>.pm is overly magical and discouraged by its maintainers. Try
 L<Throwable> for exception classes in L<Moo>/L<Moose>, or L<Exception::Class>
-otherwise. L<Try::Tiny> or L<Try> are recommended for the C<try>/C<catch>
-syntax.
+otherwise. L<Try::Tiny> or L<Syntax::Keyword::Try> are recommended for the
+C<try>/C<catch> syntax.
 
 =head2 FindBin
 
