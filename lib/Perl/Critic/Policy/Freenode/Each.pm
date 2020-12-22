@@ -40,6 +40,7 @@ the hash.
 
   while (my ($key, $value) = each %hash) { ... }                # not ok
   foreach my $key (keys %hash) { my $value = $hash{$key}; ... } # ok
+  foreach my $i (0..$#array) { my $elem = $array[$i]; ... }     # ok
 
 =head1 AFFILIATION
 
