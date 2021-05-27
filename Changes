@@ -1,4 +1,6 @@
 {{$NEXT}}
+  - Rename to Perl::Critic::Community and move policies to the 'community'
+    theme (Freenode modules and theme remain as legacy aliases)
 
 0.033     2020-12-21 19:39:58 EST
   - Update various recommendations for alternatives in DiscouragedModules policy

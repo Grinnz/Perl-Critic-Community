@@ -1,12 +1,12 @@
-This is the Perl distribution Perl-Critic-Freenode.
+This is the Perl distribution Perl-Critic-Community.
 
-Installing Perl-Critic-Freenode is straightforward.
+Installing Perl-Critic-Community is straightforward.
 
 ## Installation with cpanm
 
 If you have cpanm, you only need one line:
 
-    % cpanm Perl::Critic::Freenode
+    % cpanm Perl::Critic::Community
 
 If it does not have permission to install modules to the current perl, cpanm
 will automatically set up and install to a local::lib in your home directory.
@@ -17,7 +17,7 @@ details on enabling it in your environment.
 
 Alternatively, if your CPAN shell is set up, you should just be able to do:
 
-    % cpan Perl::Critic::Freenode
+    % cpan Perl::Critic::Community
 
 ## Manual installation
 
@@ -68,10 +68,10 @@ They can all be found in the "PHASE_requires" key of MYMETA.yml or the
 
 ## Documentation
 
-Perl-Critic-Freenode documentation is available as POD.
+Perl-Critic-Community documentation is available as POD.
 You can run `perldoc` from a shell to read the documentation:
 
-    % perldoc Perl::Critic::Freenode
+    % perldoc Perl::Critic::Community
 
 For more information on installing Perl modules via CPAN, please see:
 https://www.cpan.org/modules/INSTALL.html
