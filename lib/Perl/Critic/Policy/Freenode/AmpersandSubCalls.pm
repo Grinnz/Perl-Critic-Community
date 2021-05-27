@@ -5,7 +5,7 @@ use warnings;
 
 use parent 'Perl::Critic::Policy::Community::AmpersandSubCalls';
 
-our $VERSION = '0.034';
+our $VERSION = 'v1.0.1';
 
 sub default_themes { 'freenode' }
 
