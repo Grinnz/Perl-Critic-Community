@@ -3,7 +3,7 @@ package Perl::Critic::Community;
 use strict;
 use warnings;
 
-our $VERSION = '0.034';
+our $VERSION = 'v1.0.0';
 
 1;
 
