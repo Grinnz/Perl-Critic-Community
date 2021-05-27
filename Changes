@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v1.0.0    2021-05-27 02:44:33 EDT
   - Rename to Perl::Critic::Community and move policies to the 'community'
     theme (Freenode modules and theme remain as legacy aliases)
 
