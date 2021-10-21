@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v1.0.1    2021-10-21 14:17:55 EDT
   - Support configuring allowed_modules for DiscouragedModules and
     PreferredAlternatives policies (Amorymeltzer #43)
 
