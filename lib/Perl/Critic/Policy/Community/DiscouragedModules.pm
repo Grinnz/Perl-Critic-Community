@@ -8,7 +8,15 @@ use parent 'Perl::Critic::Policy';
 
 our $VERSION = 'v1.0.1';
 
-sub supported_parameters { () }
+sub supported_parameters {
+	(
+		{
+			name            => 'allowed_modules',
+			description     => 'Modules that you want to allow, despite being discouraged.',
+			behavior        => 'string list',
+		},
+	)
+}
 sub default_severity { $SEVERITY_HIGH }
 sub default_themes { 'community' }
 sub applies_to { 'PPI::Statement::Include' }
@@ -40,7 +48,7 @@ sub _violation {
 
 sub violates {
 	my ($self, $elem) = @_;
-	return () unless defined $elem->module and exists $modules{$elem->module};
+	return () unless defined $elem->module and exists $modules{$elem->module} and not exists $self->{_allowed_modules}{$elem->module};
 	return $self->_violation($elem->module, $elem);
 }
 
@@ -164,7 +172,14 @@ This policy is part of L<Perl::Critic::Community>.
 
 =head1 CONFIGURATION
 
-This policy is not configurable except for the standard options.
+Occasionally you may find yourself needing to use one of these discouraged
+modules, and do not want the warnings.  You can do so by putting something like
+the following in a F<.perlcriticrc> file like this:
+
+    [Community::DiscouragedModules]
+    allowed_modules = FindBin Any::Moose
+
+The same option is offered for L<Perl::Critic::Policy::Community::PreferredAlternatives>.
 
 =head1 AUTHOR
 
