@@ -18,7 +18,11 @@ subroutine with a conditional block
 
 =head1 DESCRIPTION
 
-Legacy C<freenode> theme alias of
+Legacy C<freenode> theme policy alias.
+
+=head1 POLICY MOVED
+
+This policy has been moved to the C<community> theme and renamed to
 L<Perl::Critic::Policy::Community::ConditionalImplicitReturn>.
 
 =head1 AFFILIATION

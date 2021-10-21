@@ -18,7 +18,12 @@ of open
 
 =head1 DESCRIPTION
 
-Legacy C<freenode> theme alias of L<Perl::Critic::Policy::Community::OpenArgs>.
+Legacy C<freenode> theme policy alias.
+
+=head1 POLICY MOVED
+
+This policy has been moved to the C<community> theme and renamed to
+L<Perl::Critic::Policy::Community::OpenArgs>.
 
 =head1 AFFILIATION
 

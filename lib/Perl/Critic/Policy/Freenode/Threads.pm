@@ -18,7 +18,12 @@ officially discouraged
 
 =head1 DESCRIPTION
 
-Legacy C<freenode> theme alias of L<Perl::Critic::Policy::Community::Threads>.
+Legacy C<freenode> theme policy alias.
+
+=head1 POLICY MOVED
+
+This policy has been moved to the C<community> theme and renamed to
+L<Perl::Critic::Policy::Community::Threads>.
 
 =head1 AFFILIATION
 
