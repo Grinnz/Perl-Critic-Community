@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v1.0.2    2021-12-23 16:08:00 EST
   - Add IP::World to DiscouragedModules policy (DrHyde #46)
 
 v1.0.1    2021-10-21 14:17:55 EDT
