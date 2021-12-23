@@ -141,8 +141,8 @@ IPv6 sockets.
 
 L<IP::World> was built from two free publicly available databases. However, over
 the years one of them was discontinued, and the other is no longer being updated.
-Therefore the module's accuracy is ever-decreasing. There is, unfortunately, no
-good free alternative.
+Therefore the module's accuracy is ever-decreasing. Try L<GeoIP2> as an alternative.
+That code is I<also> deprecated, but at least its database is still updated.
 
 =head2 JSON::Any
 
