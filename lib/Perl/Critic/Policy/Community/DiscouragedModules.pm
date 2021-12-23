@@ -32,6 +32,7 @@ my %modules = (
 	'FindBin' => 'FindBin depends on the sometimes vague definition of "initial script" and can\'t be updated to fix bugs in old Perls. Use Path::This or lib::relative to work with the absolute path of the current source file instead.',
 	'HTML::Template' => 'HTML::Template is an old and buggy module, try Template Toolkit, Mojo::Template, or Text::Xslate instead, or HTML::Template::Pro if you must use the same syntax.',
 	'IO::Socket::INET6' => 'IO::Socket::INET6 is an old attempt at an IPv6 compatible version of IO::Socket::INET, but has numerous issues and is discouraged by the maintainer in favor of IO::Socket::IP, which transparently creates IPv4 and IPv6 sockets.',
+    'IP::World' => 'IP::World is deprecated as its are in one case discontinued, in the other no longer updated. Therefore its accuracy is ever-decrasing.',
 	'JSON::Any' => 'JSON::Any is deprecated. Use JSON::MaybeXS instead.',
 	'JSON::XS' => 'JSON::XS\'s author refuses to use public bugtracking and actively breaks interoperability. Cpanel::JSON::XS is a fork with several bugfixes and a more collaborative maintainer. See also JSON::MaybeXS.',
 	'Net::IRC' => 'Net::IRC is an ancient module implementing the IRC protocol. Use a modern event-loop-based module instead. Choices are POE::Component::IRC (and Bot::BasicBot based on that), Net::Async::IRC, and Mojo::IRC.',
@@ -135,6 +136,13 @@ L<IO::Socket::INET6> is an old attempt at an IPv6 compatible version of
 L<IO::Socket::INET>, but has numerous issues and is discouraged by the
 maintainer in favor of L<IO::Socket::IP>, which transparently creates IPv4 and
 IPv6 sockets.
+
+=head2 IP::World
+
+L<IP::World> was built from two free publicly available databases. However, over
+the years one of them was discontinued, and the other is no longer being updated.
+Therefore the module's accuracy is ever-decreasing. There is, unfortunately, no
+good free alternative.
 
 =head2 JSON::Any
 
