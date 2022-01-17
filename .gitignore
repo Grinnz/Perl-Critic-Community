@@ -1,11 +1,13 @@
 /blib/
 /.build/
 _build/
+_build_params
 cover_db/
 inc/
 Build
 !Build/
 Build.bat
+.DS_Store
 .last_cover_stats
 /Makefile
 /Makefile.old

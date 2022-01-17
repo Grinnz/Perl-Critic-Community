@@ -29,27 +29,31 @@ sub applies_to { 'PPI::Document' }
 sub violates {
 	my ($self, $elem) = @_;
 
+	my $use_signatures;
+
 	# Check if signatures are enabled
 	my $includes = $elem->find('PPI::Statement::Include') || [];
 	foreach my $include (@$includes) {
 	  next unless $include->type eq 'use';
-	  return () if $include->version and version->parse($include->version) >= version->parse('v5.36');
-	  return () if $include->pragma eq 'feature' and $include =~ m/\bsignatures\b/;
-	  return () if $include->pragma eq 'experimental' and $include =~ m/\bsignatures\b/;
-	  return () if $include->module eq 'Mojo::Base' and $include =~ m/-signatures\b/;
-	  return () if $include->module eq 'Mojolicious::Lite' and $include =~ m/-signatures\b/;
-	  return () if exists $self->{_signature_enablers}{$include->module};
+	  $use_signatures = 1 if $include->version and version->parse($include->version) >= version->parse('v5.36');
+	  $use_signatures = 1 if $include->pragma eq 'feature'           and $include =~ m/\bsignatures\b/;
+	  $use_signatures = 1 if $include->pragma eq 'experimental'      and $include =~ m/\bsignatures\b/;
+	  $use_signatures = 1 if $include->module eq 'Mojo::Base'        and $include =~ m/-signatures\b/;
+	  $use_signatures = 1 if $include->module eq 'Mojolicious::Lite' and $include =~ m/-signatures\b/;
+	  $use_signatures = 1 if exists $self->{_signature_enablers}{ $include->module };
 	}
-	
-	my $prototypes = $elem->find('PPI::Token::Prototype') || [];
+
 	my @violations;
-	foreach my $prototype (@$prototypes) {
-		# Empty prototypes and prototypes containing & can be useful
-		next if $prototype->prototype eq '' or $prototype->prototype =~ /&/;
-		push @violations, $self->violation(DESC, EXPL, $prototype);
+	if ( !$use_signatures ) {
+	    my $prototypes = $elem->find('PPI::Token::Prototype') || [];
+		foreach my $prototype (@$prototypes) {
+			# Empty prototypes and prototypes containing & can be useful
+			next if $prototype->prototype eq '' or $prototype->prototype =~ /&/;
+			push @violations, $self->violation( DESC, EXPL, $prototype);
+		}
 	}
-	
-	return @violations;
+
+    return @violations;
 }
 
 1;
