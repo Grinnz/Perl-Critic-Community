@@ -5,7 +5,7 @@ use warnings;
 
 use parent 'Perl::Critic::Policy::Community::DiscouragedModules';
 
-our $VERSION = 'v1.0.3';
+our $VERSION = 'v1.0.4';
 
 sub default_themes { 'freenode' }
 
