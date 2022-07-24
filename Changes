@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v1.0.3    2022-07-24 02:27:25 EDT
   - Allow use v5.36+ to satisfy StrictWarnings policy (marlencrabapple #50)
   - Recognize use v5.36+ in the Prototypes policy as an indication that signatures are enabled
 
