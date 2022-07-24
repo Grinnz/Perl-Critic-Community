@@ -5,6 +5,7 @@ use warnings;
 
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
+use version;
 
 our $VERSION = 'v1.0.3';
 
@@ -32,6 +33,7 @@ sub violates {
 	my $includes = $elem->find('PPI::Statement::Include') || [];
 	foreach my $include (@$includes) {
 	  next unless $include->type eq 'use';
+	  return () if $include->version and version->parse($include->version) >= version->parse('v5.36');
 	  return () if $include->pragma eq 'feature' and $include =~ m/\bsignatures\b/;
 	  return () if $include->pragma eq 'experimental' and $include =~ m/\bsignatures\b/;
 	  return () if $include->module eq 'Mojo::Base' and $include =~ m/-signatures\b/;
@@ -71,8 +73,9 @@ modern method of declaring arguments.
 
 This policy is similar to the core policy
 L<Perl::Critic::Policy::Subroutines::ProhibitSubroutinePrototypes>, but
-additionally ignores files using the C<signatures> feature, and allows empty
-prototypes and prototypes containing C<&>, as these are often useful for
+additionally ignores files using the C<signatures> feature (which is also
+enabled by a C<use> declaration of perl version 5.36 or higher), and allows
+empty prototypes and prototypes containing C<&>, as these are often useful for
 structural behavior.
 
 =head1 AFFILIATION
