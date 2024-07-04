@@ -81,6 +81,10 @@ a multidimensional structure before Perl 5 introduced references. Perl now
 supports true multidimensional structures, so this feature is now unnecessary
 in most cases.
 
+In Perl 5.34 or newer, or automatically under C<use v5.36> or newer,
+L<feature/"The 'multidimensional' feature> can be disabled to remove this
+syntax from the parser.
+
   $foo{$x,$y,$z}   # not ok
   $foo{qw(a b c)}  # not ok
   $foo{$x}{$y}{$z} # ok
