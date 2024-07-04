@@ -30,7 +30,7 @@ sub violates {
 	PKG: foreach my $package (@$packages) {
 		my $namespace = $package->namespace;
 		my $path_copy = $filepath;
-		foreach my $part (reverse split '::', $namespace) {
+		foreach my $part (reverse split /::/, $namespace) {
 			next PKG unless $part eq $path_copy->basename;
 			$path_copy = $path_copy->parent;
 		}
