@@ -100,7 +100,7 @@ Dan Book, C<dbook@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2015, Dan Book.
+Copyright 2024, Dan Book.
 
 This library is free software; you may redistribute it and/or modify it under
 the terms of the Artistic License version 2.0.
