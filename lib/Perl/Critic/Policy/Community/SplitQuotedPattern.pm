@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
-our $VERSION = 'v1.0.4';
+our $VERSION = 'v1.0.5';
 
 use constant DESC => 'split() called with a quoted pattern';
 use constant EXPL => 'The first argument to split() is a regex pattern, not a string (other than the space character special case). Use slashes to quote the pattern argument.';

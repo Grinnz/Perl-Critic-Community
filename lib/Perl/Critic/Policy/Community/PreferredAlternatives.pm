@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy';
 
-our $VERSION = 'v1.0.4';
+our $VERSION = 'v1.0.5';
 
 sub supported_parameters {
 	(

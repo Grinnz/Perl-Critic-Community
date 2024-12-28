@@ -6,7 +6,7 @@ use warnings;
 use Perl::Critic::Utils qw(:severities :classification :ppi);
 use parent 'Perl::Critic::Policy::Plicease::ProhibitArrayAssignAref';
 
-our $VERSION = 'v1.0.4';
+our $VERSION = 'v1.0.5';
 
 sub default_severity { $SEVERITY_MEDIUM }
 sub default_themes { 'community' }
