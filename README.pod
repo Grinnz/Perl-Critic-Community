@@ -117,6 +117,10 @@ Various modules with preferred alternatives
 
 Don't use function prototypes
 
+=item L<Perl::Critic::Policy::Community::SplitQuotedPattern>
+
+Quote the split() pattern argument with regex slashes
+
 =item L<Perl::Critic::Policy::Community::StrictWarnings>
 
 Always use L<strict> and L<warnings>, or a module that imports these
