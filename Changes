@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+v1.0.4    2024-12-28 17:32:08 EST
   - Add SplitQuotedPattern policy
   - Mention 'indirect' and 'multidimensional' features in the appropriate documentation
   - Replace dependency on Perl::Critic::Pulp with Plicease::ProhibitArrayAssignAref (plicease #55)
