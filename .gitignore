@@ -1,6 +1,7 @@
 /blib/
 /.build/
 _build/
+_build_params
 cover_db/
 inc/
 Build

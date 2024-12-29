@@ -64,3 +64,23 @@ sub foo () { ... }
 ## cut
 
 sub foo (&;@) { ... }
+
+## name ExplicitPrototypes
+## failures 0
+## cut
+
+sub foo : prototype($$) { ... }
+
+## name ExplicitPrototypesWithSig
+## failures 0
+## cut
+
+use experimental 'signatures';
+sub foo : prototype($$) { ... }
+
+## name MojoSignaturePrototypes
+## failures 0
+## cut
+
+use Mojo::Base -base, -signatures;
+sub bar : prototype($@) { ... }
